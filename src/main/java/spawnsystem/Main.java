@@ -15,7 +15,7 @@ public final class Main extends JavaPlugin {
     HashMap<String, Location> playerSpawns = new HashMap<>();
 
     // temporary
-    String worldname = "continent";
+    String worldname = "beta2";
     String[] subcultures = {"Ostendian", "Massara", "Njord'volk", "La'vanti",
                             "Seileshi", "Tong'Fei", "Sorama", "Gwai'Non",
                             "Ar'Ruug", "Or'Gog", "Mo'Log'Ath", "Rong'Nol",
