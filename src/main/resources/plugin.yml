@@ -1,0 +1,4 @@
+name: Kingdom Dark Ages Spawn
+version: ${project.version}
+main: kingdomprogrammers.kingdomdarkagesspawn.KingdomDarkAgesSpawn
+api-version: 1.15.2
