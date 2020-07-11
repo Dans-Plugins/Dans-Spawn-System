@@ -1,5 +1,5 @@
 name: KingdomDarkAgesSpawn
-version: 0.1
+version: 0.2
 author: KingdomProgrammers
 main: spawnsystem.Main
 api-version: 1.13
