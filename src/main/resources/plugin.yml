@@ -1,4 +1,11 @@
-name: Kingdom Dark Ages Spawn
-version: ${project.version}
-main: kingdomprogrammers.kingdomdarkagesspawn.KingdomDarkAgesSpawn
-api-version: 1.15.2
+name: KingdomDarkAgesSpawn
+version: 0.1
+author: KingdomProgrammers
+main: spawnsystem.Main
+api-version: 1.13
+
+commands:
+  start:
+  race:
+  subculture:
+  subcultures:
