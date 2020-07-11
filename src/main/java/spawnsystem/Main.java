@@ -106,52 +106,52 @@ public final class Main extends JavaPlugin {
 
                     // set spawn
                     if (selection.equalsIgnoreCase(subcultures[0])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[1])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[2])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[3])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[4])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[5])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[6])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[7])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[8])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[9])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[10])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[11])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[12])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[13])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[14])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
                     if (selection.equalsIgnoreCase(subcultures[15])) {
-                        setPlayersSpawn(player,0, 0, 0);
+                        setPlayersSpawn(player, 100, 100, 100);
                     }
 
                     // not a valid subculture
