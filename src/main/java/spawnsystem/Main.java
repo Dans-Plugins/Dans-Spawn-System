@@ -117,96 +117,112 @@ public final class Main extends JavaPlugin implements Listener {
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[1])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[2])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[3])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[4])) {
                         x = 0;
                         y = 100;
                         z = 0;
-
+                        setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[5])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[6])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[7])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[8])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[9])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[10])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[11])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[12])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[13])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[14])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[15])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
+                        return true;
                     }
 
                     // not a valid subculture
@@ -273,7 +289,7 @@ public final class Main extends JavaPlugin implements Listener {
     @EventHandler
     public void onSpawn(PlayerSpawnLocationEvent event) {
         if (playerSpawns.containsKey(event.getPlayer().getName())) {
-            event.setSpawnLocation(playerSpawns.get(event.getPlayer().getName()));
+            event.getPlayer().teleport(playerSpawns.get(event.getPlayer().getName()));
         }
     }
 }
