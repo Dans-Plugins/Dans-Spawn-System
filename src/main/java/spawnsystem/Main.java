@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
@@ -19,7 +18,7 @@ public final class Main extends JavaPlugin implements Listener {
     HashMap<String, Location> playerSpawns = new HashMap<>();
 
     // temporary
-    String worldname = "secondbeta";
+    String worldname = "betatwo";
     String[] subcultures = {"Ostendian", "Massara", "Njord'volk", "La'vanti",
                             "Seileshi", "Tong'Fei", "Sorama", "Gwai'Non",
                             "Ar'Ruug", "Or'Gog", "Mo'Log'Ath", "Rong'Nol",
@@ -289,7 +288,14 @@ public final class Main extends JavaPlugin implements Listener {
     @EventHandler
     public void onSpawn(PlayerSpawnLocationEvent event) {
         if (playerSpawns.containsKey(event.getPlayer().getName())) {
-            event.getPlayer().teleport(playerSpawns.get(event.getPlayer().getName()));
+            int seconds = 1;
+            getServer().getScheduler().runTaskLater(this, new Runnable() {
+                @Override
+                public void run() {
+                    event.getPlayer().teleport(playerSpawns.get(event.getPlayer().getName()));
+
+                }
+            }, seconds * 20);
         }
     }
 }
