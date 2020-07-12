@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import java.util.HashMap;
 
@@ -51,7 +52,7 @@ public final class Main extends JavaPlugin implements Listener {
                 }
 
                 player.sendMessage(ChatColor.GREEN + "Before you can start playing, we need to know where to set your spawn!");
-                player.sendMessage(ChatColor.GREEN + "What race would you like to be? There are Humans, Greyfolk, Horndall and Felkata.");
+                player.sendMessage(ChatColor.GREEN + "What race would you like to be?\nChoices: \n* Human\n* Greyfolk\n* Horndall\n* Felkata.");
                 player.sendMessage(ChatColor.GREEN + "Type /race (race selection) to continue.");
             }
         }
@@ -66,23 +67,23 @@ public final class Main extends JavaPlugin implements Listener {
                     String raceSelection = args[0];
 
                     if (raceSelection.equalsIgnoreCase("human")) {
-                        player.sendMessage(ChatColor.GREEN + "What subculture of Human are you? There is Ostendian, Massara, Njord'volk and La'Vanti.");
+                        player.sendMessage(ChatColor.GREEN + "What subculture of Human are you?\nChoices: \n* Ostendian\n* Massara\n* Njord'volk\n* La'Vanti.");
                         player.sendMessage(ChatColor.GREEN + "Type /subculture (subculture selection) to continue.");
 
                         return true;
                     }
                     if (raceSelection.equalsIgnoreCase("greyfolk")) {
-                        player.sendMessage(ChatColor.GREEN + "What subculture of Human are you? There is Seleishi, Tong'Fei, Sorama and Gwai'Non.");
+                        player.sendMessage(ChatColor.GREEN + "What subculture of Greyfolk are you?\nChoices: \n* Seleishi\n* Tong'Fei\n* Sorama\n* Gwai'Non.");
                         player.sendMessage(ChatColor.GREEN + "Type /subculture (subculture selection) to continue.");
                         return true;
                     }
                     if (raceSelection.equalsIgnoreCase("horndall")) {
-                        player.sendMessage(ChatColor.GREEN + "What subculture of Human are you? There is Ar'Ruug, Or'Gog, Mo'Log'Ath and Rong'Nol.");
+                        player.sendMessage(ChatColor.GREEN + "What subculture of Horndall are you?\nChoices: \n* Ar'Ruug\n* Or'Gog\n* Mo'Log'Ath\n* Rong'Nol.");
                         player.sendMessage(ChatColor.GREEN + "Type /subculture (subculture selection) to continue.");
                         return true;
                     }
                     if (raceSelection.equalsIgnoreCase("felkata")) {
-                        player.sendMessage(ChatColor.GREEN + "What subculture of Human are you? There is Vanasa, Immakandi, T'laxine, and Yong'Yao");
+                        player.sendMessage(ChatColor.GREEN + "What subculture of Felkata are you?\nChoices: \n* Vanasa\n* Immakandi\n* T'laxine\n* Yong'Yao");
                         player.sendMessage(ChatColor.GREEN + "Type /subculture (subculture selection) to continue.");
                         return true;
                     }
@@ -117,6 +118,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[1])) {
                         x = 0;
@@ -124,6 +126,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[2])) {
                         x = 0;
@@ -131,6 +134,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[3])) {
                         x = 0;
@@ -138,6 +142,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[4])) {
                         x = 0;
@@ -145,6 +150,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[5])) {
                         x = 0;
@@ -152,6 +158,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[6])) {
                         x = 0;
@@ -159,6 +166,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[7])) {
                         x = 0;
@@ -166,6 +174,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[8])) {
                         x = 0;
@@ -173,6 +182,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[9])) {
                         x = 0;
@@ -180,6 +190,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[10])) {
                         x = 0;
@@ -187,6 +198,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[11])) {
                         x = 0;
@@ -194,6 +206,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[12])) {
                         x = 0;
@@ -201,6 +214,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[13])) {
                         x = 0;
@@ -208,6 +222,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[14])) {
                         x = 0;
@@ -215,6 +230,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[15])) {
                         x = 0;
@@ -222,6 +238,7 @@ public final class Main extends JavaPlugin implements Listener {
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
                         player.teleport(playerSpawns.get(player.getName()));
+                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
 
                     // not a valid subculture
@@ -284,7 +301,7 @@ public final class Main extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onDeath(PlayerDeathEvent event) {
-
+    public void onSpawn(PlayerSpawnLocationEvent event) {
+        event.setSpawnLocation(playerSpawns.get(event.getPlayer().getName()));
     }
 }
