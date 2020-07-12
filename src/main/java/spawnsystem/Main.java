@@ -19,7 +19,7 @@ public final class Main extends JavaPlugin implements Listener {
     HashMap<String, Location> playerSpawns = new HashMap<>();
 
     // temporary
-    String worldname = "beta2";
+    String worldname = "secondbeta";
     String[] subcultures = {"Ostendian", "Massara", "Njord'volk", "La'vanti",
                             "Seileshi", "Tong'Fei", "Sorama", "Gwai'Non",
                             "Ar'Ruug", "Or'Gog", "Mo'Log'Ath", "Rong'Nol",
@@ -117,128 +117,96 @@ public final class Main extends JavaPlugin implements Listener {
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[1])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[2])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[3])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[4])) {
                         x = 0;
                         y = 100;
                         z = 0;
-                        setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
+
                     }
                     if (selection.equalsIgnoreCase(subcultures[5])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[6])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[7])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[8])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[9])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[10])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[11])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[12])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[13])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[14])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
                     if (selection.equalsIgnoreCase(subcultures[15])) {
                         x = 0;
                         y = 100;
                         z = 0;
                         setPlayersSpawn(player, x, y, z);
-                        player.teleport(playerSpawns.get(player.getName()));
-                        player.sendMessage(ChatColor.GREEN + "Spawn set!");
                     }
 
                     // not a valid subculture
@@ -276,6 +244,8 @@ public final class Main extends JavaPlugin implements Listener {
 
         // teleport player
         player.teleport(spawnLocation);
+
+        player.sendMessage(ChatColor.GREEN + "Spawn set!");
 
     }
 
