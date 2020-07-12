@@ -105,7 +105,7 @@ public final class Main extends JavaPlugin implements Listener {
 
                 Player player = (Player) sender;
 
-                if (args.length > 1) {
+                if (args.length > 0) {
 
                     String selection = args[0];
 
