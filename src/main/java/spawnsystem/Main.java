@@ -302,6 +302,8 @@ public final class Main extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onSpawn(PlayerSpawnLocationEvent event) {
-        event.setSpawnLocation(playerSpawns.get(event.getPlayer().getName()));
+        if (playerSpawns.containsKey(event.getPlayer().getName())) {
+            event.setSpawnLocation(playerSpawns.get(event.getPlayer().getName()));
+        }
     }
 }
