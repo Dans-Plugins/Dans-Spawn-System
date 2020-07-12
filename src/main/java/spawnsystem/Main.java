@@ -5,11 +5,14 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 
-public final class Main extends JavaPlugin {
+public final class Main extends JavaPlugin implements Listener {
 
     // saved
     HashMap<String, Location> playerSpawns = new HashMap<>();
@@ -23,13 +26,14 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        this.getServer().getPluginManager().registerEvents(this, this);
 
+        load();
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        save();
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -276,6 +280,11 @@ public final class Main extends JavaPlugin {
     }
 
     private void loadSpawns() {
+
+    }
+
+    @EventHandler
+    public void onDeath(PlayerDeathEvent event) {
 
     }
 }
