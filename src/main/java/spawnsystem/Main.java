@@ -129,9 +129,9 @@ public final class Main extends JavaPlugin implements Listener {
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[2])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
+                        x = -1966;
+                        y = 142;
+                        z = -1841;
                         setPlayersSpawn(player, x, y, z);
                         return true;
                     }
@@ -150,23 +150,23 @@ public final class Main extends JavaPlugin implements Listener {
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[5])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
+                        x = -599;
+                        y = 105;
+                        z = -868;
                         setPlayersSpawn(player, x, y, z);
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[6])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
+                        x = -1086;
+                        y = 115;
+                        z = 494;
                         setPlayersSpawn(player, x, y, z);
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[7])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
+                        x = 685;
+                        y = 81;
+                        z = -755;
                         setPlayersSpawn(player, x, y, z);
                         return true;
                     }
