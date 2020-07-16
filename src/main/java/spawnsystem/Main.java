@@ -21,7 +21,7 @@ public final class Main extends JavaPlugin implements Listener {
     HashMap<String, Location> playerSpawns = new HashMap<>();
 
     // temporary
-    String worldname = "world";
+    String worldname = "betatwo";
     String[] subcultures = {"Ostendian", "Massara", "Njord'volk", "La'vanti",
                             "Seileshi", "Tong'Fei", "Sorama", "Gwai'Non",
                             "Ar'Ruug", "Or'Gog", "Mo'Log'Ath", "Rong'Nol",
@@ -115,9 +115,9 @@ public final class Main extends JavaPlugin implements Listener {
 
                     // set spawn
                     if (selection.equalsIgnoreCase(subcultures[0])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
+                        x = -3394;
+                        y = 66;
+                        z = 61;
                         setPlayersSpawn(player, x, y, z);
                         return true;
                     }
@@ -143,9 +143,9 @@ public final class Main extends JavaPlugin implements Listener {
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[4])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
+                        x = -136;
+                        y = 87;
+                        z = 138;
                         setPlayersSpawn(player, x, y, z);
                         return true;
                     }
@@ -171,9 +171,9 @@ public final class Main extends JavaPlugin implements Listener {
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[8])) {
-                        x = 0;
+                        x = 3728;
                         y = 100;
-                        z = 0;
+                        z = -1232;
                         setPlayersSpawn(player, x, y, z);
                         return true;
                     }
@@ -220,9 +220,9 @@ public final class Main extends JavaPlugin implements Listener {
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[15])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
+                        x = 2222;
+                        y = 84;
+                        z = 1788;
                         setPlayersSpawn(player, x, y, z);
                         return true;
                     }
