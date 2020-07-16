@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>KingdomProgrammers</groupId>
-    <artifactId>Kingdom-Dark-Ages-Spawn</artifactId>
+    <artifactId>Kingdom-Dark-Ages-Spawn-System</artifactId>
     <version>v0.3</version>
     <packaging>jar</packaging>
 
-    <name>Kingdom Dark Ages Spawn</name>
+    <name>Kingdom Dark Ages Spawn System</name>
 
     <properties>
         <java.version>1.8</java.version>

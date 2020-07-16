@@ -7,6 +7,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
@@ -18,7 +21,7 @@ public final class Main extends JavaPlugin implements Listener {
     HashMap<String, Location> playerSpawns = new HashMap<>();
 
     // temporary
-    String worldname = "betatwo";
+    String worldname = "world";
     String[] subcultures = {"Ostendian", "Massara", "Njord'volk", "La'vanti",
                             "Seileshi", "Tong'Fei", "Sorama", "Gwai'Non",
                             "Ar'Ruug", "Or'Gog", "Mo'Log'Ath", "Rong'Nol",
@@ -285,17 +288,22 @@ public final class Main extends JavaPlugin implements Listener {
 
     }
 
-    @EventHandler
-    public void onSpawn(PlayerSpawnLocationEvent event) {
+    @EventHandler()
+    public void onDeath(PlayerDeathEvent event) {
+        event.setKeepLevel(true);
+    }
+
+
+    @EventHandler()
+    public void onRespawn(PlayerRespawnEvent event) {
         if (playerSpawns.containsKey(event.getPlayer().getName())) {
-            int seconds = 1;
             getServer().getScheduler().runTaskLater(this, new Runnable() {
                 @Override
                 public void run() {
                     event.getPlayer().teleport(playerSpawns.get(event.getPlayer().getName()));
-
+                    event.getPlayer().sendMessage(ChatColor.GREEN + "Teleporting to custom spawn!");
                 }
-            }, seconds * 20);
+            }, 1);
         }
     }
 }

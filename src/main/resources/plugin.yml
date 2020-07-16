@@ -1,4 +1,4 @@
-name: KingdomDarkAgesSpawn
+name: KingdomDarkAgesSpawnSystem
 version: 0.3
 author: KingdomProgrammers
 main: spawnsystem.Main
