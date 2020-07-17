@@ -426,17 +426,17 @@ public final class Main extends JavaPlugin implements Listener {
 
             // actual loading
             while (loadReader.hasNextLine()) {
-                String filename = loadReader.nextLine();
+                String filename = loadReader.nextLine() + ".txt";
 
                 // load
                 try {
-                    File loadFile2 = new File("./plugins/Medieval-Set-Home/" + filename);
-                    Scanner loadReader2 = new Scanner(loadFile);
+                    File loadFile2 = new File("./plugins/Kingdom-Spawn-System/" + filename);
+                    Scanner loadReader2 = new Scanner(loadFile2);
 
                     String playerName = "";
 
                     // actual loading
-                    if (loadReader.hasNextLine()) {
+                    if (loadReader2.hasNextLine()) {
                         playerName = loadReader2.nextLine();
                     }
 
@@ -448,26 +448,26 @@ public final class Main extends JavaPlugin implements Listener {
                     try {
                         System.out.println("Attempting to load spawn location for " + playerName + "...");
 
-                        if (loadReader.hasNextLine()) {
+                        if (loadReader2.hasNextLine()) {
                             world = getServer().createWorld(new WorldCreator(loadReader2.nextLine()));
                             System.out.println("World successfully acquired.");
                         }
                         else {
                             System.out.println("World name not found in file!");
                         }
-                        if (loadReader.hasNextLine()) {
+                        if (loadReader2.hasNextLine()) {
                             x = Double.parseDouble(loadReader2.nextLine());
                         }
                         else {
                             System.out.println("X position not found in file!");
                         }
-                        if (loadReader.hasNextLine()) {//
+                        if (loadReader2.hasNextLine()) {//
                             y = Double.parseDouble(loadReader2.nextLine());
                         }
                         else {
                             System.out.println("Y position not found in file!");
                         }
-                        if (loadReader.hasNextLine()) {
+                        if (loadReader2.hasNextLine()) {
                             z = Double.parseDouble(loadReader2.nextLine());
                         }
                         else {
