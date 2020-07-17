@@ -118,112 +118,160 @@ public final class Main extends JavaPlugin implements Listener {
                         x = -3394;
                         y = 66;
                         z = 61;
-                        setPlayersSpawn(player, x, y, z);
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[1])) {
                         x = 0;
                         y = 100;
                         z = 0;
-                        setPlayersSpawn(player, x, y, z);
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[2])) {
                         x = -1966;
                         y = 142;
                         z = -1841;
-                        setPlayersSpawn(player, x, y, z);
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[3])) {
                         x = 0;
                         y = 100;
                         z = 0;
-                        setPlayersSpawn(player, x, y, z);
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[4])) {
                         x = -136;
                         y = 87;
                         z = 138;
-                        setPlayersSpawn(player, x, y, z);
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[5])) {
                         x = -599;
                         y = 105;
                         z = -868;
-                        setPlayersSpawn(player, x, y, z);
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[6])) {
                         x = -1086;
                         y = 115;
                         z = 494;
-                        setPlayersSpawn(player, x, y, z);
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[7])) {
                         x = 685;
                         y = 81;
                         z = -755;
-                        setPlayersSpawn(player, x, y, z);
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[8])) {
                         x = 3728;
                         y = 100;
                         z = -1232;
-                        setPlayersSpawn(player, x, y, z);
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
-                    if (selection.equalsIgnoreCase(subcultures[9])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
-                        setPlayersSpawn(player, x, y, z);
+                    if (selection.equalsIgnoreCase(subcultures[9])) { // or gog
+                        x = 2264;
+                        y = 90;
+                        z = -1043;
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
-                    if (selection.equalsIgnoreCase(subcultures[10])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
-                        setPlayersSpawn(player, x, y, z);
+                    if (selection.equalsIgnoreCase(subcultures[10])) { // mo
+                        x = 4970;
+                        y = 91;
+                        z = -1702;
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
-                    if (selection.equalsIgnoreCase(subcultures[11])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
-                        setPlayersSpawn(player, x, y, z);
+                    if (selection.equalsIgnoreCase(subcultures[11])) { // rong
+                        x = 1265;
+                        y = 86;
+                        z = -1869;
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[12])) {
                         x = 0;
                         y = 100;
                         z = 0;
-                        setPlayersSpawn(player, x, y, z);
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[13])) {
                         x = 0;
                         y = 100;
                         z = 0;
-                        setPlayersSpawn(player, x, y, z);
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[14])) {
                         x = 0;
                         y = 100;
                         z = 0;
-                        setPlayersSpawn(player, x, y, z);
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[15])) {
                         x = 2222;
                         y = 84;
                         z = 1788;
-                        setPlayersSpawn(player, x, y, z);
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
 
@@ -258,13 +306,34 @@ public final class Main extends JavaPlugin implements Listener {
         Location spawnLocation = new Location(getServer().getWorld(worldname), x, y, z);
 
         // set spawn
-        playerSpawns.put(player.getName(), spawnLocation);
+        if (!playerSpawns.containsKey(player.getName())) {
+            playerSpawns.put(player.getName(), spawnLocation);
+        }
+        else {
+            player.sendMessage(ChatColor.RED + "You have already set your spawn! If you're starting a new character please see an admin for assistance.");
+            return;
+        }
+
 
         // teleport player
         player.teleport(spawnLocation);
 
         player.sendMessage(ChatColor.GREEN + "Spawn set!");
 
+    }
+
+    private void teleportIfOverriding(String[] args, Player player, int x, int y, int z) {
+        if (args.length > 1) {
+            if (args[1].equalsIgnoreCase("override")) {
+                if (player.hasPermission("spawnsystem.override")) {
+                    Location teleportLocation = new Location(getServer().getWorld(worldname), x, y, z);
+                    player.teleport(teleportLocation);
+                }
+                else {
+                    player.sendMessage(ChatColor.RED + "Sorry! In order to use the override, you need the following permission: 'spwansystem.override'");
+                }
+            }
+        }
     }
 
     private void save() {
