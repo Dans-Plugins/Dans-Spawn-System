@@ -125,9 +125,9 @@ public final class Main extends JavaPlugin implements Listener {
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[1])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
+                        x = -2785;
+                        y = 85;
+                        z = 1219;
                         teleportIfOverriding(args, player, x, y, z);
                         if (args.length == 1) {
                             setPlayersSpawn(player, x, y, z);
@@ -145,9 +145,9 @@ public final class Main extends JavaPlugin implements Listener {
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[3])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
+                        x = 473;
+                        y = 74;
+                        z = 437;
                         teleportIfOverriding(args, player, x, y, z);
                         if (args.length == 1) {
                             setPlayersSpawn(player, x, y, z);
@@ -235,9 +235,9 @@ public final class Main extends JavaPlugin implements Listener {
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[12])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
+                        x = -777;
+                        y = 73;
+                        z = 1872;
                         teleportIfOverriding(args, player, x, y, z);
                         if (args.length == 1) {
                             setPlayersSpawn(player, x, y, z);
@@ -245,9 +245,9 @@ public final class Main extends JavaPlugin implements Listener {
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[13])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
+                        x = 961;
+                        y = 85;
+                        z = 1816;
                         teleportIfOverriding(args, player, x, y, z);
                         if (args.length == 1) {
                             setPlayersSpawn(player, x, y, z);
@@ -255,9 +255,9 @@ public final class Main extends JavaPlugin implements Listener {
                         return true;
                     }
                     if (selection.equalsIgnoreCase(subcultures[14])) {
-                        x = 0;
-                        y = 100;
-                        z = 0;
+                        x = -2843;
+                        y = 77;
+                        z = 2002;
                         teleportIfOverriding(args, player, x, y, z);
                         if (args.length == 1) {
                             setPlayersSpawn(player, x, y, z);
