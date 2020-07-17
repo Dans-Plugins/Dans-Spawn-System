@@ -366,7 +366,7 @@ public final class Main extends JavaPlugin implements Listener {
 
             // actual saving takes place here
             for (int i = 0; i < playersWithSpawns.size(); i++) {
-                saveWriter.write(playersWithSpawns.get(i));
+                saveWriter.write(playersWithSpawns.get(i) + ".txt" + "\n");
             }
 
             saveWriter.close();
@@ -426,7 +426,7 @@ public final class Main extends JavaPlugin implements Listener {
 
             // actual loading
             while (loadReader.hasNextLine()) {
-                String filename = loadReader.nextLine() + ".txt";
+                String filename = loadReader.nextLine();
 
                 // load
                 try {
