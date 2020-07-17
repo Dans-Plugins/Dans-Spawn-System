@@ -28,7 +28,7 @@ public final class Main extends JavaPlugin implements Listener {
     ArrayList<String> playersWithSpawns = new ArrayList<>();
 
     // temporary
-    String worldname = "world";
+    String worldname = "betatwo";
     String[] subcultures = {"Ostendian", "Massara", "Njord'volk", "La'vanti",
                             "Seileshi", "Tong'Fei", "Sorama", "Gwai'Non",
                             "Ar'Ruug", "Or'Gog", "Mo'Log'Ath", "Rong'Nol",
