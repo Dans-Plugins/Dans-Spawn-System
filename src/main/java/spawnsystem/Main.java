@@ -330,7 +330,7 @@ public final class Main extends JavaPlugin implements Listener {
                     player.teleport(teleportLocation);
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + "Sorry! In order to use the override, you need the following permission: 'spwansystem.override'");
+                    player.sendMessage(ChatColor.RED + "Sorry! In order to use the override, you need the following permission: 'spawnsystem.override'");
                 }
             }
         }
