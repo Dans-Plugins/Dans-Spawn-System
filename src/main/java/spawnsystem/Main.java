@@ -78,22 +78,36 @@ public final class Main extends JavaPlugin implements Listener {
                     if (raceSelection.equalsIgnoreCase("human")) {
                         player.sendMessage(ChatColor.GREEN + "What subculture of Human are you?\nChoices: \n* Ostendian\n* Massara\n* Njord'volk\n* La'Vanti.");
                         player.sendMessage(ChatColor.GREEN + "Type /subculture (subculture selection) to continue.");
-
                         return true;
                     }
                     if (raceSelection.equalsIgnoreCase("greyfolk")) {
-                        player.sendMessage(ChatColor.GREEN + "What subculture of Greyfolk are you?\nChoices: \n* Seleishi\n* Tong'Fei\n* Sorama\n* Gwai'Non.");
-                        player.sendMessage(ChatColor.GREEN + "Type /subculture (subculture selection) to continue.");
+                        int x = -136;
+                        int y = 87;
+                        int z = 138;
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
                     if (raceSelection.equalsIgnoreCase("horndall")) {
-                        player.sendMessage(ChatColor.GREEN + "What subculture of Horndall are you?\nChoices: \n* Ar'Ruug\n* Or'Gog\n* Mo'Log'Ath\n* Rong'Nol.");
-                        player.sendMessage(ChatColor.GREEN + "Type /subculture (subculture selection) to continue.");
+                        int x = 3728;
+                        int y = 100;
+                        int z = -1232;
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
                     if (raceSelection.equalsIgnoreCase("felkata")) {
-                        player.sendMessage(ChatColor.GREEN + "What subculture of Felkata are you?\nChoices: \n* Vanasa\n* Immakandi\n* T'laxine\n* Yong'Yao");
-                        player.sendMessage(ChatColor.GREEN + "Type /subculture (subculture selection) to continue.");
+                        int x = 2222;
+                        int y = 84;
+                        int z = 1788;
+                        teleportIfOverriding(args, player, x, y, z);
+                        if (args.length == 1) {
+                            setPlayersSpawn(player, x, y, z);
+                        }
                         return true;
                     }
 
@@ -155,126 +169,6 @@ public final class Main extends JavaPlugin implements Listener {
                         x = 473;
                         y = 74;
                         z = 437;
-                        teleportIfOverriding(args, player, x, y, z);
-                        if (args.length == 1) {
-                            setPlayersSpawn(player, x, y, z);
-                        }
-                        return true;
-                    }
-                    if (selection.equalsIgnoreCase(subcultures[4])) {
-                        x = -136;
-                        y = 87;
-                        z = 138;
-                        teleportIfOverriding(args, player, x, y, z);
-                        if (args.length == 1) {
-                            setPlayersSpawn(player, x, y, z);
-                        }
-                        return true;
-                    }
-                    if (selection.equalsIgnoreCase(subcultures[5])) {
-                        x = -599;
-                        y = 105;
-                        z = -868;
-                        teleportIfOverriding(args, player, x, y, z);
-                        if (args.length == 1) {
-                            setPlayersSpawn(player, x, y, z);
-                        }
-                        return true;
-                    }
-                    if (selection.equalsIgnoreCase(subcultures[6])) {
-                        x = -1086;
-                        y = 115;
-                        z = 494;
-                        teleportIfOverriding(args, player, x, y, z);
-                        if (args.length == 1) {
-                            setPlayersSpawn(player, x, y, z);
-                        }
-                        return true;
-                    }
-                    if (selection.equalsIgnoreCase(subcultures[7])) {
-                        x = 685;
-                        y = 81;
-                        z = -755;
-                        teleportIfOverriding(args, player, x, y, z);
-                        if (args.length == 1) {
-                            setPlayersSpawn(player, x, y, z);
-                        }
-                        return true;
-                    }
-                    if (selection.equalsIgnoreCase(subcultures[8])) {
-                        x = 3728;
-                        y = 100;
-                        z = -1232;
-                        teleportIfOverriding(args, player, x, y, z);
-                        if (args.length == 1) {
-                            setPlayersSpawn(player, x, y, z);
-                        }
-                        return true;
-                    }
-                    if (selection.equalsIgnoreCase(subcultures[9])) { // or gog
-                        x = 2264;
-                        y = 90;
-                        z = -1043;
-                        teleportIfOverriding(args, player, x, y, z);
-                        if (args.length == 1) {
-                            setPlayersSpawn(player, x, y, z);
-                        }
-                        return true;
-                    }
-                    if (selection.equalsIgnoreCase(subcultures[10])) { // mo
-                        x = 4970;
-                        y = 91;
-                        z = -1702;
-                        teleportIfOverriding(args, player, x, y, z);
-                        if (args.length == 1) {
-                            setPlayersSpawn(player, x, y, z);
-                        }
-                        return true;
-                    }
-                    if (selection.equalsIgnoreCase(subcultures[11])) { // rong
-                        x = 1265;
-                        y = 86;
-                        z = -1869;
-                        teleportIfOverriding(args, player, x, y, z);
-                        if (args.length == 1) {
-                            setPlayersSpawn(player, x, y, z);
-                        }
-                        return true;
-                    }
-                    if (selection.equalsIgnoreCase(subcultures[12])) {
-                        x = -777;
-                        y = 73;
-                        z = 1872;
-                        teleportIfOverriding(args, player, x, y, z);
-                        if (args.length == 1) {
-                            setPlayersSpawn(player, x, y, z);
-                        }
-                        return true;
-                    }
-                    if (selection.equalsIgnoreCase(subcultures[13])) {
-                        x = 961;
-                        y = 85;
-                        z = 1816;
-                        teleportIfOverriding(args, player, x, y, z);
-                        if (args.length == 1) {
-                            setPlayersSpawn(player, x, y, z);
-                        }
-                        return true;
-                    }
-                    if (selection.equalsIgnoreCase(subcultures[14])) {
-                        x = -2843;
-                        y = 77;
-                        z = 2002;
-                        teleportIfOverriding(args, player, x, y, z);
-                        if (args.length == 1) {
-                            setPlayersSpawn(player, x, y, z);
-                        }
-                        return true;
-                    }
-                    if (selection.equalsIgnoreCase(subcultures[15])) {
-                        x = 2222;
-                        y = 84;
-                        z = 1788;
                         teleportIfOverriding(args, player, x, y, z);
                         if (args.length == 1) {
                             setPlayersSpawn(player, x, y, z);
