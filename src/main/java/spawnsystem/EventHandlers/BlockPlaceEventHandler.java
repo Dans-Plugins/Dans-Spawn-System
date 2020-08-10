@@ -18,7 +18,7 @@ public class BlockPlaceEventHandler {
 
         // if trying to place sign
         if (main.utilities.isSign(event.getBlockPlaced())) {
-            Sign sign = (Sign) event.getBlockPlaced().getBlockData();
+            Sign sign = (Sign) event.getBlockPlaced().getState();
 
             // check if it contains says [Spawn]
             if (sign.getLine(0).contains("[Spawn]")) {

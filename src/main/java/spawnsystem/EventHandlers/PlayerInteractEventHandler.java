@@ -21,7 +21,7 @@ public class PlayerInteractEventHandler {
             // if that block is a sign
             if (main.utilities.isSign(clickedBlock)) {
                 // if that sign has [Spawn]
-                Sign sign = (Sign) clickedBlock.getBlockData();
+                Sign sign = (Sign) clickedBlock.getState();
                 if (sign.getLine(0).contains("[Spawn]")) {
                     // acquire coordinates
                     int x = Integer.parseInt(sign.getLine(1));
