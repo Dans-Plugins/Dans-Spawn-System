@@ -23,7 +23,10 @@ public class BlockPlaceEventHandler {
             // check if it contains says [Spawn]
             if (sign.getLine(0).contains("[Spawn]")) {
                 // if it does, check if the player has permission
-                if (!(event.getPlayer().hasPermission("spawnsystem.placeSpawnSign") || event.getPlayer().hasPermission("spawnsystem.admin"))) {
+                if (event.getPlayer().hasPermission("spawnsystem.placeSpawnSign") || event.getPlayer().hasPermission("spawnsystem.admin")) {
+                    event.getPlayer().sendMessage(ChatColor.GREEN + "Spawn selection sign created!");
+                }
+                else {
                     // if they don't, cancel the event with a message
                     event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to place a spawn selection sign, you must have the following permission: 'spawnsystem.placeSpawnSign");
                     event.setCancelled(true);
