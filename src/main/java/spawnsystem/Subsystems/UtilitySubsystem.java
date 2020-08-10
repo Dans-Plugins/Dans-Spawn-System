@@ -1,6 +1,8 @@
 package spawnsystem.Subsystems;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import spawnsystem.Main;
@@ -38,7 +40,7 @@ public class UtilitySubsystem {
     public void teleportIfOverriding(String[] args, Player player, int x, int y, int z) {
         if (args.length > 1) {
             if (args[1].equalsIgnoreCase("override")) {
-                if (player.hasPermission("spawnsystem.override")) {
+                if (player.hasPermission("spawnsystem.override") || player.hasPermission("spawnsystem.admin")) {
                     Location teleportLocation = new Location(main.getServer().getWorld(main.worldname), x, y, z);
                     player.teleport(teleportLocation);
                 }
@@ -47,6 +49,25 @@ public class UtilitySubsystem {
                 }
             }
         }
+    }
+
+    public boolean isSign(Block block) {
+        switch(block.getType()) {
+            case ACACIA_SIGN:
+            case ACACIA_WALL_SIGN:
+            case BIRCH_SIGN:
+            case BIRCH_WALL_SIGN:
+            case DARK_OAK_SIGN:
+            case DARK_OAK_WALL_SIGN:
+            case JUNGLE_SIGN:
+            case JUNGLE_WALL_SIGN:
+            case OAK_SIGN:
+            case OAK_WALL_SIGN:
+            case SPRUCE_SIGN:
+            case SPRUCE_WALL_SIGN:
+                return true;
+        }
+        return false;
     }
 
 

@@ -5,9 +5,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import spawnsystem.EventHandlers.BlockPlaceEventHandler;
 import spawnsystem.EventHandlers.PlayerDeathEventHandler;
 import spawnsystem.EventHandlers.PlayerRespawnEventHandler;
 import spawnsystem.Subsystems.CommandSubsystem;
@@ -60,6 +62,12 @@ public final class Main extends JavaPlugin implements Listener {
     @EventHandler()
     public void onRespawn(PlayerRespawnEvent event) {
         PlayerRespawnEventHandler handler = new PlayerRespawnEventHandler(this);
+        handler.handle(event);
+    }
+
+    @EventHandler()
+    public void onBlockPlace(BlockPlaceEvent event) {
+        BlockPlaceEventHandler handler = new BlockPlaceEventHandler(this);
         handler.handle(event);
     }
 }
