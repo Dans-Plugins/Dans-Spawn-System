@@ -5,16 +5,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import spawnsystem.EventHandlers.SignChangeEventHandler;
-import spawnsystem.EventHandlers.PlayerDeathEventHandler;
-import spawnsystem.EventHandlers.PlayerInteractEventHandler;
-import spawnsystem.EventHandlers.PlayerRespawnEventHandler;
+import spawnsystem.EventHandlers.*;
 import spawnsystem.Subsystems.CommandSubsystem;
 import spawnsystem.Subsystems.StorageSubsystem;
 import spawnsystem.Subsystems.UtilitySubsystem;
@@ -76,6 +74,12 @@ public final class Main extends JavaPlugin implements Listener {
     @EventHandler()
     public void onRightClick(PlayerInteractEvent event) {
         PlayerInteractEventHandler handler = new PlayerInteractEventHandler(this);
+        handler.handle(event);
+    }
+
+    @EventHandler()
+    public void onBlockBreak(BlockBreakEvent event) {
+        BlockBreakEventHandler handler = new BlockBreakEventHandler(this);
         handler.handle(event);
     }
 }
