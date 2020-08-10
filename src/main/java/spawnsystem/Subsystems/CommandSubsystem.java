@@ -32,6 +32,7 @@ public class CommandSubsystem {
             }
         }
 
+        // if players don't choose human, their spawns are immediately set in this if statement
         if (label.equalsIgnoreCase("race")) {
             if (sender instanceof Player) {
 
@@ -89,6 +90,7 @@ public class CommandSubsystem {
             }
         }
 
+        // this if statement should only ever run for players choosing the human race
         if (label.equalsIgnoreCase("subculture")) {
             if (sender instanceof Player) {
 
