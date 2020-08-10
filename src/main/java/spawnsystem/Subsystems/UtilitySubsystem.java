@@ -2,6 +2,7 @@ package spawnsystem.Subsystems;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -15,9 +16,9 @@ public class UtilitySubsystem {
         main = plugin;
     }
 
-    public void setPlayersSpawn(Player player, int x, int y, int z) {
+    public void setPlayersSpawn(Player player, World world, int x, int y, int z) {
 
-        Location spawnLocation = new Location(main.getServer().getWorld(main.worldname), x, y, z);
+        Location spawnLocation = new Location(world, x, y, z);
 
         // set spawn
         if (!main.playerSpawns.containsKey(player.getName())) {
@@ -41,7 +42,7 @@ public class UtilitySubsystem {
         if (args.length > 1) {
             if (args[1].equalsIgnoreCase("override")) {
                 if (player.hasPermission("spawnsystem.override") || player.hasPermission("spawnsystem.admin")) {
-                    Location teleportLocation = new Location(main.getServer().getWorld(main.worldname), x, y, z);
+                    Location teleportLocation = new Location(player.getWorld(), x, y, z);
                     player.teleport(teleportLocation);
                 }
                 else {

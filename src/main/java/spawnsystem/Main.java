@@ -7,10 +7,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import spawnsystem.EventHandlers.BlockPlaceEventHandler;
 import spawnsystem.EventHandlers.PlayerDeathEventHandler;
+import spawnsystem.EventHandlers.PlayerInteractEventHandler;
 import spawnsystem.EventHandlers.PlayerRespawnEventHandler;
 import spawnsystem.Subsystems.CommandSubsystem;
 import spawnsystem.Subsystems.StorageSubsystem;
@@ -31,7 +33,6 @@ public final class Main extends JavaPlugin implements Listener {
     public ArrayList<String> playersWithSpawns = new ArrayList<>();
 
     // temporary
-    public String worldname = "KingdomsDarkAges";
     public String[] subcultures = {"Ostendian", "Massara", "Njord'volk", "La'vanti",
                             "Seileshi", "Tong'Fei", "Sorama", "Gwai'Non",
                             "Ar'Ruug", "Or'Gog", "Mo'Log'Ath", "Rong'Nol",
@@ -68,6 +69,12 @@ public final class Main extends JavaPlugin implements Listener {
     @EventHandler()
     public void onBlockPlace(BlockPlaceEvent event) {
         BlockPlaceEventHandler handler = new BlockPlaceEventHandler(this);
+        handler.handle(event);
+    }
+
+    @EventHandler()
+    public void onRightClick(PlayerInteractEvent event) {
+        PlayerInteractEventHandler handler = new PlayerInteractEventHandler(this);
         handler.handle(event);
     }
 }

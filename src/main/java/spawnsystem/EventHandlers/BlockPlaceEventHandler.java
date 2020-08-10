@@ -1,7 +1,8 @@
 package spawnsystem.EventHandlers;
 
 import org.bukkit.ChatColor;
-import org.bukkit.block.data.type.Sign;
+
+import org.bukkit.block.Sign;
 import org.bukkit.event.block.BlockPlaceEvent;
 import spawnsystem.Main;
 
@@ -20,7 +21,7 @@ public class BlockPlaceEventHandler {
             Sign sign = (Sign) event.getBlockPlaced();
 
             // check if it contains says [Spawn]
-            if (sign.getAsString().contains("[Spawn]")) {
+            if (sign.getLine(0).contains("[Spawn]")) {
                 // if it does, check if the player has permission
                 if (!(event.getPlayer().hasPermission("spawnsystem.placeSpawnSign") || event.getPlayer().hasPermission("spawnsystem.admin"))) {
                     // if they don't, cancel the event with a message

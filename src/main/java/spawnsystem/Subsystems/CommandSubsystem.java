@@ -53,7 +53,7 @@ public class CommandSubsystem {
                         int z = 138;
                         main.utilities.teleportIfOverriding(args, player, x, y, z);
                         if (args.length == 1) {
-                            main.utilities.setPlayersSpawn(player, x, y, z);
+                            main.utilities.setPlayersSpawn(player, player.getWorld(), x, y, z);
                         }
                         return true;
                     }
@@ -63,7 +63,7 @@ public class CommandSubsystem {
                         int z = -1232;
                         main.utilities.teleportIfOverriding(args, player, x, y, z);
                         if (args.length == 1) {
-                            main.utilities.setPlayersSpawn(player, x, y, z);
+                            main.utilities.setPlayersSpawn(player, player.getWorld(), x, y, z);
                         }
                         return true;
                     }
@@ -73,7 +73,7 @@ public class CommandSubsystem {
                         int z = 1788;
                         main.utilities.teleportIfOverriding(args, player, x, y, z);
                         if (args.length == 1) {
-                            main.utilities.setPlayersSpawn(player, x, y, z);
+                            main.utilities.setPlayersSpawn(player, player.getWorld(), x, y, z);
                         }
                         return true;
                     }
@@ -109,7 +109,7 @@ public class CommandSubsystem {
                         z = 61;
                         main.utilities.teleportIfOverriding(args, player, x, y, z);
                         if (args.length == 1) {
-                            main.utilities.setPlayersSpawn(player, x, y, z);
+                            main.utilities.setPlayersSpawn(player, player.getWorld(), x, y, z);
                         }
                         return true;
                     }
@@ -119,7 +119,7 @@ public class CommandSubsystem {
                         z = 1219;
                         main.utilities.teleportIfOverriding(args, player, x, y, z);
                         if (args.length == 1) {
-                            main.utilities.setPlayersSpawn(player, x, y, z);
+                            main.utilities.setPlayersSpawn(player, player.getWorld(), x, y, z);
                         }
                         return true;
                     }
@@ -129,7 +129,7 @@ public class CommandSubsystem {
                         z = -1841;
                         main.utilities.teleportIfOverriding(args, player, x, y, z);
                         if (args.length == 1) {
-                            main.utilities.setPlayersSpawn(player, x, y, z);
+                            main.utilities.setPlayersSpawn(player, player.getWorld(), x, y, z);
                         }
                         return true;
                     }
@@ -139,7 +139,7 @@ public class CommandSubsystem {
                         z = 437;
                         main.utilities.teleportIfOverriding(args, player, x, y, z);
                         if (args.length == 1) {
-                            main.utilities.setPlayersSpawn(player, x, y, z);
+                            main.utilities.setPlayersSpawn(player, player.getWorld(), x, y, z);
                         }
                         return true;
                     }
