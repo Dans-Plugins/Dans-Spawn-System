@@ -14,6 +14,46 @@ public class CommandSubsystem {
 
     public boolean interpretCommand(CommandSender sender, String label, String[] args) {
 
+        if (label.equalsIgnoreCase("resetspawn")) {
+
+            // if sender instanceof player
+            if (sender instanceof Player) {
+                Player player = (Player) sender;
+
+                if (args.length > 0) {
+                    if (player.hasPermission("spawnsystem.reset.others") || player.hasPermission("spawnsystem.admin")) {
+                        // reset a specific player's spawn
+                        String targetPlayer = args[0];
+                        main.utilities.resetSpawn(targetPlayer);
+                        player.sendMessage(ChatColor.GREEN + "Spawn reset for " + targetPlayer + "!");
+                        try {
+                            main.getServer().getPlayer(targetPlayer).sendMessage(ChatColor.GREEN + "Your spawn has been reset!");
+                        } catch(Exception e) {
+
+                        }
+                    }
+                    else {
+                        player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'spawnsystem.reset.others'");
+                    }
+
+                }
+                else {
+                    if (player.hasPermission("spawnsystem.reset.self") || player.hasPermission("spawnsystem.admin")) {
+                        // reset the spawn of the command sender
+                        main.utilities.resetSpawn(player.getName());
+                        player.sendMessage(ChatColor.GREEN + "You have reset your spawn!");
+                    }
+                    else {
+                        player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'spawnsystem.reset.self'");
+                    }
+                }
+            }
+
+        }
+
+        // ----------------------------------------------------------------------------------------------------------------------------------------------
+        // OLD COMMANDS
+
         if (label.equalsIgnoreCase("start")) {
 
             if (sender instanceof Player) {

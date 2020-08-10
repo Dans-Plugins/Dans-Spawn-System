@@ -1,5 +1,5 @@
 name: KingdomDarkAgesSpawnSystem
-version: 0.5
+version: 0.6
 author: KingdomProgrammers
 main: spawnsystem.Main
 api-version: 1.13
@@ -9,3 +9,4 @@ commands:
   race:
   subculture:
   subcultures:
+  resetspawn:

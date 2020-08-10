@@ -71,5 +71,9 @@ public class UtilitySubsystem {
         return false;
     }
 
+    public void resetSpawn(String playerName) {
+        main.playersWithSpawns.remove(playerName);
+        main.playerSpawns.remove(playerName);
+    }
 
 }
