@@ -33,7 +33,7 @@ public class PlayerInteractEventHandler {
                         // set player's spawn
                         main.utilities.setPlayersSpawn(event.getPlayer(), world, x, y, z);
                     } catch(Exception e) {
-                        System.out.println("A problem occurred with a spawn selection sign located at [" + clickedBlock.getX() + ", " + clickedBlock.getY()  + ", " + clickedBlock.getZ() + "]");
+                        System.out.println("A problem occurred with a spawn selection sign located at [" + clickedBlock.getX() + ", " + clickedBlock.getY()  + ", " + clickedBlock.getZ() + "] in " + event.getPlayer().getWorld().getName());
                     }
                 }
             }
