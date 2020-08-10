@@ -18,7 +18,7 @@ public class BlockPlaceEventHandler {
 
         // if trying to place sign
         if (main.utilities.isSign(event.getBlockPlaced())) {
-            Sign sign = (Sign) event.getBlockPlaced();
+            Sign sign = (Sign) event.getBlockPlaced().getBlockData();
 
             // check if it contains says [Spawn]
             if (sign.getLine(0).contains("[Spawn]")) {
@@ -28,13 +28,7 @@ public class BlockPlaceEventHandler {
                     event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to place a spawn selection sign, you must have the following permission: 'spawnsystem.placeSpawnSign");
                     event.setCancelled(true);
                 }
-
             }
-
         }
-
-
-
     }
-
 }
