@@ -1,6 +1,9 @@
 package spawnsystem.Subsystems;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import spawnsystem.Main;
@@ -13,9 +16,9 @@ public class UtilitySubsystem {
         main = plugin;
     }
 
-    public void setPlayersSpawn(Player player, int x, int y, int z) {
+    public void setPlayersSpawn(Player player, World world, int x, int y, int z) {
 
-        Location spawnLocation = new Location(main.getServer().getWorld(main.worldname), x, y, z);
+        Location spawnLocation = new Location(world, x, y, z);
 
         // set spawn
         if (!main.playerSpawns.containsKey(player.getName())) {
@@ -38,8 +41,8 @@ public class UtilitySubsystem {
     public void teleportIfOverriding(String[] args, Player player, int x, int y, int z) {
         if (args.length > 1) {
             if (args[1].equalsIgnoreCase("override")) {
-                if (player.hasPermission("spawnsystem.override")) {
-                    Location teleportLocation = new Location(main.getServer().getWorld(main.worldname), x, y, z);
+                if (player.hasPermission("spawnsystem.override") || player.hasPermission("spawnsystem.admin")) {
+                    Location teleportLocation = new Location(player.getWorld(), x, y, z);
                     player.teleport(teleportLocation);
                 }
                 else {
@@ -47,6 +50,25 @@ public class UtilitySubsystem {
                 }
             }
         }
+    }
+
+    public boolean isSign(Block block) {
+        switch(block.getType()) {
+            case ACACIA_SIGN:
+            case ACACIA_WALL_SIGN:
+            case BIRCH_SIGN:
+            case BIRCH_WALL_SIGN:
+            case DARK_OAK_SIGN:
+            case DARK_OAK_WALL_SIGN:
+            case JUNGLE_SIGN:
+            case JUNGLE_WALL_SIGN:
+            case OAK_SIGN:
+            case OAK_WALL_SIGN:
+            case SPRUCE_SIGN:
+            case SPRUCE_WALL_SIGN:
+                return true;
+        }
+        return false;
     }
 
 
