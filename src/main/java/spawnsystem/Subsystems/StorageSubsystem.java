@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class StorageSubsystem {
 
@@ -53,7 +54,7 @@ public class StorageSubsystem {
     }
 
     private void saveSpawns() {
-        for (String playerName : main.playersWithSpawns) {
+        for (UUID playerName : main.playersWithSpawns) {
 
             try {
                 File saveFolder = new File("./plugins/Kingdom-Spawn-System/");
@@ -70,7 +71,7 @@ public class StorageSubsystem {
                 FileWriter saveWriter = new FileWriter("./plugins/Kingdom-Spawn-System/" + playerName + ".txt");
 
                 // actual saving takes place here
-                saveWriter.write(playerName + "\n");
+                saveWriter.write(playerName.toString() + "\n");
 
                 // save details
                 saveWriter.write(main.playerSpawns.get(playerName).getWorld().getName() + "\n");
@@ -109,11 +110,11 @@ public class StorageSubsystem {
                     File loadFile2 = new File("./plugins/Kingdom-Spawn-System/" + filename);
                     Scanner loadReader2 = new Scanner(loadFile2);
 
-                    String playerName = "";
+                    UUID playerUUID = null;
 
                     // actual loading
                     if (loadReader2.hasNextLine()) {
-                        playerName = loadReader2.nextLine();
+                        playerUUID = UUID.fromString(loadReader2.nextLine());
                     }
 
                     World world = null;
@@ -122,7 +123,7 @@ public class StorageSubsystem {
                     double z = 0;
 
                     try {
-                        System.out.println("Attempting to load spawn location for " + playerName + "...");
+                        System.out.println("Attempting to load spawn location for " + playerUUID + "...");
 
                         if (loadReader2.hasNextLine()) {
                             world = main.getServer().createWorld(new WorldCreator(loadReader2.nextLine()));
@@ -152,9 +153,9 @@ public class StorageSubsystem {
 
                         // set location
                         if (world != null && x != 0 && y != 0 && z != 0) {
-                            main.playerSpawns.put(playerName, new Location(world, x, y, z));
-                            main.playersWithSpawns.add(playerName);
-                            System.out.println("Spawn of " + playerName + " successfully set to " + x + ", " + y + ", " + z + ".");
+                            main.playerSpawns.put(playerUUID, new Location(world, x, y, z));
+                            main.playersWithSpawns.add(playerUUID);
+                            System.out.println("Spawn of " + playerUUID + " successfully set to " + x + ", " + y + ", " + z + ".");
                         }
                         else {
                             System.out.println("One of the variables the spawn location depends on wasn't loaded!");
@@ -167,7 +168,7 @@ public class StorageSubsystem {
                     }
 
                     loadReader2.close();
-                    System.out.println("Spawn of " + playerName + " successfully loaded.");
+                    System.out.println("Spawn of " + playerUUID + " successfully loaded.");
                 } catch (FileNotFoundException e) {
                     System.out.println("An error occurred loading the file " + filename + ".");
                     e.printStackTrace();

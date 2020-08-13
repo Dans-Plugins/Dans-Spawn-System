@@ -24,7 +24,7 @@ public class CommandSubsystem {
                     if (player.hasPermission("spawnsystem.reset.others") || player.hasPermission("spawnsystem.admin")) {
                         // reset a specific player's spawn
                         String targetPlayer = args[0];
-                        main.utilities.resetSpawn(targetPlayer);
+                        main.utilities.resetSpawn(UtilitySubsystem.findUUIDBasedOnPlayerName(targetPlayer));
                         player.sendMessage(ChatColor.GREEN + "Spawn reset for " + targetPlayer + "!");
                         try {
                             main.getServer().getPlayer(targetPlayer).sendMessage(ChatColor.GREEN + "Your spawn has been reset!");
@@ -40,7 +40,7 @@ public class CommandSubsystem {
                 else {
                     if (player.hasPermission("spawnsystem.reset.self") || player.hasPermission("spawnsystem.admin")) {
                         // reset the spawn of the command sender
-                        main.utilities.resetSpawn(player.getName());
+                        main.utilities.resetSpawn(UtilitySubsystem.findUUIDBasedOnPlayerName(player.getName()));
                         player.sendMessage(ChatColor.GREEN + "You have reset your spawn!");
                     }
                     else {

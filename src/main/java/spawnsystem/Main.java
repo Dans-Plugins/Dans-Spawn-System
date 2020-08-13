@@ -19,6 +19,7 @@ import spawnsystem.Subsystems.UtilitySubsystem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public final class Main extends JavaPlugin implements Listener {
 
@@ -28,8 +29,8 @@ public final class Main extends JavaPlugin implements Listener {
     public StorageSubsystem storage = new StorageSubsystem(this);
 
     // saved
-    public HashMap<String, Location> playerSpawns = new HashMap<>();
-    public ArrayList<String> playersWithSpawns = new ArrayList<>();
+    public HashMap<UUID, Location> playerSpawns = new HashMap<>();
+    public ArrayList<UUID> playersWithSpawns = new ArrayList<>();
 
     // temporary
     public String[] subcultures = {"Ostendian", "Massara", "Njord'volk", "La'vanti",
