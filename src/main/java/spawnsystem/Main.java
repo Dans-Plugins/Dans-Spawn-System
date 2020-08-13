@@ -32,12 +32,6 @@ public final class Main extends JavaPlugin implements Listener {
     public HashMap<UUID, Location> playerSpawns = new HashMap<>();
     public ArrayList<UUID> playersWithSpawns = new ArrayList<>();
 
-    // temporary
-    public String[] subcultures = {"Ostendian", "Massara", "Njord'volk", "La'vanti",
-                            "Seileshi", "Tong'Fei", "Sorama", "Gwai'Non",
-                            "Ar'Ruug", "Or'Gog", "Mo'Log'Ath", "Rong'Nol",
-                            "Vanasa", "Immakandi", "T'laxine", "Yong'Yao"};
-
     @Override
     public void onEnable() {
         this.getServer().getPluginManager().registerEvents(this, this);
