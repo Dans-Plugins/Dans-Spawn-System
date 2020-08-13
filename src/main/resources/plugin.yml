@@ -1,6 +1,6 @@
-name: KingdomDarkAgesSpawnSystem
+name: DansSpawnSystem
 version: 1.0
-author: KingdomProgrammers
+author: DanTheTechMan
 main: spawnsystem.Main
 api-version: 1.13
 
