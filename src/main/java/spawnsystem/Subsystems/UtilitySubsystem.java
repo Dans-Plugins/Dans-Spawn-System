@@ -1,12 +1,14 @@
 package spawnsystem.Subsystems;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import spawnsystem.Main;
+
+import java.util.UUID;
+
+import static org.bukkit.Bukkit.getOfflinePlayers;
+import static org.bukkit.Bukkit.getOnlinePlayers;
 
 public class UtilitySubsystem {
 
@@ -22,8 +24,8 @@ public class UtilitySubsystem {
 
         // set spawn
         if (!main.playerSpawns.containsKey(player.getName())) {
-            main.playerSpawns.put(player.getName(), spawnLocation);
-            main.playersWithSpawns.add(player.getName());
+            main.playerSpawns.put(player.getUniqueId(), spawnLocation);
+            main.playersWithSpawns.add(player.getUniqueId());
         }
         else {
             player.sendMessage(ChatColor.RED + "You have already set your spawn! If you're starting a new character please see an admin for assistance.");
@@ -71,9 +73,33 @@ public class UtilitySubsystem {
         return false;
     }
 
-    public void resetSpawn(String playerName) {
-        main.playersWithSpawns.remove(playerName);
-        main.playerSpawns.remove(playerName);
+    public void resetSpawn(UUID player) {
+        main.playersWithSpawns.remove(player);
+        main.playerSpawns.remove(player);
+    }
+
+    // Pasarus wrote this
+    public static UUID findUUIDBasedOnPlayerName(String playerName){
+        // Check online
+        for (Player player : getOnlinePlayers()){
+            if (player.getName().equals(playerName)){
+                return player.getUniqueId();
+            }
+        }
+
+        // Check offline
+        for (OfflinePlayer player : getOfflinePlayers()){
+            try {
+                if (player.getName().equals(playerName)){
+                    return player.getUniqueId();
+                }
+            } catch (NullPointerException e) {
+                // Fail silently as quit possibly common.
+            }
+
+        }
+
+        return null;
     }
 
 }
