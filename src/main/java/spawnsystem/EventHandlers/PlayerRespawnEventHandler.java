@@ -13,11 +13,11 @@ public class PlayerRespawnEventHandler {
     }
 
     public void handle(PlayerRespawnEvent event) {
-        if (main.playerSpawns.containsKey(event.getPlayer().getName())) {
+        if (main.playerSpawns.containsKey(event.getPlayer().getUniqueId())) {
             main.getServer().getScheduler().runTaskLater(main, new Runnable() {
                 @Override
                 public void run() {
-                    event.getPlayer().teleport(main.playerSpawns.get(event.getPlayer().getName()));
+                    event.getPlayer().teleport(main.playerSpawns.get(event.getPlayer().getUniqueId()));
                     event.getPlayer().sendMessage(ChatColor.GREEN + "Teleporting to custom spawn!");
                 }
             }, 1);
