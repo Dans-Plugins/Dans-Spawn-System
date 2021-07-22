@@ -4,10 +4,13 @@ import dansplugins.spawnsystem.UtilitySubsystem;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class PlayerInteractEventHandler {
+public class PlayerInteractEventHandler implements Listener {
 
+    @EventHandler()
     public void handle(PlayerInteractEvent event) {
         // if player is right clicking a block
         Block clickedBlock = event.getClickedBlock();

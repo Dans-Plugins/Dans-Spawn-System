@@ -1,10 +1,13 @@
 package dansplugins.spawnsystem.eventhandlers;
 
 import org.bukkit.ChatColor;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 
-public class SignChangeEventHandler {
+public class SignChangeEventHandler implements Listener {
 
+    @EventHandler()
     public void handle(SignChangeEvent event) {
         // check if it contains says [Spawn]
         if (event.getLine(0).contains("[Spawn]")) {
