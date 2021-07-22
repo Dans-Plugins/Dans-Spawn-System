@@ -1,9 +1,9 @@
 package dansplugins.spawnsystem.eventhandlers;
 
+import dansplugins.spawnsystem.DansSpawnSystem;
 import dansplugins.spawnsystem.data.PersistentData;
 import org.bukkit.ChatColor;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import dansplugins.spawnsystem.DansSpawnSystem;
 
 public class PlayerRespawnEventHandler {
 

@@ -5,7 +5,6 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.event.player.PlayerInteractEvent;
-import dansplugins.spawnsystem.DansSpawnSystem;
 
 public class PlayerInteractEventHandler {
 

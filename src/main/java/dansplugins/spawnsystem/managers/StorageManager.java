@@ -1,9 +1,10 @@
 package dansplugins.spawnsystem.managers;
+
+import dansplugins.spawnsystem.DansSpawnSystem;
 import dansplugins.spawnsystem.data.PersistentData;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import dansplugins.spawnsystem.DansSpawnSystem;
 
 import java.io.File;
 import java.io.FileNotFoundException;

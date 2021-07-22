@@ -1,9 +1,7 @@
 package dansplugins.spawnsystem.eventhandlers;
 
 import org.bukkit.ChatColor;
-
 import org.bukkit.event.block.SignChangeEvent;
-import dansplugins.spawnsystem.DansSpawnSystem;
 
 public class SignChangeEventHandler {
 

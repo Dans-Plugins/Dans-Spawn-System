@@ -5,7 +5,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.event.block.BlockBreakEvent;
-import dansplugins.spawnsystem.DansSpawnSystem;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,12 @@
 package dansplugins.spawnsystem;
+
 import dansplugins.spawnsystem.data.PersistentData;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import dansplugins.spawnsystem.DansSpawnSystem;
 
 import java.util.UUID;
 

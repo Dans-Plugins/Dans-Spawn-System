@@ -1,6 +1,7 @@
 package dansplugins.spawnsystem;
 
-import org.bukkit.Location;
+import dansplugins.spawnsystem.eventhandlers.*;
+import dansplugins.spawnsystem.managers.StorageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
@@ -11,12 +12,6 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import dansplugins.spawnsystem.eventhandlers.*;
-import dansplugins.spawnsystem.managers.StorageManager;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
 
 public final class DansSpawnSystem extends JavaPlugin implements Listener {
 
