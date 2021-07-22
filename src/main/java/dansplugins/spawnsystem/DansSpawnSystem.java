@@ -22,9 +22,6 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
 
     private static DansSpawnSystem instance;
 
-    // subsystems
-    public StorageManager storage = new StorageManager();
-
     // saved
     public HashMap<UUID, Location> playerSpawns = new HashMap<>();
     public ArrayList<UUID> playersWithSpawns = new ArrayList<>();
@@ -39,12 +36,12 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
 
         this.getServer().getPluginManager().registerEvents(this, this);
 
-        storage.load();
+        StorageManager.getInstance().load();
     }
 
     @Override
     public void onDisable() {
-        storage.save();
+        StorageManager.getInstance().save();
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
