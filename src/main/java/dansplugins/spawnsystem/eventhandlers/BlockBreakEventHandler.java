@@ -4,12 +4,15 @@ import dansplugins.spawnsystem.UtilitySubsystem;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import java.util.ArrayList;
 
-public class BlockBreakEventHandler {
+public class BlockBreakEventHandler implements Listener {
 
+    @EventHandler()
     public void handle(BlockBreakEvent event) {
         if (UtilitySubsystem.getInstance().isSign(event.getBlock())) {
 

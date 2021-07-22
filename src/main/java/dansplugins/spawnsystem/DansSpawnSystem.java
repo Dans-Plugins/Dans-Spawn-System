@@ -28,8 +28,10 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
     public void onEnable() {
         instance = this;
 
-        this.getServer().getPluginManager().registerEvents(this, this);
+        // register events
+        EventRegistry.getInstance().registerEvents();
 
+        // load spawns
         StorageManager.getInstance().load();
 
         // bStats
@@ -45,35 +47,5 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         CommandInterpreter commandInterpreter = new CommandInterpreter();
         return commandInterpreter.interpretCommand(sender, label, args);
-    }
-
-    @EventHandler()
-    public void onDeath(PlayerDeathEvent event) {
-        PlayerDeathEventHandler handler = new PlayerDeathEventHandler();
-        handler.handle(event);
-    }
-
-    @EventHandler()
-    public void onRespawn(PlayerRespawnEvent event) {
-        PlayerRespawnEventHandler handler = new PlayerRespawnEventHandler();
-        handler.handle(event);
-    }
-
-    @EventHandler()
-    public void onSignChange(SignChangeEvent event) {
-        SignChangeEventHandler handler = new SignChangeEventHandler();
-        handler.handle(event);
-    }
-
-    @EventHandler()
-    public void onRightClick(PlayerInteractEvent event) {
-        PlayerInteractEventHandler handler = new PlayerInteractEventHandler();
-        handler.handle(event);
-    }
-
-    @EventHandler()
-    public void onBlockBreak(BlockBreakEvent event) {
-        BlockBreakEventHandler handler = new BlockBreakEventHandler();
-        handler.handle(event);
     }
 }
