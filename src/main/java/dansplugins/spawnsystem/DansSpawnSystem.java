@@ -23,8 +23,6 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
     private static DansSpawnSystem instance;
 
     // subsystems
-    public CommandInterpreter commands = new CommandInterpreter();
-    public UtilitySubsystem utilities = new UtilitySubsystem();
     public StorageManager storage = new StorageManager();
 
     // saved
@@ -50,7 +48,8 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        return commands.interpretCommand(sender, label, args);
+        CommandInterpreter commandInterpreter = new CommandInterpreter();
+        return commandInterpreter.interpretCommand(sender, label, args);
     }
 
     @EventHandler()

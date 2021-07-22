@@ -17,7 +17,7 @@ public class CommandInterpreter {
                     if (player.hasPermission("dansplugins.spawnsystem.reset.others") || player.hasPermission("dansplugins.spawnsystem.admin")) {
                         // reset a specific player's spawn
                         String targetPlayer = args[0];
-                        DansSpawnSystem.getInstance().utilities.resetSpawn(UtilitySubsystem.findUUIDBasedOnPlayerName(targetPlayer));
+                        UtilitySubsystem.getInstance().resetSpawn(UtilitySubsystem.findUUIDBasedOnPlayerName(targetPlayer));
                         player.sendMessage(ChatColor.GREEN + "Spawn reset for " + targetPlayer + "!");
                         try {
                             DansSpawnSystem.getInstance().getServer().getPlayer(targetPlayer).sendMessage(ChatColor.GREEN + "Your spawn has been reset!");
@@ -33,7 +33,7 @@ public class CommandInterpreter {
                 else {
                     if (player.hasPermission("dansplugins.spawnsystem.reset.self") || player.hasPermission("dansplugins.spawnsystem.admin")) {
                         // reset the spawn of the command sender
-                        DansSpawnSystem.getInstance().utilities.resetSpawn(UtilitySubsystem.findUUIDBasedOnPlayerName(player.getName()));
+                        UtilitySubsystem.getInstance().resetSpawn(UtilitySubsystem.findUUIDBasedOnPlayerName(player.getName()));
                         player.sendMessage(ChatColor.GREEN + "You have reset your spawn!");
                     }
                     else {

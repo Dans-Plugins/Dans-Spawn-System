@@ -1,5 +1,6 @@
 package dansplugins.spawnsystem.eventhandlers;
 
+import dansplugins.spawnsystem.UtilitySubsystem;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class BlockBreakEventHandler {
 
     public void handle(BlockBreakEvent event) {
-        if (DansSpawnSystem.getInstance().utilities.isSign(event.getBlock())) {
+        if (UtilitySubsystem.getInstance().isSign(event.getBlock())) {
 
             Sign sign = (Sign) event.getBlock().getState();
             if (sign.getLine(0).contains("[Spawn]")) {
@@ -53,7 +54,7 @@ public class BlockBreakEventHandler {
         blocks.add(block.getWorld().getBlockAt(block.getX(), block.getY(), block.getZ() - 1));
 
         for (Block b : blocks) {
-            if (DansSpawnSystem.getInstance().utilities.isSign(b)) {
+            if (UtilitySubsystem.getInstance().isSign(b)) {
                 Sign sign = (Sign) b.getState();
                 if (sign.getLine(0).contains("[Spawn]")) {
                     return true;

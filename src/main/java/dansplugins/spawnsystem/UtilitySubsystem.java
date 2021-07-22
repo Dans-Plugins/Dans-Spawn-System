@@ -11,6 +11,19 @@ import static org.bukkit.Bukkit.getOnlinePlayers;
 
 public class UtilitySubsystem {
 
+    private static UtilitySubsystem instance;
+
+    private UtilitySubsystem() {
+
+    }
+
+    public static UtilitySubsystem getInstance() {
+        if (instance == null) {
+            instance = new UtilitySubsystem();
+        }
+        return instance;
+    }
+
     public void setPlayersSpawn(Player player, World world, int x, int y, int z) {
 
         Location spawnLocation = new Location(world, x, y, z);
