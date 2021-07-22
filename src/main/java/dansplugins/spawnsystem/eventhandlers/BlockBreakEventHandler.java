@@ -19,11 +19,11 @@ public class BlockBreakEventHandler implements Listener {
             Sign sign = (Sign) event.getBlock().getState();
             if (sign.getLine(0).contains("[Spawn]")) {
 
-                if (event.getPlayer().hasPermission("dansplugins.spawnsystem.breakSpawnSign") || event.getPlayer().hasPermission("dansplugins.spawnsystem.admin")) {
+                if (event.getPlayer().hasPermission("spawnsystem.breakSpawnSign") || event.getPlayer().hasPermission("spawnsystem.admin")) {
                     event.getPlayer().sendMessage(ChatColor.GREEN + "Spawn selection sign broken!");
                 }
                 else {
-                    event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'dansplugins.spawnsystem.breakSpawnSign");
+                    event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'spawnsystem.breakSpawnSign");
                     event.setCancelled(true);
                 }
 
@@ -33,11 +33,11 @@ public class BlockBreakEventHandler implements Listener {
         else {
             if (isNextToSpawnSelectionSign(event.getBlock())) {
 
-                if (event.getPlayer().hasPermission("dansplugins.spawnsystem.breakSpawnSign") || event.getPlayer().hasPermission("dansplugins.spawnsystem.admin")) {
+                if (event.getPlayer().hasPermission("spawnsystem.breakSpawnSign") || event.getPlayer().hasPermission("spawnsystem.admin")) {
                     event.getPlayer().sendMessage(ChatColor.GREEN + "Spawn selection sign broken!");
                 }
                 else {
-                    event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'dansplugins.spawnsystem.breakSpawnSign");
+                    event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'spawnsystem.breakSpawnSign");
                     event.setCancelled(true);
                 }
 
