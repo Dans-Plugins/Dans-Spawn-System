@@ -1,5 +1,6 @@
 package dansplugins.spawnsystem;
 
+import dansplugins.spawnsystem.bstats.Metrics;
 import dansplugins.spawnsystem.eventhandlers.*;
 import dansplugins.spawnsystem.managers.StorageManager;
 import org.bukkit.command.Command;
@@ -30,6 +31,10 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
         this.getServer().getPluginManager().registerEvents(this, this);
 
         StorageManager.getInstance().load();
+
+        // bStats
+        int pluginId = 12161;
+        Metrics metrics = new Metrics(this, pluginId);
     }
 
     @Override
