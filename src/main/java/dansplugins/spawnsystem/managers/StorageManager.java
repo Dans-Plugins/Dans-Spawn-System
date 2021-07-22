@@ -1,10 +1,8 @@
-package spawnsystem.Subsystems;
-import org.bukkit.ChatColor;
+package dansplugins.spawnsystem.managers;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.entity.Player;
-import spawnsystem.Main;
+import dansplugins.spawnsystem.DansSpawnSystem;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,13 +11,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class StorageSubsystem {
-
-    Main main = null;
-
-    public StorageSubsystem(Main plugin) {
-        main = plugin;
-    }
+public class StorageManager {
 
     public void save() {
         saveSpawnFilenames();
@@ -38,8 +30,8 @@ public class StorageSubsystem {
             FileWriter saveWriter = new FileWriter(saveFile);
 
             // actual saving takes place here
-            for (int i = 0; i < main.playersWithSpawns.size(); i++) {
-                saveWriter.write(main.playersWithSpawns.get(i) + ".txt" + "\n");
+            for (int i = 0; i < DansSpawnSystem.getInstance().playersWithSpawns.size(); i++) {
+                saveWriter.write(DansSpawnSystem.getInstance().playersWithSpawns.get(i) + ".txt" + "\n");
             }
 
             saveWriter.close();
@@ -50,7 +42,7 @@ public class StorageSubsystem {
     }
 
     private void saveSpawns() {
-        for (UUID playerName : main.playersWithSpawns) {
+        for (UUID playerName : DansSpawnSystem.getInstance().playersWithSpawns) {
 
             try {
                 File saveFolder = new File("./plugins/Kingdom-Spawn-System/");
@@ -66,10 +58,10 @@ public class StorageSubsystem {
                 saveWriter.write(playerName.toString() + "\n");
 
                 // save details
-                saveWriter.write(main.playerSpawns.get(playerName).getWorld().getName() + "\n");
-                saveWriter.write(main.playerSpawns.get(playerName).getX() + "\n");
-                saveWriter.write(main.playerSpawns.get(playerName).getY() + "\n");
-                saveWriter.write(main.playerSpawns.get(playerName).getZ() + "\n");
+                saveWriter.write(DansSpawnSystem.getInstance().playerSpawns.get(playerName).getWorld().getName() + "\n");
+                saveWriter.write(DansSpawnSystem.getInstance().playerSpawns.get(playerName).getX() + "\n");
+                saveWriter.write(DansSpawnSystem.getInstance().playerSpawns.get(playerName).getY() + "\n");
+                saveWriter.write(DansSpawnSystem.getInstance().playerSpawns.get(playerName).getZ() + "\n");
 
                 saveWriter.close();
 
@@ -114,7 +106,7 @@ public class StorageSubsystem {
                     try {
 
                         if (loadReader2.hasNextLine()) {
-                            world = main.getServer().createWorld(new WorldCreator(loadReader2.nextLine()));
+                            world = DansSpawnSystem.getInstance().getServer().createWorld(new WorldCreator(loadReader2.nextLine()));
                         }
                         else {
                             System.out.println("World name not found in file!");
@@ -140,8 +132,8 @@ public class StorageSubsystem {
 
                         // set location
                         if (world != null && x != 0 && y != 0 && z != 0) {
-                            main.playerSpawns.put(playerUUID, new Location(world, x, y, z));
-                            main.playersWithSpawns.add(playerUUID);
+                            DansSpawnSystem.getInstance().playerSpawns.put(playerUUID, new Location(world, x, y, z));
+                            DansSpawnSystem.getInstance().playersWithSpawns.add(playerUUID);
 //                            System.out.println("Spawn of " + playerUUID + " successfully set to " + x + ", " + y + ", " + z + ".");
                         }
                         else {

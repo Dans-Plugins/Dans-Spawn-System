@@ -1,7 +1,7 @@
 name: DansSpawnSystem
 version: 1.0
 author: DanTheTechMan
-main: spawnsystem.Main
+main: dansplugins.spawnsystem.DansSpawnSystem
 api-version: 1.13
 
 commands:

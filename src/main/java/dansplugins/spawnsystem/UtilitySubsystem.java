@@ -1,9 +1,8 @@
-package spawnsystem.Subsystems;
+package dansplugins.spawnsystem;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import spawnsystem.Main;
+import dansplugins.spawnsystem.DansSpawnSystem;
 
 import java.util.UUID;
 
@@ -12,20 +11,14 @@ import static org.bukkit.Bukkit.getOnlinePlayers;
 
 public class UtilitySubsystem {
 
-    Main main = null;
-
-    public UtilitySubsystem(Main plugin) {
-        main = plugin;
-    }
-
     public void setPlayersSpawn(Player player, World world, int x, int y, int z) {
 
         Location spawnLocation = new Location(world, x, y, z);
 
         // set spawn
-        if (!main.playerSpawns.containsKey(player.getName())) {
-            main.playerSpawns.put(player.getUniqueId(), spawnLocation);
-            main.playersWithSpawns.add(player.getUniqueId());
+        if (!DansSpawnSystem.getInstance().playerSpawns.containsKey(player.getName())) {
+            DansSpawnSystem.getInstance().playerSpawns.put(player.getUniqueId(), spawnLocation);
+            DansSpawnSystem.getInstance().playersWithSpawns.add(player.getUniqueId());
         }
         else {
             player.sendMessage(ChatColor.RED + "You have already set your spawn! If you're starting a new character please see an admin for assistance.");
@@ -43,12 +36,12 @@ public class UtilitySubsystem {
     public void teleportIfOverriding(String[] args, Player player, int x, int y, int z) {
         if (args.length > 1) {
             if (args[1].equalsIgnoreCase("override")) {
-                if (player.hasPermission("spawnsystem.override") || player.hasPermission("spawnsystem.admin")) {
+                if (player.hasPermission("dansplugins.spawnsystem.override") || player.hasPermission("dansplugins.spawnsystem.admin")) {
                     Location teleportLocation = new Location(player.getWorld(), x, y, z);
                     player.teleport(teleportLocation);
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + "Sorry! In order to use the override, you need the following permission: 'spawnsystem.override'");
+                    player.sendMessage(ChatColor.RED + "Sorry! In order to use the override, you need the following permission: 'dansplugins.spawnsystem.override'");
                 }
             }
         }
@@ -74,8 +67,8 @@ public class UtilitySubsystem {
     }
 
     public void resetSpawn(UUID player) {
-        main.playersWithSpawns.remove(player);
-        main.playerSpawns.remove(player);
+        DansSpawnSystem.getInstance().playersWithSpawns.remove(player);
+        DansSpawnSystem.getInstance().playerSpawns.remove(player);
     }
 
     // Pasarus wrote this
