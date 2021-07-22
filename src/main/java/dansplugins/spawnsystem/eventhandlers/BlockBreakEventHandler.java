@@ -1,32 +1,27 @@
-package spawnsystem.EventHandlers;
+package dansplugins.spawnsystem.eventhandlers;
 
+import dansplugins.spawnsystem.UtilitySubsystem;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.event.block.BlockBreakEvent;
-import spawnsystem.Main;
+import dansplugins.spawnsystem.DansSpawnSystem;
 
 import java.util.ArrayList;
 
 public class BlockBreakEventHandler {
 
-    Main main = null;
-
-    public BlockBreakEventHandler(Main plugin) {
-        main = plugin;
-    }
-
     public void handle(BlockBreakEvent event) {
-        if (main.utilities.isSign(event.getBlock())) {
+        if (UtilitySubsystem.getInstance().isSign(event.getBlock())) {
 
             Sign sign = (Sign) event.getBlock().getState();
             if (sign.getLine(0).contains("[Spawn]")) {
 
-                if (event.getPlayer().hasPermission("spawnsystem.breakSpawnSign") || event.getPlayer().hasPermission("spawnsystem.admin")) {
+                if (event.getPlayer().hasPermission("dansplugins.spawnsystem.breakSpawnSign") || event.getPlayer().hasPermission("dansplugins.spawnsystem.admin")) {
                     event.getPlayer().sendMessage(ChatColor.GREEN + "Spawn selection sign broken!");
                 }
                 else {
-                    event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'spawnsystem.breakSpawnSign");
+                    event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'dansplugins.spawnsystem.breakSpawnSign");
                     event.setCancelled(true);
                 }
 
@@ -36,11 +31,11 @@ public class BlockBreakEventHandler {
         else {
             if (isNextToSpawnSelectionSign(event.getBlock())) {
 
-                if (event.getPlayer().hasPermission("spawnsystem.breakSpawnSign") || event.getPlayer().hasPermission("spawnsystem.admin")) {
+                if (event.getPlayer().hasPermission("dansplugins.spawnsystem.breakSpawnSign") || event.getPlayer().hasPermission("dansplugins.spawnsystem.admin")) {
                     event.getPlayer().sendMessage(ChatColor.GREEN + "Spawn selection sign broken!");
                 }
                 else {
-                    event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'spawnsystem.breakSpawnSign");
+                    event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'dansplugins.spawnsystem.breakSpawnSign");
                     event.setCancelled(true);
                 }
 
@@ -59,7 +54,7 @@ public class BlockBreakEventHandler {
         blocks.add(block.getWorld().getBlockAt(block.getX(), block.getY(), block.getZ() - 1));
 
         for (Block b : blocks) {
-            if (main.utilities.isSign(b)) {
+            if (UtilitySubsystem.getInstance().isSign(b)) {
                 Sign sign = (Sign) b.getState();
                 if (sign.getLine(0).contains("[Spawn]")) {
                     return true;

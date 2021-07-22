@@ -1,4 +1,4 @@
-package spawnsystem.EventHandlers;
+package dansplugins.spawnsystem.eventhandlers;
 
 import org.bukkit.event.entity.PlayerDeathEvent;
 

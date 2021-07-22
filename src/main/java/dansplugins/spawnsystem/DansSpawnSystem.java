@@ -1,4 +1,4 @@
-package spawnsystem;
+package dansplugins.spawnsystem;
 
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -6,46 +6,45 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import spawnsystem.EventHandlers.*;
-import spawnsystem.Subsystems.CommandSubsystem;
-import spawnsystem.Subsystems.StorageSubsystem;
-import spawnsystem.Subsystems.UtilitySubsystem;
+import dansplugins.spawnsystem.eventhandlers.*;
+import dansplugins.spawnsystem.managers.StorageManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-public final class Main extends JavaPlugin implements Listener {
+public final class DansSpawnSystem extends JavaPlugin implements Listener {
 
-    // subsystems
-    public CommandSubsystem commands = new CommandSubsystem(this);
-    public UtilitySubsystem utilities = new UtilitySubsystem(this);
-    public StorageSubsystem storage = new StorageSubsystem(this);
+    private static DansSpawnSystem instance;
 
-    // saved
-    public HashMap<UUID, Location> playerSpawns = new HashMap<>();
-    public ArrayList<UUID> playersWithSpawns = new ArrayList<>();
+    private final String version = "v1.1-alpha-1";
+
+    public static DansSpawnSystem getInstance() {
+        return instance;
+    }
 
     @Override
     public void onEnable() {
+        instance = this;
+
         this.getServer().getPluginManager().registerEvents(this, this);
 
-        storage.load();
+        StorageManager.getInstance().load();
     }
 
     @Override
     public void onDisable() {
-        storage.save();
+        StorageManager.getInstance().save();
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        return commands.interpretCommand(sender, label, args);
+        CommandInterpreter commandInterpreter = new CommandInterpreter();
+        return commandInterpreter.interpretCommand(sender, label, args);
     }
 
     @EventHandler()
@@ -56,25 +55,25 @@ public final class Main extends JavaPlugin implements Listener {
 
     @EventHandler()
     public void onRespawn(PlayerRespawnEvent event) {
-        PlayerRespawnEventHandler handler = new PlayerRespawnEventHandler(this);
+        PlayerRespawnEventHandler handler = new PlayerRespawnEventHandler();
         handler.handle(event);
     }
 
     @EventHandler()
     public void onSignChange(SignChangeEvent event) {
-        SignChangeEventHandler handler = new SignChangeEventHandler(this);
+        SignChangeEventHandler handler = new SignChangeEventHandler();
         handler.handle(event);
     }
 
     @EventHandler()
     public void onRightClick(PlayerInteractEvent event) {
-        PlayerInteractEventHandler handler = new PlayerInteractEventHandler(this);
+        PlayerInteractEventHandler handler = new PlayerInteractEventHandler();
         handler.handle(event);
     }
 
     @EventHandler()
     public void onBlockBreak(BlockBreakEvent event) {
-        BlockBreakEventHandler handler = new BlockBreakEventHandler(this);
+        BlockBreakEventHandler handler = new BlockBreakEventHandler();
         handler.handle(event);
     }
 }
