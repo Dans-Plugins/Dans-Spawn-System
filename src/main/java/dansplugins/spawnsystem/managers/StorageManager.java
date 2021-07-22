@@ -1,4 +1,5 @@
 package dansplugins.spawnsystem.managers;
+import dansplugins.spawnsystem.data.PersistentData;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -43,8 +44,8 @@ public class StorageManager {
             FileWriter saveWriter = new FileWriter(saveFile);
 
             // actual saving takes place here
-            for (int i = 0; i < DansSpawnSystem.getInstance().playersWithSpawns.size(); i++) {
-                saveWriter.write(DansSpawnSystem.getInstance().playersWithSpawns.get(i) + ".txt" + "\n");
+            for (int i = 0; i < PersistentData.getInstance().getPlayersWithSpawns().size(); i++) {
+                saveWriter.write(PersistentData.getInstance().getPlayersWithSpawns().get(i) + ".txt" + "\n");
             }
 
             saveWriter.close();
@@ -55,7 +56,7 @@ public class StorageManager {
     }
 
     private void saveSpawns() {
-        for (UUID playerName : DansSpawnSystem.getInstance().playersWithSpawns) {
+        for (UUID playerName : PersistentData.getInstance().getPlayersWithSpawns()) {
 
             try {
                 File saveFolder = new File("./plugins/Kingdom-Spawn-System/");
@@ -71,10 +72,10 @@ public class StorageManager {
                 saveWriter.write(playerName.toString() + "\n");
 
                 // save details
-                saveWriter.write(DansSpawnSystem.getInstance().playerSpawns.get(playerName).getWorld().getName() + "\n");
-                saveWriter.write(DansSpawnSystem.getInstance().playerSpawns.get(playerName).getX() + "\n");
-                saveWriter.write(DansSpawnSystem.getInstance().playerSpawns.get(playerName).getY() + "\n");
-                saveWriter.write(DansSpawnSystem.getInstance().playerSpawns.get(playerName).getZ() + "\n");
+                saveWriter.write(PersistentData.getInstance().getPlayerSpawns().get(playerName).getWorld().getName() + "\n");
+                saveWriter.write(PersistentData.getInstance().getPlayerSpawns().get(playerName).getX() + "\n");
+                saveWriter.write(PersistentData.getInstance().getPlayerSpawns().get(playerName).getY() + "\n");
+                saveWriter.write(PersistentData.getInstance().getPlayerSpawns().get(playerName).getZ() + "\n");
 
                 saveWriter.close();
 
@@ -145,8 +146,8 @@ public class StorageManager {
 
                         // set location
                         if (world != null && x != 0 && y != 0 && z != 0) {
-                            DansSpawnSystem.getInstance().playerSpawns.put(playerUUID, new Location(world, x, y, z));
-                            DansSpawnSystem.getInstance().playersWithSpawns.add(playerUUID);
+                            PersistentData.getInstance().getPlayerSpawns().put(playerUUID, new Location(world, x, y, z));
+                            PersistentData.getInstance().getPlayersWithSpawns().add(playerUUID);
 //                            System.out.println("Spawn of " + playerUUID + " successfully set to " + x + ", " + y + ", " + z + ".");
                         }
                         else {

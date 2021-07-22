@@ -1,4 +1,5 @@
 package dansplugins.spawnsystem;
+import dansplugins.spawnsystem.data.PersistentData;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -29,9 +30,9 @@ public class UtilitySubsystem {
         Location spawnLocation = new Location(world, x, y, z);
 
         // set spawn
-        if (!DansSpawnSystem.getInstance().playerSpawns.containsKey(player.getName())) {
-            DansSpawnSystem.getInstance().playerSpawns.put(player.getUniqueId(), spawnLocation);
-            DansSpawnSystem.getInstance().playersWithSpawns.add(player.getUniqueId());
+        if (!PersistentData.getInstance().getPlayerSpawns().containsKey(player.getName())) {
+            PersistentData.getInstance().getPlayerSpawns().put(player.getUniqueId(), spawnLocation);
+            PersistentData.getInstance().getPlayersWithSpawns().add(player.getUniqueId());
         }
         else {
             player.sendMessage(ChatColor.RED + "You have already set your spawn! If you're starting a new character please see an admin for assistance.");
@@ -80,8 +81,8 @@ public class UtilitySubsystem {
     }
 
     public void resetSpawn(UUID player) {
-        DansSpawnSystem.getInstance().playersWithSpawns.remove(player);
-        DansSpawnSystem.getInstance().playerSpawns.remove(player);
+        PersistentData.getInstance().getPlayersWithSpawns().remove(player);
+        PersistentData.getInstance().getPlayerSpawns().remove(player);
     }
 
     // Pasarus wrote this

@@ -22,10 +22,6 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
 
     private static DansSpawnSystem instance;
 
-    // saved
-    public HashMap<UUID, Location> playerSpawns = new HashMap<>();
-    public ArrayList<UUID> playersWithSpawns = new ArrayList<>();
-
     public static DansSpawnSystem getInstance() {
         return instance;
     }
