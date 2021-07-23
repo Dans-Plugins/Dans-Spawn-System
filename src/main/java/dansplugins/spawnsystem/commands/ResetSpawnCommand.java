@@ -14,7 +14,7 @@ public class ResetSpawnCommand {
             Player player = (Player) sender;
 
             if (args.length > 0) {
-                if (player.hasPermission("dansplugins.spawnsystem.reset.others") || player.hasPermission("dansplugins.spawnsystem.admin")) {
+                if (player.hasPermission("spawnsystem.reset.others") || player.hasPermission("spawnsystem.admin")) {
                     // reset a specific player's spawn
                     String targetPlayer = args[0];
                     UtilitySubsystem.getInstance().resetSpawn(UtilitySubsystem.findUUIDBasedOnPlayerName(targetPlayer));
@@ -26,18 +26,18 @@ public class ResetSpawnCommand {
                     }
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'dansplugins.spawnsystem.reset.others'");
+                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'spawnsystem.reset.others'");
                 }
 
             }
             else {
-                if (player.hasPermission("dansplugins.spawnsystem.reset.self") || player.hasPermission("dansplugins.spawnsystem.admin")) {
+                if (player.hasPermission("spawnsystem.reset.self") || player.hasPermission("spawnsystem.admin")) {
                     // reset the spawn of the command sender
                     UtilitySubsystem.getInstance().resetSpawn(UtilitySubsystem.findUUIDBasedOnPlayerName(player.getName()));
                     player.sendMessage(ChatColor.GREEN + "You have reset your spawn!");
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'dansplugins.spawnsystem.reset.self'");
+                    player.sendMessage(ChatColor.RED + "Sorry! In order to use this command, you need the following permission: 'spawnsystem.reset.self'");
                 }
             }
         }

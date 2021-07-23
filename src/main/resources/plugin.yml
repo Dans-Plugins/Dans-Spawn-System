@@ -6,3 +6,13 @@ api-version: 1.13
 
 commands:
   resetspawn:
+
+permissions:
+  dansplugins.spawnsystem.reset.self:
+    default: op
+  dansplugins.spawnsystem.reset.others:
+    default: op
+  dansplugins.placeSpawnSign:
+    default: op
+  dansplugins.breakSpawnSign:
+    default: op
