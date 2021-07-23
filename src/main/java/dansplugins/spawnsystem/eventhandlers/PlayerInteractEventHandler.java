@@ -1,6 +1,7 @@
 package dansplugins.spawnsystem.eventhandlers;
 
-import dansplugins.spawnsystem.UtilitySubsystem;
+import dansplugins.spawnsystem.data.PersistentData;
+import dansplugins.spawnsystem.utils.BlockChecker;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -16,7 +17,7 @@ public class PlayerInteractEventHandler implements Listener {
         Block clickedBlock = event.getClickedBlock();
         if (clickedBlock != null) {
             // if that block is a sign
-            if (UtilitySubsystem.getInstance().isSign(clickedBlock)) {
+            if (BlockChecker.getInstance().isSign(clickedBlock)) {
                 // if that sign has [Spawn]
                 Sign sign = (Sign) clickedBlock.getState();
                 if (sign.getLine(0).contains("[Spawn]")) {
@@ -28,7 +29,7 @@ public class PlayerInteractEventHandler implements Listener {
                         World world = event.getPlayer().getWorld();
 
                         // set player's spawn
-                        UtilitySubsystem.getInstance().setPlayersSpawn(event.getPlayer(), world, x, y, z);
+                        PersistentData.getInstance().setPlayersSpawn(event.getPlayer(), world, x, y, z);
                     } catch(Exception e) {
                         System.out.println("A problem occurred with a spawn selection sign located at [" + clickedBlock.getX() + ", " + clickedBlock.getY()  + ", " + clickedBlock.getZ() + "] in " + event.getPlayer().getWorld().getName());
                     }
