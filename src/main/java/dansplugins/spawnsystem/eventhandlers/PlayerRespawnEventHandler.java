@@ -3,6 +3,7 @@ package dansplugins.spawnsystem.eventhandlers;
 import dansplugins.spawnsystem.DansSpawnSystem;
 import dansplugins.spawnsystem.data.PersistentData;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -11,6 +12,10 @@ public class PlayerRespawnEventHandler implements Listener {
 
     @EventHandler()
     public void handle(PlayerRespawnEvent event) {
+        if (playerHasBedSpawn(event.getPlayer())) {
+            return;
+        }
+
         if (PersistentData.getInstance().getPlayerSpawns().containsKey(event.getPlayer().getUniqueId())) {
             DansSpawnSystem.getInstance().getServer().getScheduler().runTaskLater(DansSpawnSystem.getInstance(), new Runnable() {
                 @Override
@@ -20,6 +25,10 @@ public class PlayerRespawnEventHandler implements Listener {
                 }
             }, 1);
         }
+    }
+
+    private boolean playerHasBedSpawn(Player player) {
+        return player.getBedSpawnLocation() != null;
     }
 
 }
