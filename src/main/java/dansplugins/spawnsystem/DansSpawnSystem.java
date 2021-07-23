@@ -18,7 +18,7 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
 
     private static DansSpawnSystem instance;
 
-    private final String version = "v1.1-alpha-1";
+    private final String version = "v1.1";
 
     public static DansSpawnSystem getInstance() {
         return instance;
