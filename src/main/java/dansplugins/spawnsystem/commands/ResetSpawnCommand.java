@@ -1,7 +1,8 @@
 package dansplugins.spawnsystem.commands;
 
 import dansplugins.spawnsystem.DansSpawnSystem;
-import dansplugins.spawnsystem.UtilitySubsystem;
+import dansplugins.spawnsystem.data.PersistentData;
+import dansplugins.spawnsystem.utils.UUIDChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,7 +18,7 @@ public class ResetSpawnCommand {
                 if (player.hasPermission("spawnsystem.reset.others") || player.hasPermission("spawnsystem.admin")) {
                     // reset a specific player's spawn
                     String targetPlayer = args[0];
-                    UtilitySubsystem.getInstance().resetSpawn(UtilitySubsystem.findUUIDBasedOnPlayerName(targetPlayer));
+                    PersistentData.getInstance().resetSpawn(UUIDChecker.getInstance().findUUIDBasedOnPlayerName(targetPlayer));
                     player.sendMessage(ChatColor.GREEN + "Spawn reset for " + targetPlayer + "!");
                     try {
                         DansSpawnSystem.getInstance().getServer().getPlayer(targetPlayer).sendMessage(ChatColor.GREEN + "Your spawn has been reset!");
@@ -33,7 +34,7 @@ public class ResetSpawnCommand {
             else {
                 if (player.hasPermission("spawnsystem.reset.self") || player.hasPermission("spawnsystem.admin")) {
                     // reset the spawn of the command sender
-                    UtilitySubsystem.getInstance().resetSpawn(UtilitySubsystem.findUUIDBasedOnPlayerName(player.getName()));
+                    PersistentData.getInstance().resetSpawn(UUIDChecker.getInstance().findUUIDBasedOnPlayerName(player.getName()));
                     player.sendMessage(ChatColor.GREEN + "You have reset your spawn!");
                 }
                 else {
