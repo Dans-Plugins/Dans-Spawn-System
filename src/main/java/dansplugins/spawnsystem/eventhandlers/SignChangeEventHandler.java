@@ -17,7 +17,7 @@ public class SignChangeEventHandler implements Listener {
             }
             else {
                 // if they don't, cancel the event with a message
-                event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to place a spawn selection sign, you must have the following permission: 'spawnsystem.placeSpawnSign");
+                event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to place a spawn selection sign, you must have the following permission: 'spawnsystem.placeSpawnSign'");
                 event.setCancelled(true);
             }
         }

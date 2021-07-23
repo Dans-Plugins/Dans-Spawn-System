@@ -23,7 +23,7 @@ public class BlockBreakEventHandler implements Listener {
                     event.getPlayer().sendMessage(ChatColor.GREEN + "Spawn selection sign broken!");
                 }
                 else {
-                    event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'spawnsystem.breakSpawnSign");
+                    event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'spawnsystem.breakSpawnSign'");
                     event.setCancelled(true);
                 }
 
@@ -37,7 +37,7 @@ public class BlockBreakEventHandler implements Listener {
                     event.getPlayer().sendMessage(ChatColor.GREEN + "Spawn selection sign broken!");
                 }
                 else {
-                    event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'spawnsystem.breakSpawnSign");
+                    event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'spawnsystem.breakSpawnSign'");
                     event.setCancelled(true);
                 }
 
