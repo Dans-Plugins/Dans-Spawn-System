@@ -1,5 +1,6 @@
-package dansplugins.spawnsystem;
+package dansplugins.spawnsystem.utils;
 
+import dansplugins.spawnsystem.DansSpawnSystem;
 import dansplugins.spawnsystem.eventhandlers.*;
 import org.bukkit.plugin.PluginManager;
 

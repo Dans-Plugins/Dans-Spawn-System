@@ -1,4 +1,4 @@
-package dansplugins.spawnsystem.managers;
+package dansplugins.spawnsystem.services;
 
 import dansplugins.spawnsystem.DansSpawnSystem;
 import dansplugins.spawnsystem.data.PersistentData;
@@ -13,17 +13,17 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class StorageManager {
+public class LocalStorageService {
 
-    private static StorageManager instance;
+    private static LocalStorageService instance;
 
-    private StorageManager() {
+    private LocalStorageService() {
 
     }
 
-    public static StorageManager getInstance() {
+    public static LocalStorageService getInstance() {
         if (instance == null) {
-            instance = new StorageManager();
+            instance = new LocalStorageService();
         }
         return instance;
     }

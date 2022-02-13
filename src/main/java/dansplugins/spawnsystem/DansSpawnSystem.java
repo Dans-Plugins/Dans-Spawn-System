@@ -1,17 +1,12 @@
 package dansplugins.spawnsystem;
 
 import dansplugins.spawnsystem.bstats.Metrics;
-import dansplugins.spawnsystem.eventhandlers.*;
-import dansplugins.spawnsystem.managers.StorageManager;
+import dansplugins.spawnsystem.services.LocalCommandService;
+import dansplugins.spawnsystem.services.LocalStorageService;
+import dansplugins.spawnsystem.utils.EventRegistry;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.SignChangeEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class DansSpawnSystem extends JavaPlugin implements Listener {
@@ -32,7 +27,7 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
         EventRegistry.getInstance().registerEvents();
 
         // load spawns
-        StorageManager.getInstance().load();
+        LocalStorageService.getInstance().load();
 
         // bStats
         int pluginId = 12161;
@@ -41,11 +36,11 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        StorageManager.getInstance().save();
+        LocalStorageService.getInstance().save();
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        CommandInterpreter commandInterpreter = new CommandInterpreter();
-        return commandInterpreter.interpretCommand(sender, label, args);
+        LocalCommandService localCommandService = new LocalCommandService();
+        return localCommandService.interpretCommand(sender, label, args);
     }
 }

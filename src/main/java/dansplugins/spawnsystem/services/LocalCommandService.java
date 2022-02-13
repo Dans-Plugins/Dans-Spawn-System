@@ -1,10 +1,9 @@
-package dansplugins.spawnsystem;
-import dansplugins.spawnsystem.commands.ResetSpawnCommand;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+package dansplugins.spawnsystem.services;
 
-public class CommandInterpreter {
+import dansplugins.spawnsystem.commands.ResetSpawnCommand;
+import org.bukkit.command.CommandSender;
+
+public class LocalCommandService {
 
     public boolean interpretCommand(CommandSender sender, String label, String[] args) {
 
