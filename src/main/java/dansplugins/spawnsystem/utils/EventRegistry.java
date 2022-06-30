@@ -1,35 +1,30 @@
 package dansplugins.spawnsystem.utils;
 
 import dansplugins.spawnsystem.DansSpawnSystem;
-import dansplugins.spawnsystem.eventhandlers.*;
+import dansplugins.spawnsystem.data.PersistentData;
+import dansplugins.spawnsystem.listeners.*;
 import org.bukkit.plugin.PluginManager;
 
 public class EventRegistry {
+    private final DansSpawnSystem dansSpawnSystem;
+    private final BlockChecker blockChecker;
+    private final PersistentData persistentData;
 
-    private static EventRegistry instance;
-
-    private EventRegistry() {
-
-    }
-
-    public static EventRegistry getInstance() {
-        if (instance == null) {
-            instance = new EventRegistry();
-        }
-        return instance;
+    public EventRegistry(DansSpawnSystem dansSpawnSystem, BlockChecker blockChecker, PersistentData persistentData) {
+        this.dansSpawnSystem = dansSpawnSystem;
+        this.blockChecker = blockChecker;
+        this.persistentData = persistentData;
     }
 
     public void registerEvents() {
-
-        DansSpawnSystem mainInstance = DansSpawnSystem.getInstance();
-        PluginManager manager = mainInstance.getServer().getPluginManager();
+        PluginManager manager = dansSpawnSystem.getServer().getPluginManager();
 
         // event handlers
-        manager.registerEvents(new BlockBreakEventHandler(), mainInstance);
-        manager.registerEvents(new PlayerDeathEventHandler(), mainInstance);
-        manager.registerEvents(new PlayerInteractEventHandler(), mainInstance);
-        manager.registerEvents(new PlayerRespawnEventHandler(), mainInstance);
-        manager.registerEvents(new SignChangeEventHandler(), mainInstance);
+        manager.registerEvents(new BlockBreakListener(blockChecker), dansSpawnSystem);
+        manager.registerEvents(new PlayerDeathListener(), dansSpawnSystem);
+        manager.registerEvents(new PlayerInteractListener(blockChecker, persistentData), dansSpawnSystem);
+        manager.registerEvents(new PlayerRespawnListener(persistentData, dansSpawnSystem), dansSpawnSystem);
+        manager.registerEvents(new SignChangeEventListener(), dansSpawnSystem);
     }
 
 }

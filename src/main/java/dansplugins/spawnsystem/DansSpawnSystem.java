@@ -1,33 +1,31 @@
 package dansplugins.spawnsystem;
 
 import dansplugins.spawnsystem.bstats.Metrics;
-import dansplugins.spawnsystem.services.LocalCommandService;
-import dansplugins.spawnsystem.services.LocalStorageService;
+import dansplugins.spawnsystem.data.PersistentData;
+import dansplugins.spawnsystem.services.CommandService;
+import dansplugins.spawnsystem.services.StorageService;
+import dansplugins.spawnsystem.utils.BlockChecker;
 import dansplugins.spawnsystem.utils.EventRegistry;
+import dansplugins.spawnsystem.utils.UUIDChecker;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class DansSpawnSystem extends JavaPlugin implements Listener {
-
-    private static DansSpawnSystem instance;
-
-    private final String version = "v1.1";
-
-    public static DansSpawnSystem getInstance() {
-        return instance;
-    }
+    private final BlockChecker blockChecker = new BlockChecker();
+    private final PersistentData persistentData = new PersistentData();
+    private final EventRegistry eventRegistry = new EventRegistry(this, blockChecker, persistentData);
+    private final StorageService storageService = new StorageService(this, persistentData);
+    private final UUIDChecker uuidChecker = new UUIDChecker();
 
     @Override
     public void onEnable() {
-        instance = this;
-
         // register events
-        EventRegistry.getInstance().registerEvents();
+        eventRegistry.registerEvents();
 
         // load spawns
-        LocalStorageService.getInstance().load();
+        storageService.load();
 
         // bStats
         int pluginId = 12161;
@@ -36,11 +34,11 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        LocalStorageService.getInstance().save();
+        storageService.save();
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        LocalCommandService localCommandService = new LocalCommandService();
+        CommandService localCommandService = new CommandService(persistentData, uuidChecker, this);
         return localCommandService.interpretCommand(sender, label, args);
     }
 }

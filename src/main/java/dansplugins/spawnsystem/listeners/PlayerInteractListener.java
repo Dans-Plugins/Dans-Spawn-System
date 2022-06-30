@@ -1,4 +1,4 @@
-package dansplugins.spawnsystem.eventhandlers;
+package dansplugins.spawnsystem.listeners;
 
 import dansplugins.spawnsystem.data.PersistentData;
 import dansplugins.spawnsystem.utils.BlockChecker;
@@ -9,7 +9,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class PlayerInteractEventHandler implements Listener {
+public class PlayerInteractListener implements Listener {
+    private final BlockChecker blockChecker;
+    private final PersistentData persistentData;
+
+    public PlayerInteractListener(BlockChecker blockChecker, PersistentData persistentData) {
+        this.blockChecker = blockChecker;
+        this.persistentData = persistentData;
+    }
 
     @EventHandler()
     public void handle(PlayerInteractEvent event) {
@@ -17,7 +24,7 @@ public class PlayerInteractEventHandler implements Listener {
         Block clickedBlock = event.getClickedBlock();
         if (clickedBlock != null) {
             // if that block is a sign
-            if (BlockChecker.getInstance().isSign(clickedBlock)) {
+            if (blockChecker.isSign(clickedBlock)) {
                 // if that sign has [Spawn]
                 Sign sign = (Sign) clickedBlock.getState();
                 if (sign.getLine(0).contains("[Spawn]")) {
@@ -29,7 +36,7 @@ public class PlayerInteractEventHandler implements Listener {
                         World world = event.getPlayer().getWorld();
 
                         // set player's spawn
-                        PersistentData.getInstance().setPlayersSpawn(event.getPlayer(), world, x, y, z);
+                        persistentData.setPlayersSpawn(event.getPlayer(), world, x, y, z);
                     } catch(Exception e) {
                         System.out.println("A problem occurred with a spawn selection sign located at [" + clickedBlock.getX() + ", " + clickedBlock.getY()  + ", " + clickedBlock.getZ() + "] in " + event.getPlayer().getWorld().getName());
                     }

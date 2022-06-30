@@ -1,4 +1,4 @@
-package dansplugins.spawnsystem.eventhandlers;
+package dansplugins.spawnsystem.listeners;
 
 import dansplugins.spawnsystem.DansSpawnSystem;
 import dansplugins.spawnsystem.data.PersistentData;
@@ -8,7 +8,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
-public class PlayerRespawnEventHandler implements Listener {
+public class PlayerRespawnListener implements Listener {
+    private final PersistentData persistentData;
+    private final DansSpawnSystem dansSpawnSystem;
+
+    public PlayerRespawnListener(PersistentData persistentData, DansSpawnSystem dansSpawnSystem) {
+        this.persistentData = persistentData;
+        this.dansSpawnSystem = dansSpawnSystem;
+    }
 
     @EventHandler()
     public void handle(PlayerRespawnEvent event) {
@@ -16,11 +23,11 @@ public class PlayerRespawnEventHandler implements Listener {
             return;
         }
 
-        if (PersistentData.getInstance().getPlayerSpawns().containsKey(event.getPlayer().getUniqueId())) {
-            DansSpawnSystem.getInstance().getServer().getScheduler().runTaskLater(DansSpawnSystem.getInstance(), new Runnable() {
+        if (persistentData.getPlayerSpawns().containsKey(event.getPlayer().getUniqueId())) {
+            dansSpawnSystem.getServer().getScheduler().runTaskLater(dansSpawnSystem, new Runnable() {
                 @Override
                 public void run() {
-                    event.getPlayer().teleport(PersistentData.getInstance().getPlayerSpawns().get(event.getPlayer().getUniqueId()));
+                    event.getPlayer().teleport(persistentData.getPlayerSpawns().get(event.getPlayer().getUniqueId()));
                     event.getPlayer().sendMessage(ChatColor.GREEN + "Teleporting to custom spawn!");
                 }
             }, 1);

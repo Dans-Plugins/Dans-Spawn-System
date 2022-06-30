@@ -1,11 +1,11 @@
-package dansplugins.spawnsystem.eventhandlers;
+package dansplugins.spawnsystem.listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 
-public class SignChangeEventHandler implements Listener {
+public class SignChangeEventListener implements Listener {
 
     @EventHandler()
     public void handle(SignChangeEvent event) {

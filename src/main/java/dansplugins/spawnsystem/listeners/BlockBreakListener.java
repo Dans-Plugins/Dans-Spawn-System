@@ -1,4 +1,4 @@
-package dansplugins.spawnsystem.eventhandlers;
+package dansplugins.spawnsystem.listeners;
 
 import dansplugins.spawnsystem.utils.BlockChecker;
 import org.bukkit.ChatColor;
@@ -10,11 +10,16 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 import java.util.ArrayList;
 
-public class BlockBreakEventHandler implements Listener {
+public class BlockBreakListener implements Listener {
+    private final BlockChecker blockChecker;
+
+    public BlockBreakListener(BlockChecker blockChecker) {
+        this.blockChecker = blockChecker;
+    }
 
     @EventHandler()
     public void handle(BlockBreakEvent event) {
-        if (BlockChecker.getInstance().isSign(event.getBlock())) {
+        if (blockChecker.isSign(event.getBlock())) {
 
             Sign sign = (Sign) event.getBlock().getState();
             if (sign.getLine(0).contains("[Spawn]")) {
@@ -56,7 +61,7 @@ public class BlockBreakEventHandler implements Listener {
         blocks.add(block.getWorld().getBlockAt(block.getX(), block.getY(), block.getZ() - 1));
 
         for (Block b : blocks) {
-            if (BlockChecker.getInstance().isSign(b)) {
+            if (blockChecker.isSign(b)) {
                 Sign sign = (Sign) b.getState();
                 if (sign.getLine(0).contains("[Spawn]")) {
                     return true;

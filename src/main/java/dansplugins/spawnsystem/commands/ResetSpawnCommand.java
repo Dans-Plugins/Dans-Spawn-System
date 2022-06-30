@@ -8,6 +8,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class ResetSpawnCommand {
+    private final PersistentData persistentData;
+    private final UUIDChecker uuidChecker;
+    private final DansSpawnSystem dansSpawnSystem;
+
+    public ResetSpawnCommand(PersistentData persistentData, UUIDChecker uuidChecker, DansSpawnSystem dansSpawnSystem) {
+        this.persistentData = persistentData;
+        this.uuidChecker = uuidChecker;
+        this.dansSpawnSystem = dansSpawnSystem;
+    }
 
     public void execute(CommandSender sender, String[] args) {
         // if sender instanceof player
@@ -18,10 +27,10 @@ public class ResetSpawnCommand {
                 if (player.hasPermission("spawnsystem.reset.others") || player.hasPermission("spawnsystem.admin")) {
                     // reset a specific player's spawn
                     String targetPlayer = args[0];
-                    PersistentData.getInstance().resetSpawn(UUIDChecker.getInstance().findUUIDBasedOnPlayerName(targetPlayer));
+                    persistentData.resetSpawn(uuidChecker.findUUIDBasedOnPlayerName(targetPlayer));
                     player.sendMessage(ChatColor.GREEN + "Spawn reset for " + targetPlayer + "!");
                     try {
-                        DansSpawnSystem.getInstance().getServer().getPlayer(targetPlayer).sendMessage(ChatColor.GREEN + "Your spawn has been reset!");
+                        dansSpawnSystem.getServer().getPlayer(targetPlayer).sendMessage(ChatColor.GREEN + "Your spawn has been reset!");
                     } catch(Exception e) {
 
                     }
@@ -34,7 +43,7 @@ public class ResetSpawnCommand {
             else {
                 if (player.hasPermission("spawnsystem.reset.self") || player.hasPermission("spawnsystem.admin")) {
                     // reset the spawn of the command sender
-                    PersistentData.getInstance().resetSpawn(UUIDChecker.getInstance().findUUIDBasedOnPlayerName(player.getName()));
+                    persistentData.resetSpawn(uuidChecker.findUUIDBasedOnPlayerName(player.getName()));
                     player.sendMessage(ChatColor.GREEN + "You have reset your spawn!");
                 }
                 else {

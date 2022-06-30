@@ -13,19 +13,13 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class LocalStorageService {
+public class StorageService {
+    private final DansSpawnSystem dansSpawnSystem;
+    private final PersistentData persistentData;
 
-    private static LocalStorageService instance;
-
-    private LocalStorageService() {
-
-    }
-
-    public static LocalStorageService getInstance() {
-        if (instance == null) {
-            instance = new LocalStorageService();
-        }
-        return instance;
+    public StorageService(DansSpawnSystem dansSpawnSystem, PersistentData persistentData) {
+        this.dansSpawnSystem = dansSpawnSystem;
+        this.persistentData = persistentData;
     }
 
     public void save() {
@@ -45,8 +39,8 @@ public class LocalStorageService {
             FileWriter saveWriter = new FileWriter(saveFile);
 
             // actual saving takes place here
-            for (int i = 0; i < PersistentData.getInstance().getPlayersWithSpawns().size(); i++) {
-                saveWriter.write(PersistentData.getInstance().getPlayersWithSpawns().get(i) + ".txt" + "\n");
+            for (int i = 0; i < persistentData.getPlayersWithSpawns().size(); i++) {
+                saveWriter.write(persistentData.getPlayersWithSpawns().get(i) + ".txt" + "\n");
             }
 
             saveWriter.close();
@@ -57,7 +51,7 @@ public class LocalStorageService {
     }
 
     private void saveSpawns() {
-        for (UUID playerName : PersistentData.getInstance().getPlayersWithSpawns()) {
+        for (UUID playerName : persistentData.getPlayersWithSpawns()) {
 
             try {
                 File saveFolder = new File("./plugins/Kingdom-Spawn-System/");
@@ -73,10 +67,10 @@ public class LocalStorageService {
                 saveWriter.write(playerName.toString() + "\n");
 
                 // save details
-                saveWriter.write(PersistentData.getInstance().getPlayerSpawns().get(playerName).getWorld().getName() + "\n");
-                saveWriter.write(PersistentData.getInstance().getPlayerSpawns().get(playerName).getX() + "\n");
-                saveWriter.write(PersistentData.getInstance().getPlayerSpawns().get(playerName).getY() + "\n");
-                saveWriter.write(PersistentData.getInstance().getPlayerSpawns().get(playerName).getZ() + "\n");
+                saveWriter.write(persistentData.getPlayerSpawns().get(playerName).getWorld().getName() + "\n");
+                saveWriter.write(persistentData.getPlayerSpawns().get(playerName).getX() + "\n");
+                saveWriter.write(persistentData.getPlayerSpawns().get(playerName).getY() + "\n");
+                saveWriter.write(persistentData.getPlayerSpawns().get(playerName).getZ() + "\n");
 
                 saveWriter.close();
 
@@ -121,7 +115,7 @@ public class LocalStorageService {
                     try {
 
                         if (loadReader2.hasNextLine()) {
-                            world = DansSpawnSystem.getInstance().getServer().createWorld(new WorldCreator(loadReader2.nextLine()));
+                            world = dansSpawnSystem.getServer().createWorld(new WorldCreator(loadReader2.nextLine()));
                         }
                         else {
                             System.out.println("World name not found in file!");
@@ -147,8 +141,8 @@ public class LocalStorageService {
 
                         // set location
                         if (world != null && x != 0 && y != 0 && z != 0) {
-                            PersistentData.getInstance().getPlayerSpawns().put(playerUUID, new Location(world, x, y, z));
-                            PersistentData.getInstance().getPlayersWithSpawns().add(playerUUID);
+                            persistentData.getPlayerSpawns().put(playerUUID, new Location(world, x, y, z));
+                            persistentData.getPlayersWithSpawns().add(playerUUID);
 //                            System.out.println("Spawn of " + playerUUID + " successfully set to " + x + ", " + y + ", " + z + ".");
                         }
                         else {

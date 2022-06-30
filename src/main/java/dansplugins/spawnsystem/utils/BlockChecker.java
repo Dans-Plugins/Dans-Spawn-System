@@ -4,19 +4,6 @@ import org.bukkit.block.Block;
 
 public class BlockChecker {
 
-    private static BlockChecker instance;
-
-    private BlockChecker() {
-
-    }
-
-    public static BlockChecker getInstance() {
-        if (instance == null) {
-            instance = new BlockChecker();
-        }
-        return instance;
-    }
-
     public boolean isSign(Block block) {
         switch(block.getType()) {
             case ACACIA_SIGN:
