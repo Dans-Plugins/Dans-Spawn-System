@@ -10,22 +10,8 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class PersistentData {
-
-    private static PersistentData instance;
-
-    private HashMap<UUID, Location> playerSpawns = new HashMap<>();
-    private ArrayList<UUID> playersWithSpawns = new ArrayList<>();
-
-    private PersistentData() {
-
-    }
-
-    public static PersistentData getInstance() {
-        if (instance == null) {
-            instance = new PersistentData();
-        }
-        return instance;
-    }
+    private final HashMap<UUID, Location> playerSpawns = new HashMap<>();
+    private final ArrayList<UUID> playersWithSpawns = new ArrayList<>();
 
     public HashMap<UUID, Location> getPlayerSpawns() {
         return playerSpawns;
@@ -40,9 +26,9 @@ public class PersistentData {
         Location spawnLocation = new Location(world, x, y, z);
 
         // set spawn
-        if (!PersistentData.getInstance().getPlayerSpawns().containsKey(player.getName())) {
-            PersistentData.getInstance().getPlayerSpawns().put(player.getUniqueId(), spawnLocation);
-            PersistentData.getInstance().getPlayersWithSpawns().add(player.getUniqueId());
+        if (!getPlayerSpawns().containsKey(player.getName())) {
+            getPlayerSpawns().put(player.getUniqueId(), spawnLocation);
+            getPlayersWithSpawns().add(player.getUniqueId());
         }
         else {
             player.sendMessage(ChatColor.RED + "You have already set your spawn! If you're starting a new character please see an admin for assistance.");
@@ -58,8 +44,8 @@ public class PersistentData {
     }
 
     public void resetSpawn(UUID player) {
-        PersistentData.getInstance().getPlayersWithSpawns().remove(player);
-        PersistentData.getInstance().getPlayerSpawns().remove(player);
+        getPlayersWithSpawns().remove(player);
+        getPlayerSpawns().remove(player);
     }
 
 }

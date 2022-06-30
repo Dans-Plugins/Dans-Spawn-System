@@ -1,10 +1,10 @@
-package dansplugins.spawnsystem.eventhandlers;
+package dansplugins.spawnsystem.listeners;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-public class PlayerDeathEventHandler implements Listener {
+public class PlayerDeathListener implements Listener {
 
     @EventHandler()
     public void handle(PlayerDeathEvent event) {
