@@ -14,4 +14,4 @@ Permissions can be managed through any standard Bukkit permissions plugin (e.g. 
 | `spawnsystem.reset.others` | op | Allows resetting another player's spawn |
 | `spawnsystem.admin` | op | Grants all plugin permissions |
 
-These defaults are defined in `src/main/resources/plugin.yml` and can be overridden by your permissions plugin.
+By default, these permissions are granted to server operators (`op`) and can be overridden by your permissions plugin.

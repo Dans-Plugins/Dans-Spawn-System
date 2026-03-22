@@ -9,7 +9,7 @@ making any changes.
 - Language: Java
 - Build tool: Maven
 - Target platform: Spigot / Paper (Minecraft plugin, API version 1.13+)
-- Test framework: JUnit (via Maven Surefire)
+- Test framework: Not yet configured (add JUnit via Maven Surefire in pom.xml when introducing tests)
 
 ## Project Structure
 
@@ -21,7 +21,7 @@ making any changes.
   - `data/` – Persistent data model
   - `bstats/` – bStats metrics integration
 - `src/main/resources/` – `plugin.yml` and other resources
-- `src/test/java/` – Unit tests
+- `src/test/java/` – Unit tests (if/when a test suite is added)
 
 ## Coding Conventions
 

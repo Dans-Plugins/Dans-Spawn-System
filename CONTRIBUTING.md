@@ -49,10 +49,14 @@ Issues are grouped into [milestones](https://github.com/Dans-Plugins/Dans-Spawn-
 
 ## Testing
 
-Run the unit tests with:
+There are currently no automated unit tests configured for this project.
 
-Linux: `mvn clean test`  
-Windows: `mvn.cmd clean test`
+Please verify your changes manually by:
+
+- Building the plugin: `mvn clean package`
+- Copying the built JAR from `target/` into your test server's `plugins/` folder
+- Starting the server and ensuring the plugin loads without errors in the console
+- Exercising relevant spawn-related functionality to confirm your changes behave as expected
 
 ## Questions
 

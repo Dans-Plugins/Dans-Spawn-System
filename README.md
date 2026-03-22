@@ -41,29 +41,29 @@ Please fill out a bug report [here](https://github.com/Dans-Plugins/Dans-Spawn-S
 
 ## Testing
 
-### Unit Tests
+### Automated Tests
+
+This project does not currently include automated unit tests.
+
+To verify that the project builds successfully, run:
 
 Linux:
 
-    mvn clean test
+    mvn clean package
 
 Windows:
 
-    mvn.cmd clean test
+    mvn.cmd clean package
 
-If you see `BUILD SUCCESS`, the tests have passed.
+If you see `BUILD SUCCESS`, the project compiled successfully. For validating functional changes, follow the steps in the **Development** section below to run the plugin on a test server.
 
 ## Development
 
-### Test Server with Plugin Hot-Reloading
-
-A Docker-based test server can be used for development.
-
-#### Setup
+### Manual Testing on a Server
 
 1. Build the plugin: `mvn clean package`
-2. Copy the resulting jar from `target/` into your server's `plugins/` folder.
-3. Start your test server.
+2. Copy the resulting jar from `target/` into your server's `plugins/` folder (exclude `original-*.jar`).
+3. Start your test server and verify the plugin loads without errors.
 
 ## Authors and Acknowledgement
 
