@@ -65,7 +65,7 @@ If you see `BUILD SUCCESS`, the project compiled successfully. For validating fu
 2. Copy the resulting jar from `target/` into your server's `plugins/` folder (exclude `original-*.jar`).
 3. Start your test server and verify the plugin loads without errors.
 
-## Authors and Acknowledgement
+## Authors
 
 ### Developers
 
