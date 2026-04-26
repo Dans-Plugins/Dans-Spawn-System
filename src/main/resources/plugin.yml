@@ -8,11 +8,13 @@ commands:
   resetspawn:
 
 permissions:
-  dansplugins.spawnsystem.reset.self:
+  spawnsystem.reset.self:
     default: op
-  dansplugins.spawnsystem.reset.others:
+  spawnsystem.reset.others:
     default: op
-  dansplugins.placeSpawnSign:
+  spawnsystem.placeSpawnSign:
     default: op
-  dansplugins.breakSpawnSign:
+  spawnsystem.breakSpawnSign:
+    default: op
+  spawnsystem.admin:
     default: op
