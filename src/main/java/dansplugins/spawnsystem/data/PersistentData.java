@@ -26,7 +26,7 @@ public class PersistentData {
         Location spawnLocation = new Location(world, x, y, z);
 
         // set spawn
-        if (!getPlayerSpawns().containsKey(player.getName())) {
+        if (!getPlayerSpawns().containsKey(player.getUniqueId())) {
             getPlayerSpawns().put(player.getUniqueId(), spawnLocation);
             getPlayersWithSpawns().add(player.getUniqueId());
         }
