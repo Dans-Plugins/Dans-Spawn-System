@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 - Players could set their spawn more than once because the duplicate-spawn check looked up the player by name in a map keyed by UUID, so the check never matched. The check now uses the player's UUID, consistent with how spawns are stored.
+- The `Build` CI workflow only ran on pushes/PRs targeting `main`/`develop`, but the repository's default branch is `master`, so it never ran. It now targets `master`.
 
 ## [1.2] – (date unknown)
 
