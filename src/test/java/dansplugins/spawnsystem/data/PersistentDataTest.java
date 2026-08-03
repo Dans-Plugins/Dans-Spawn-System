@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -29,5 +32,30 @@ class PersistentDataTest {
         assertEquals(1, storedSpawn.getBlockX());
         assertEquals(2, storedSpawn.getBlockY());
         assertEquals(3, storedSpawn.getBlockZ());
+    }
+
+    @Test
+    void resetSpawn_playerWithSpawnSet_removesSpawnAndPlayerFromTrackedList() {
+        PersistentData persistentData = new PersistentData();
+        UUID playerId = UUID.randomUUID();
+        Player player = mock(Player.class);
+        when(player.getUniqueId()).thenReturn(playerId);
+        World world = mock(World.class);
+        persistentData.setPlayersSpawn(player, world, 1, 2, 3);
+
+        persistentData.resetSpawn(playerId);
+
+        assertNull(persistentData.getPlayerSpawns().get(playerId));
+        assertFalse(persistentData.getPlayersWithSpawns().contains(playerId));
+    }
+
+    @Test
+    void resetSpawn_playerWithoutSpawnSet_doesNotThrow() {
+        PersistentData persistentData = new PersistentData();
+        UUID playerId = UUID.randomUUID();
+
+        persistentData.resetSpawn(playerId);
+
+        assertTrue(persistentData.getPlayersWithSpawns().isEmpty());
     }
 }
