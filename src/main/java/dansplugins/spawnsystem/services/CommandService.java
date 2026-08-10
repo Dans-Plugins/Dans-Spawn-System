@@ -20,7 +20,7 @@ public class CommandService {
     public boolean interpretCommand(CommandSender sender, String label, String[] args) {
 
         if (label.equalsIgnoreCase("resetspawn")) {
-            ResetSpawnCommand command = new ResetSpawnCommand(persistentData, uuidChecker, dansSpawnSystem);
+            ResetSpawnCommand command = new ResetSpawnCommand(persistentData, uuidChecker, dansSpawnSystem.getServer());
             command.execute(sender, args);
             return true;
         }
