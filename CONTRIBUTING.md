@@ -49,9 +49,9 @@ Issues are grouped into [milestones](https://github.com/Dans-Plugins/Dans-Spawn-
 
 ## Testing
 
-There are currently no automated unit tests configured for this project.
+This project has a JUnit 5 unit test suite (with Mockito for Bukkit collaborators) under `src/test/java/`. Run it with `mvn test`, and please add or update tests alongside any change that can be exercised without a running server.
 
-Please verify your changes manually by:
+The suite cannot cover everything, so please also verify your changes manually by:
 
 - Building the plugin: `mvn clean package`
 - Copying the built JAR from `target/` into your test server's `plugins/` folder

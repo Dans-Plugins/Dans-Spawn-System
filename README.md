@@ -43,19 +43,19 @@ Please fill out a bug report [here](https://github.com/Dans-Plugins/Dans-Spawn-S
 
 ### Automated Tests
 
-This project does not currently include automated unit tests.
-
-To verify that the project builds successfully, run:
+This project has a JUnit 5 unit test suite (with Mockito for Bukkit collaborators) under `src/test/java/`. To run it:
 
 Linux:
 
-    mvn clean package
+    mvn test
 
 Windows:
 
-    mvn.cmd clean package
+    mvn.cmd test
 
-If you see `BUILD SUCCESS`, the project compiled successfully. For validating functional changes, follow the steps in the **Development** section below to run the plugin on a test server.
+To run the tests and build the plugin jar in one step, use `mvn clean package` instead — the tests run as part of that build.
+
+If you see `BUILD SUCCESS`, the project compiled and the tests passed. The suite covers logic that can be exercised without a running server; for anything that needs a live Bukkit runtime (event listeners, world interaction, on-disk persistence), follow the steps in the **Development** section below to validate on a test server.
 
 ## Development
 
