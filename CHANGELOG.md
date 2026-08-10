@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- A `Dev Release` workflow, which republishes a rolling `dev` prerelease of `master` on every non-documentation push. This is what Dan's Plugin Manager's experimental channel installs from: `/dpm get dansspawnsystem --experimental` reads `releases/tags/dev`, so without it there is nothing for that command to download. The prerelease is unreleased, unreviewed code and is marked as such.
+- Unit tests for `ResetSpawnCommand` covering permission handling, unresolvable names, offline and online targets, and non-player senders.
+
 ### Fixed
 - `/resetspawn <player>` reported a green success message even when the supplied name matched no known player, so an operator was told a reset had happened when nothing was changed. An unresolvable name is now reported as such and no reset is claimed.
 - `/resetspawn` produced no output at all when run from the console, a command block, or RCON. Non-player senders are now told that the command is for in-game players only.
@@ -13,9 +18,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 - `ResetSpawnCommand` now depends on `org.bukkit.Server` rather than on the plugin instance, which allows its behaviour to be unit tested.
-
-### Added
-- Unit tests for `ResetSpawnCommand` covering permission handling, unresolvable names, offline and online targets, and non-player senders.
 
 ## [2.0.0-SNAPSHOT-8-8-2026] – 2026-08-08
 
