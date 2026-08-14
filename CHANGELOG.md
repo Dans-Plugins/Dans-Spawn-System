@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Unit tests for `ResetSpawnCommand` covering permission handling, unresolvable names, offline and online targets, and non-player senders.
 
 ### Fixed
+- `[Spawn]` signs made from wood types added after Minecraft 1.15 — crimson, warped, mangrove, bamboo and cherry, along with every hanging sign — were not recognised as signs, so they did nothing when right-clicked and were not protected from being broken without `spawnsystem.breakSpawnSign`. Sign detection is now based on the material name, so those types work and future ones are picked up without a rebuild.
+- A saved spawn whose X, Y or Z coordinate was exactly `0` was discarded on load, so a spawn near the world origin was lost on every restart. Whether a coordinate was present in the file is now tracked directly instead of being inferred from the value, and a coordinate that cannot be read as a number is reported with the offending text.
 - `/resetspawn <player>` reported a green success message even when the supplied name matched no known player, so an operator was told a reset had happened when nothing was changed. An unresolvable name is now reported as such and no reset is claimed.
 - `/resetspawn` produced no output at all when run from the console, a command block, or RCON. Non-player senders are now told that the command is for in-game players only.
 - A player targeted by `/resetspawn <player>` while offline no longer causes a swallowed `NullPointerException`; the target is looked up by UUID and notified only when actually online.
