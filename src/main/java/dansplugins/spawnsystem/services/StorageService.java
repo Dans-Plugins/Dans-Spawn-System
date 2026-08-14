@@ -107,46 +107,25 @@ public class StorageService {
                         playerUUID = UUID.fromString(loadReader2.nextLine());
                     }
 
-                    World world = null;
-                    double x = 0;
-                    double y = 0;
-                    double z = 0;
-
                     try {
+                        String worldName = nextLineOrNull(loadReader2);
+                        String xLine = nextLineOrNull(loadReader2);
+                        String yLine = nextLineOrNull(loadReader2);
+                        String zLine = nextLineOrNull(loadReader2);
 
-                        if (loadReader2.hasNextLine()) {
-                            world = dansSpawnSystem.getServer().createWorld(new WorldCreator(loadReader2.nextLine()));
+                        World world = null;
+                        if (worldName != null) {
+                            world = dansSpawnSystem.getServer().createWorld(new WorldCreator(worldName));
                         }
                         else {
                             System.out.println("World name not found in file!");
                         }
-                        if (loadReader2.hasNextLine()) {
-                            x = Double.parseDouble(loadReader2.nextLine());
-                        }
-                        else {
-                            System.out.println("X position not found in file!");
-                        }
-                        if (loadReader2.hasNextLine()) {//
-                            y = Double.parseDouble(loadReader2.nextLine());
-                        }
-                        else {
-                            System.out.println("Y position not found in file!");
-                        }
-                        if (loadReader2.hasNextLine()) {
-                            z = Double.parseDouble(loadReader2.nextLine());
-                        }
-                        else {
-                            System.out.println("Z position not found in file!");
-                        }
 
                         // set location
-                        if (world != null && x != 0 && y != 0 && z != 0) {
-                            persistentData.getPlayerSpawns().put(playerUUID, new Location(world, x, y, z));
+                        Location spawnLocation = parseSpawnLocation(world, xLine, yLine, zLine);
+                        if (spawnLocation != null) {
+                            persistentData.getPlayerSpawns().put(playerUUID, spawnLocation);
                             persistentData.getPlayersWithSpawns().add(playerUUID);
-//                            System.out.println("Spawn of " + playerUUID + " successfully set to " + x + ", " + y + ", " + z + ".");
-                        }
-                        else {
-                            System.out.println("One of the variables the spawn location depends on wasn't loaded!");
                         }
 
                     }
@@ -167,6 +146,47 @@ public class StorageService {
         } catch (FileNotFoundException e) {
             System.out.println("Error loading the spawns!");
         }
+    }
+
+    /**
+     * Builds a spawn location out of the raw lines of a saved spawn record.
+     *
+     * A null line means the value was absent from the file. Absence is what makes a record unusable: a
+     * coordinate that reads zero is a legitimate position near the world origin and is kept as written.
+     *
+     * @return the spawn location, or null if the world or any coordinate was missing or unreadable
+     */
+    Location parseSpawnLocation(World world, String xLine, String yLine, String zLine) {
+        Double x = parseCoordinate(xLine, "X");
+        Double y = parseCoordinate(yLine, "Y");
+        Double z = parseCoordinate(zLine, "Z");
+
+        if (world == null || x == null || y == null || z == null) {
+            System.out.println("One of the variables the spawn location depends on wasn't loaded!");
+            return null;
+        }
+
+        return new Location(world, x, y, z);
+    }
+
+    private Double parseCoordinate(String line, String axis) {
+        if (line == null) {
+            System.out.println(axis + " position not found in file!");
+            return null;
+        }
+        try {
+            return Double.parseDouble(line);
+        } catch (NumberFormatException e) {
+            System.out.println(axis + " position in file couldn't be read as a number: " + line);
+            return null;
+        }
+    }
+
+    private String nextLineOrNull(Scanner scanner) {
+        if (!scanner.hasNextLine()) {
+            return null;
+        }
+        return scanner.nextLine();
     }
 
 }
