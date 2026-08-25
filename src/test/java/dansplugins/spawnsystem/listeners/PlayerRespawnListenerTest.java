@@ -38,16 +38,21 @@ class PlayerRespawnListenerTest {
         verify(player, never()).teleport(any(Location.class));
     }
 
-    // A bed spawn wins over a custom spawn: the stored spawn is never consulted.
+    // A bed spawn wins over a stored custom spawn. Reaching the teleport would dereference the null
+    // plugin, so this test would fail loudly rather than silently were the bed-spawn check removed.
     @Test
     void handle_playerWithBothABedSpawnAndACustomSpawn_prefersTheBedSpawn() {
         Player player = mock(Player.class);
+        UUID playerId = UUID.randomUUID();
         when(player.getBedSpawnLocation()).thenReturn(someLocation());
-        when(player.getUniqueId()).thenReturn(UUID.randomUUID());
+        when(player.getUniqueId()).thenReturn(playerId);
+        HashMap<UUID, Location> spawns = new HashMap<UUID, Location>();
+        spawns.put(playerId, someLocation());
+        when(persistentData.getPlayerSpawns()).thenReturn(spawns);
 
         playerRespawnListener.handle(respawnOf(player));
 
-        verifyNoInteractions(persistentData);
+        verify(player, never()).teleport(any(Location.class));
     }
 
     @Test
