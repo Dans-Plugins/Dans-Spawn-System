@@ -39,6 +39,8 @@ public class PlayerInteractListener implements Listener {
                 // if that sign has [Spawn]
                 Sign sign = (Sign) clickedBlock.getState();
                 if (sign.getLine(0).contains("[Spawn]")) {
+                    Player player = event.getPlayer();
+
                     // acquire coordinates
                     int x;
                     int y;
@@ -48,14 +50,13 @@ public class PlayerInteractListener implements Listener {
                         y = Integer.parseInt(sign.getLine(2));
                         z = Integer.parseInt(sign.getLine(3));
                     } catch (NumberFormatException e) {
-                        Player player = event.getPlayer();
                         player.sendMessage(ChatColor.RED + "Sorry! The coordinates on this spawn sign couldn't be read. Please see an admin for assistance.");
                         logger.log(Level.WARNING, "A problem occurred with a spawn selection sign located at [" + clickedBlock.getX() + ", " + clickedBlock.getY() + ", " + clickedBlock.getZ() + "] in " + player.getWorld().getName(), e);
                         return;
                     }
 
                     // set player's spawn
-                    persistentData.setPlayersSpawn(event.getPlayer(), event.getPlayer().getWorld(), x, y, z);
+                    persistentData.setPlayersSpawn(player, player.getWorld(), x, y, z);
                 }
             }
         }
