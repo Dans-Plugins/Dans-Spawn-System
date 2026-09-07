@@ -22,7 +22,7 @@ public class EventRegistry {
         // event handlers
         manager.registerEvents(new BlockBreakListener(blockChecker), dansSpawnSystem);
         manager.registerEvents(new PlayerDeathListener(), dansSpawnSystem);
-        manager.registerEvents(new PlayerInteractListener(blockChecker, persistentData), dansSpawnSystem);
+        manager.registerEvents(new PlayerInteractListener(blockChecker, persistentData, dansSpawnSystem.getLogger()), dansSpawnSystem);
         manager.registerEvents(new PlayerRespawnListener(persistentData, dansSpawnSystem), dansSpawnSystem);
         manager.registerEvents(new SignChangeEventListener(), dansSpawnSystem);
     }

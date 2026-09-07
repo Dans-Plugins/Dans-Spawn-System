@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
+- A `[Spawn]` sign set a player's spawn when it was left-clicked, not only when it was right-clicked, so a player who started to break one — or who left-clicked one while holding a tool — had their spawn set permanently and needed an operator to run `/resetspawn <player>` to undo it. `USER_GUIDE.md` has always documented right-clicking as the way a spawn is selected, and only a right-click on the sign now does so.
+- Clicking a `[Spawn]` sign whose coordinates could not be read as whole numbers told the player nothing at all, leaving a malformed sign indistinguishable from a decorative one. The player is now told that the coordinates could not be read. The accompanying console line moves from standard output to the plugin's own logger, so it is attributed to this plugin and now carries the underlying parse failure instead of discarding it.
 - The `Dev Release` workflow now retries publishing the `dev` prerelease before giving up. The release and its tag have to be deleted and recreated for the tag to move to the new commit, and a transient API failure inside that window previously left the repository with no `dev` release at all until the workflow was re-run by hand. Each attempt now starts from a clean slate, and an exhausted retry fails loudly.
 
 ### Added
