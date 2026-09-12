@@ -1,20 +1,20 @@
 package dansplugins.spawnsystem.listeners;
 
-import dansplugins.spawnsystem.DansSpawnSystem;
 import dansplugins.spawnsystem.data.PersistentData;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.plugin.Plugin;
 
 public class PlayerRespawnListener implements Listener {
     private final PersistentData persistentData;
-    private final DansSpawnSystem dansSpawnSystem;
+    private final Plugin plugin;
 
-    public PlayerRespawnListener(PersistentData persistentData, DansSpawnSystem dansSpawnSystem) {
+    public PlayerRespawnListener(PersistentData persistentData, Plugin plugin) {
         this.persistentData = persistentData;
-        this.dansSpawnSystem = dansSpawnSystem;
+        this.plugin = plugin;
     }
 
     @EventHandler()
@@ -24,7 +24,7 @@ public class PlayerRespawnListener implements Listener {
         }
 
         if (persistentData.getPlayerSpawns().containsKey(event.getPlayer().getUniqueId())) {
-            dansSpawnSystem.getServer().getScheduler().runTaskLater(dansSpawnSystem, new Runnable() {
+            plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
                 @Override
                 public void run() {
                     event.getPlayer().teleport(persistentData.getPlayerSpawns().get(event.getPlayer().getUniqueId()));
