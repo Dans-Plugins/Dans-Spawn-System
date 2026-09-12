@@ -38,13 +38,13 @@ Issues are grouped into [milestones](https://github.com/Dans-Plugins/Dans-Spawn-
 ## Making Changes
 
 1. Make sure an issue exists for the work. If not, create one.
-2. Switch to `develop`: `git checkout develop`
+2. Switch to `master` and update it: `git checkout master && git pull`
 3. Create a branch: `git checkout -b <branch-name>`
 4. Make your changes.
 5. Test your changes.
 6. Commit: `git commit -m "Description of changes"`
 7. Push: `git push origin <branch-name>`
-8. Open a pull request against `develop`, link the related issue with `#<number>`.
+8. Open a pull request against `master`, link the related issue with `#<number>`.
 9. Address review feedback.
 
 ## Testing
