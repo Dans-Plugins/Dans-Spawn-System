@@ -44,12 +44,28 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
         Metrics metrics = new Metrics(this, pluginId);
 
         // usage reporting: one event now, one per command; see config.yml
+        configManager.saveUsageReportingDefaultsIfMissing();
         trace = TraceClient.builder(configManager.getUsageReportingEndpoint(), getName())
                 .key(configManager.getUsageReportingKey())
                 .enabled(configManager.isUsageReportingEnabled())
+                .serverWideConfig(getDataFolder().getParentFile())
                 .logger(getLogger())
                 .build();
+        logUsageReportingStatus();
         trace.report("startup", null, Collections.singletonMap("version", getDescription().getVersion()));
+    }
+
+    /** Says on every start whether usage reporting is on, and why not when it is off. */
+    private void logUsageReportingStatus() {
+        if (trace.isEnabled()) {
+            getLogger().info("Usage reporting is on: " + getName() + " sends its name, version and command names to "
+                    + configManager.getUsageReportingEndpoint() + " - nothing about players or the server. "
+                    + "Turn it off with usage-reporting.enabled: false in this plugin's config.yml, "
+                    + "or for every plugin with enabled: false in plugins/trace/config.yml. "
+                    + "Details: https://github.com/Stephenson-Software/trace#usage-reporting");
+        } else {
+            getLogger().info("Usage reporting is off (" + trace.disabledReason() + ").");
+        }
     }
 
     @Override
