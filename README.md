@@ -8,7 +8,7 @@ Dans-Spawn-System is a Minecraft plugin that allows players to use signs to sele
 
 ### First Time Installation
 
-1. Download the plugin from [SpigotMC](https://www.spigotmc.org/resources/dans-spawn-system.95997/).
+1. Download the plugin from [SpigotMC](https://www.spigotmc.org/resources/dans-spawn-system.82697/).
 2. Place the jar in the `plugins` folder of your server.
 3. Restart your server.
 
