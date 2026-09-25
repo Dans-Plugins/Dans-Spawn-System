@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Unit tests for `UUIDChecker`, which resolves the player named in `/resetspawn <player>`: online and offline matches, online players taking precedence, offline players with no recorded name being skipped, names being matched case-sensitively, and an unknown name resolving to nothing.
+
 ## [2.0.0] – 2026-09-19
 
 ### Added
