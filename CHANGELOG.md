@@ -9,6 +9,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Unit tests for `UUIDChecker`, which resolves the player named in `/resetspawn <player>`: online and offline matches, online players taking precedence, offline players with no recorded name being skipped, names being matched case-sensitively, and an unknown name resolving to nothing.
+- Unit tests for `CommandService`, which dispatches the plugin's commands: `/resetspawn` reaching `ResetSpawnCommand`, the command name being matched case-insensitively, and an unrecognised command being left unhandled.
+
+### Changed
+
+- `CommandService` now depends on `org.bukkit.Server` rather than on the final `DansSpawnSystem` class, which allows its dispatch to be unit tested.
+
+### Fixed
+
+- `/dansspawnsystem:resetspawn`, the namespaced form Bukkit registers for every plugin command, now resets a spawn exactly as `/resetspawn` does. Commands were matched against the label as typed rather than against the command's registered name, so the namespaced form went unhandled and the player was shown only the bare usage line.
 
 ## [2.0.0] – 2026-09-19
 
