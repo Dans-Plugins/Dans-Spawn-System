@@ -1,27 +1,30 @@
 package dansplugins.spawnsystem.services;
 
-import dansplugins.spawnsystem.DansSpawnSystem;
 import dansplugins.spawnsystem.commands.ResetSpawnCommand;
 import dansplugins.spawnsystem.data.PersistentData;
 import dansplugins.spawnsystem.utils.UUIDChecker;
+import org.bukkit.Server;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 public class CommandService {
     private final PersistentData persistentData;
     private final UUIDChecker uuidChecker;
-    private final DansSpawnSystem dansSpawnSystem;
+    private final Server server;
 
-    public CommandService(PersistentData persistentData, UUIDChecker uuidChecker, DansSpawnSystem dansSpawnSystem) {
+    public CommandService(PersistentData persistentData, UUIDChecker uuidChecker, Server server) {
         this.persistentData = persistentData;
         this.uuidChecker = uuidChecker;
-        this.dansSpawnSystem = dansSpawnSystem;
+        this.server = server;
     }
 
-    public boolean interpretCommand(CommandSender sender, String label, String[] args) {
+    // Routes on the command's registered name rather than the label it was typed as, so that the
+    // namespaced form (/dansspawnsystem:resetspawn) reaches the same command as /resetspawn.
+    public boolean interpretCommand(CommandSender sender, Command command, String[] args) {
 
-        if (label.equalsIgnoreCase("resetspawn")) {
-            ResetSpawnCommand command = new ResetSpawnCommand(persistentData, uuidChecker, dansSpawnSystem.getServer());
-            command.execute(sender, args);
+        if (command.getName().equalsIgnoreCase("resetspawn")) {
+            ResetSpawnCommand resetSpawnCommand = new ResetSpawnCommand(persistentData, uuidChecker, server);
+            resetSpawnCommand.execute(sender, args);
             return true;
         }
 

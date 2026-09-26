@@ -76,7 +76,7 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         trace.report("command", null, Collections.singletonMap("name", cmd.getName()));
-        CommandService localCommandService = new CommandService(persistentData, uuidChecker, this);
-        return localCommandService.interpretCommand(sender, label, args);
+        CommandService localCommandService = new CommandService(persistentData, uuidChecker, getServer());
+        return localCommandService.interpretCommand(sender, cmd, args);
     }
 }
