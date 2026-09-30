@@ -45,14 +45,14 @@ public final class DansSpawnSystem extends JavaPlugin implements Listener {
 
         // usage reporting: one event now, one per command; see config.yml
         configManager.saveUsageReportingDefaultsIfMissing();
-        trace = TraceClient.builder(configManager.getUsageReportingEndpoint(), getName())
+        trace = TraceClient.builder(configManager.getUsageReportingEndpoint(), getName(), getDescription().getVersion())
                 .key(configManager.getUsageReportingKey())
                 .enabled(configManager.isUsageReportingEnabled())
                 .serverWideConfig(getDataFolder().getParentFile())
                 .logger(getLogger())
                 .build();
         logUsageReportingStatus();
-        trace.report("startup", null, Collections.singletonMap("version", getDescription().getVersion()));
+        trace.report("startup");
     }
 
     /** Says on every start whether usage reporting is on, and why not when it is off. */
