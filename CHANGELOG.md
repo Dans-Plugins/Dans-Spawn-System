@@ -14,7 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - `CommandService` now depends on `org.bukkit.Server` rather than on the final `DansSpawnSystem` class, which allows its dispatch to be unit tested.
-- The vendored trace client is now 0.3.0. `plugins/trace/config.yml` can now carry a `tags:` block whose entries are added to every usage event the plugin sends, so a test server can mark its own events (the release gates write `ci: "true"`) and be left out of the figures for real installations. Nothing changes for a server whose `plugins/trace/config.yml` has no `tags:` block.
+- The vendored trace client is now 0.4.0. `plugins/trace/config.yml` can now carry a `tags:` block whose entries are added to every usage event the plugin sends, so a test server can mark its own events (the release gates write `ci: "true"`) and be left out of the figures for real installations. Nothing changes for a server whose `plugins/trace/config.yml` has no `tags:` block. Every usage event, `command` events included, now carries the plugin version; previously only `startup` did.
+- `USER_GUIDE.md` now states the supported Minecraft versions as 1.19.4 onwards, matching `README.md` and `minecraft-versions.json`, rather than 1.13 or later. It also describes behaviour the guide previously left out: a spawn can be selected only once until it is reset, selecting one teleports the player there immediately, a bed spawn takes precedence over a custom spawn, blocks touching a `[Spawn]` sign are protected along with the sign, and every player on the server keeps their experience level on death and drops no experience. `COMMANDS.md` and `CONFIG.md` are corrected to match.
 
 ### Fixed
 

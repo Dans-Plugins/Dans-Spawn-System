@@ -36,7 +36,7 @@ Permissions can be managed through any standard Bukkit permissions plugin (e.g. 
 | Permission Node | Default | Description |
 |-----------------|---------|-------------|
 | `spawnsystem.placeSpawnSign` | op | Allows placing `[Spawn]` signs |
-| `spawnsystem.breakSpawnSign` | op | Allows breaking `[Spawn]` signs |
+| `spawnsystem.breakSpawnSign` | op | Allows breaking `[Spawn]` signs and the blocks directly touching them |
 | `spawnsystem.reset.self` | op | Allows a player to reset their own spawn |
 | `spawnsystem.reset.others` | op | Allows resetting another player's spawn |
 | `spawnsystem.admin` | op | Grants all plugin permissions |
