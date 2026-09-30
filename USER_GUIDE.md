@@ -35,7 +35,7 @@ Players who right-click this sign will have their respawn point set to coordinat
 
 Simply **right-click** any `[Spawn]` sign to set your personal respawn location to the coordinates written on that sign. You are teleported to those coordinates straight away.
 
-A spawn can only be selected once. Right-clicking another `[Spawn]` sign afterwards tells you that you have already set your spawn; an admin has to reset it with `/resetspawn` before you can choose again.
+A spawn can only be selected once. Right-clicking another `[Spawn]` sign afterwards tells you that you have already set your spawn; it has to be reset with `/resetspawn` (by you, if you have `spawnsystem.reset.self`, or by an admin) before you can choose again.
 
 ### Resetting a Player's Spawn (Admin)
 
