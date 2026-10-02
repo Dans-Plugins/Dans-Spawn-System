@@ -10,10 +10,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Unit tests for `UUIDChecker`, which resolves the player named in `/resetspawn <player>`: online and offline matches, online players taking precedence, offline players with no recorded name being skipped, names being matched case-sensitively, and an unknown name resolving to nothing.
 - Unit tests for `CommandService`, which dispatches the plugin's commands: `/resetspawn` reaching `ResetSpawnCommand`, the command name being matched case-insensitively, and an unrecognised command being left unhandled.
+- Unit tests for `EventRegistry`, which registers the plugin's event listeners on enable: each of the five listeners being registered exactly once, and every one being registered against the plugin. A listener left out of registration fails silently in-game, so this is now caught by the test suite rather than only by a manual server check.
 
 ### Changed
 
 - `CommandService` now depends on `org.bukkit.Server` rather than on the final `DansSpawnSystem` class, which allows its dispatch to be unit tested.
+- `EventRegistry` now depends on `org.bukkit.plugin.Plugin` rather than on the final `DansSpawnSystem` class, for the same reason.
 - The vendored trace client is now 0.4.0. `plugins/trace/config.yml` can now carry a `tags:` block whose entries are added to every usage event the plugin sends, so a test server can mark its own events (the release gates write `ci: "true"`) and be left out of the figures for real installations. Nothing changes for a server whose `plugins/trace/config.yml` has no `tags:` block. Every usage event, `command` events included, now carries the plugin version; previously only `startup` did.
 - `USER_GUIDE.md` now states the supported Minecraft versions as 1.19.4 onwards, matching `README.md` and `minecraft-versions.json`, rather than 1.13 or later. It also describes behaviour the guide previously left out: a spawn can be selected only once until it is reset, selecting one teleports the player there immediately, a bed spawn takes precedence over a custom spawn, blocks touching a `[Spawn]` sign are protected along with the sign, and every player on the server keeps their experience level on death and drops no experience. `COMMANDS.md` and `CONFIG.md` are corrected to match.
 
