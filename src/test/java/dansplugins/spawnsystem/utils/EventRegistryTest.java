@@ -15,7 +15,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,16 +49,17 @@ class EventRegistryTest {
 
         ArgumentCaptor<Listener> listeners = ArgumentCaptor.forClass(Listener.class);
         verify(pluginManager, times(5)).registerEvents(listeners.capture(), any(Plugin.class));
-        List<Class<?>> registered = listeners.getAllValues().stream()
+        // Each listener handles a different event type, so the order they are registered in is not asserted.
+        Set<Class<?>> registered = listeners.getAllValues().stream()
                 .map(Object::getClass)
-                .collect(Collectors.toList());
-        assertEquals(Arrays.asList(
+                .collect(Collectors.toSet());
+        assertEquals(new HashSet<>(Arrays.asList(
                 BlockBreakListener.class,
                 PlayerDeathListener.class,
                 PlayerInteractListener.class,
                 PlayerRespawnListener.class,
                 SignChangeEventListener.class
-        ), registered);
+        )), registered);
     }
 
     @Test
