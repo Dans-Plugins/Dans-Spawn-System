@@ -31,6 +31,8 @@ After installing the plugin and restarting your server, players can have their r
 
 Players who right-click this sign will have their respawn point set to coordinates (100, 64, -200) in their current world.
 
+The coordinates have to be whole numbers (`100`, not `100.5`) with nothing else on the line. If a line can't be read as a whole number, a player who right-clicks the sign is told that its coordinates couldn't be read, no spawn is set, and a warning naming the sign's location is written to the server console.
+
 ### Selecting a Spawn (Player)
 
 Simply **right-click** any `[Spawn]` sign to set your personal respawn location to the coordinates written on that sign. You are teleported to those coordinates straight away.

@@ -31,6 +31,19 @@ Servers upgraded from a version without a `config.yml` keep working: the `usage-
 written into the file, with the bundled values, the first time the plugin starts without it, so the
 switch is always visible on disk. Should the file still lack a key, the bundled default is read.
 
+## Stored spawns
+
+Players' custom spawns are not kept in `plugins/DansSpawnSystem/`. They are stored in
+`plugins/Kingdom-Spawn-System/` (the folder name comes from the plugin's earlier name), and that is the
+folder to back up or move with the server:
+
+- `spawn-filenames.txt` lists one file per player who has a custom spawn.
+- `<player UUID>.txt` holds that player's spawn: their UUID, the world name, then the X, Y and Z coordinates, one per line.
+
+Spawns are read from this folder when the plugin starts and written to it only when the plugin shuts
+down cleanly. Spawns selected or reset since the last start are lost if the server stops without
+shutting down cleanly (a crash or a killed process).
+
 ## Permissions Configuration
 
 Permissions can be managed through any standard Bukkit permissions plugin (e.g. LuckPerms).
