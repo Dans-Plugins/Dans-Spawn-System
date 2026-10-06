@@ -34,8 +34,7 @@ switch is always visible on disk. Should the file still lack a key, the bundled 
 ## Stored spawns
 
 Players' custom spawns are not kept in `plugins/DansSpawnSystem/`. They are stored in
-`plugins/Kingdom-Spawn-System/` (the folder name comes from the plugin's earlier name), and that is the
-folder to back up or move with the server:
+`plugins/Kingdom-Spawn-System/`, and that is the folder to back up or move with the server:
 
 - `spawn-filenames.txt` lists one file per player who has a custom spawn.
 - `<player UUID>.txt` holds that player's spawn: their UUID, the world name, then the X, Y and Z coordinates, one per line.
