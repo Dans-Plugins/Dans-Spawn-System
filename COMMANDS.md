@@ -10,3 +10,5 @@
 **Usage:** (in-game players only) `/resetspawn` or `/resetspawn <player>`  
 **Example:** `/resetspawn` — resets your own spawn  
 **Example:** `/resetspawn Steve` — resets Steve's spawn
+
+The `<player>` name has to match the player's name exactly, including capitalisation (`/resetspawn steve` does not find `Steve`). The player can be offline, but must have joined the server before. A name that matches no one is reported as not found, and no spawn is reset.
