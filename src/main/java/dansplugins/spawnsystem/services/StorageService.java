@@ -1,10 +1,10 @@
 package dansplugins.spawnsystem.services;
 
-import dansplugins.spawnsystem.DansSpawnSystem;
 import dansplugins.spawnsystem.data.PersistentData;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,13 +12,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class StorageService {
-    private final DansSpawnSystem dansSpawnSystem;
+    private final Plugin plugin;
     private final PersistentData persistentData;
 
-    public StorageService(DansSpawnSystem dansSpawnSystem, PersistentData persistentData) {
-        this.dansSpawnSystem = dansSpawnSystem;
+    public StorageService(Plugin plugin, PersistentData persistentData) {
+        this.plugin = plugin;
         this.persistentData = persistentData;
     }
 
@@ -46,7 +47,7 @@ public class StorageService {
             saveWriter.close();
 
         } catch (IOException e) {
-            System.out.println("An error occurred while saving spawn filenames.");
+            plugin.getLogger().log(Level.WARNING, "An error occurred while saving spawn filenames.", e);
         }
     }
 
@@ -75,8 +76,7 @@ public class StorageService {
                 saveWriter.close();
 
             } catch (IOException e) {
-                System.out.println("An error occurred saving the record belonging to " + playerName);
-                e.printStackTrace();
+                plugin.getLogger().log(Level.WARNING, "An error occurred saving the record belonging to " + playerName, e);
             }
 
         }
@@ -115,10 +115,10 @@ public class StorageService {
 
                         World world = null;
                         if (worldName != null) {
-                            world = dansSpawnSystem.getServer().createWorld(new WorldCreator(worldName));
+                            world = plugin.getServer().createWorld(new WorldCreator(worldName));
                         }
                         else {
-                            System.out.println("World name not found in file!");
+                            plugin.getLogger().warning("World name not found in file!");
                         }
 
                         // set location
@@ -130,21 +130,20 @@ public class StorageService {
 
                     }
                     catch(Exception e) {
-                        System.out.println("An error occurred loading the spawn position.");
-                        e.printStackTrace();
+                        plugin.getLogger().log(Level.WARNING, "An error occurred loading the spawn position.", e);
                     }
 
                     loadReader2.close();
                 } catch (FileNotFoundException e) {
-                    System.out.println("An error occurred loading the file " + filename + ".");
-                    e.printStackTrace();
+                    plugin.getLogger().log(Level.WARNING, "An error occurred loading the file " + filename + ".", e);
                 }
 
             }
 
             loadReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Error loading the spawns!");
+            // also reached on a first start, before any spawn has been saved, so no stack trace
+            plugin.getLogger().warning("Error loading the spawns!");
         }
     }
 
@@ -162,7 +161,7 @@ public class StorageService {
         Double z = parseCoordinate(zLine, "Z");
 
         if (world == null || x == null || y == null || z == null) {
-            System.out.println("One of the variables the spawn location depends on wasn't loaded!");
+            plugin.getLogger().warning("One of the variables the spawn location depends on wasn't loaded!");
             return null;
         }
 
@@ -171,13 +170,13 @@ public class StorageService {
 
     private Double parseCoordinate(String line, String axis) {
         if (line == null) {
-            System.out.println(axis + " position not found in file!");
+            plugin.getLogger().warning(axis + " position not found in file!");
             return null;
         }
         try {
             return Double.parseDouble(line);
         } catch (NumberFormatException e) {
-            System.out.println(axis + " position in file couldn't be read as a number: " + line);
+            plugin.getLogger().warning(axis + " position in file couldn't be read as a number: " + line);
             return null;
         }
     }
