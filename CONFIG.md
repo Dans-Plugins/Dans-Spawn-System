@@ -43,6 +43,9 @@ Spawns are read from this folder when the plugin starts and written to it only w
 down cleanly. Spawns selected or reset since the last start are lost if the server stops without
 shutting down cleanly (a crash or a killed process).
 
+A spawn file that can't be written or read is reported as a warning in the server console, prefixed
+`[DansSpawnSystem]`, together with the cause where there is one.
+
 ## Permissions Configuration
 
 Permissions can be managed through any standard Bukkit permissions plugin (e.g. LuckPerms).

@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - `CommandService` now depends on `org.bukkit.Server` rather than on the final `DansSpawnSystem` class, which allows its dispatch to be unit tested.
 - `EventRegistry` now depends on `org.bukkit.plugin.Plugin` rather than on the final `DansSpawnSystem` class, for the same reason.
+- `StorageService` now depends on `org.bukkit.plugin.Plugin` rather than on the final `DansSpawnSystem` class, for the same reason.
 - The vendored trace client is now 0.4.0. `plugins/trace/config.yml` can now carry a `tags:` block whose entries are added to every usage event the plugin sends, so a test server can mark its own events (the release gates write `ci: "true"`) and be left out of the figures for real installations. Nothing changes for a server whose `plugins/trace/config.yml` has no `tags:` block. Every usage event, `command` events included, now carries the plugin version; previously only `startup` did.
 - `USER_GUIDE.md` now states the supported Minecraft versions as 1.19.4 onwards, matching `README.md` and `minecraft-versions.json`, rather than 1.13 or later. It also describes behaviour the guide previously left out: a spawn can be selected only once until it is reset, selecting one teleports the player there immediately, a bed spawn takes precedence over a custom spawn, blocks touching a `[Spawn]` sign are protected along with the sign, and every player on the server keeps their experience level on death and drops no experience. `COMMANDS.md` and `CONFIG.md` are corrected to match.
 - `CONFIG.md` now documents where players' spawns are stored: `plugins/Kingdom-Spawn-System/`, not `plugins/DansSpawnSystem/`. It also says that spawns are written only on a clean shutdown, so changes made since the last start are lost in a crash. `USER_GUIDE.md` now says that `[Spawn]` sign coordinates must be whole numbers and describes what a player sees when they are not. `COMMANDS.md` now says that the name given to `/resetspawn <player>` must match exactly, including capitalisation, and must belong to someone who has joined the server before. Behaviour is unchanged.
@@ -27,6 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - `/dansspawnsystem:resetspawn`, the namespaced form Bukkit registers for every plugin command, now resets a spawn exactly as `/resetspawn` does. Commands were matched against the label as typed rather than against the command's registered name, so the namespaced form went unhandled and the player was shown only the bare usage line.
+- Problems saving or loading players' spawns are now written to the server console as warnings through the plugin's logger, prefixed `[DansSpawnSystem]`, rather than as bare unprefixed lines. A failure to write `spawn-filenames.txt`, which lists every saved spawn, now includes the exception that caused it; previously the cause was discarded and only "An error occurred while saving spawn filenames." was printed.
 
 ## [2.0.0] – 2026-09-19
 
