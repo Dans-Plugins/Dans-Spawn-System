@@ -45,6 +45,8 @@ shutting down cleanly (a crash or a killed process).
 
 A spawn file that can't be written or read is reported as a warning in the server console, prefixed
 `[DansSpawnSystem]`, together with the cause where there is one.
+Until the first clean shutdown, `spawn-filenames.txt` does not exist; the console then shows
+`No saved spawns found yet.` as information, not a warning.
 
 ## Permissions Configuration
 
