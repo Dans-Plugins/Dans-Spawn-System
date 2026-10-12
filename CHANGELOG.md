@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - `/dansspawnsystem:resetspawn`, the namespaced form Bukkit registers for every plugin command, now resets a spawn exactly as `/resetspawn` does. Commands were matched against the label as typed rather than against the command's registered name, so the namespaced form went unhandled and the player was shown only the bare usage line.
 - Problems saving or loading players' spawns are now written to the server console as warnings through the plugin's logger, prefixed `[DansSpawnSystem]`, rather than as bare unprefixed lines. A failure to write `spawn-filenames.txt`, which lists every saved spawn, now includes the exception that caused it; previously the cause was discarded and only "An error occurred while saving spawn filenames." was printed.
+- A server's first start, before any spawn has been saved, no longer logs a false `Error loading the spawns!` warning. `spawn-filenames.txt` is written only on a clean shutdown, so its absence now produces `No saved spawns found yet.` at `INFO`. The warning is kept for a `spawn-filenames.txt` that exists but cannot be read, and now includes the cause.
 
 ## [2.0.0] – 2026-09-19
 

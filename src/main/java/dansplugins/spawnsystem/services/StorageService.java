@@ -17,10 +17,16 @@ import java.util.logging.Level;
 public class StorageService {
     private final Plugin plugin;
     private final PersistentData persistentData;
+    private final String storageDirectory;
 
     public StorageService(Plugin plugin, PersistentData persistentData) {
+        this(plugin, persistentData, "./plugins/Kingdom-Spawn-System/");
+    }
+
+    StorageService(Plugin plugin, PersistentData persistentData, String storageDirectory) {
         this.plugin = plugin;
         this.persistentData = persistentData;
+        this.storageDirectory = storageDirectory;
     }
 
     public void save() {
@@ -30,11 +36,11 @@ public class StorageService {
 
     private void saveSpawnFilenames() {
         try {
-            File saveFolder = new File("./plugins/Kingdom-Spawn-System/");
+            File saveFolder = new File(storageDirectory);
             if (!saveFolder.exists()) {
                 saveFolder.mkdir();
             }
-            File saveFile = new File("./plugins/Kingdom-Spawn-System/" + "spawn-filenames.txt");
+            File saveFile = new File(storageDirectory + "spawn-filenames.txt");
             saveFile.createNewFile();
 
             FileWriter saveWriter = new FileWriter(saveFile);
@@ -55,14 +61,14 @@ public class StorageService {
         for (UUID playerName : persistentData.getPlayersWithSpawns()) {
 
             try {
-                File saveFolder = new File("./plugins/Kingdom-Spawn-System/");
+                File saveFolder = new File(storageDirectory);
                 if (!saveFolder.exists()) {
                     saveFolder.mkdir();
                 }
-                File saveFile = new File("./plugins/Kingdom-Spawn-System/" + playerName + ".txt");
+                File saveFile = new File(storageDirectory + playerName + ".txt");
                 saveFile.createNewFile();
 
-                FileWriter saveWriter = new FileWriter("./plugins/Kingdom-Spawn-System/" + playerName + ".txt");
+                FileWriter saveWriter = new FileWriter(storageDirectory + playerName + ".txt");
 
                 // actual saving takes place here
                 saveWriter.write(playerName.toString() + "\n");
@@ -88,7 +94,12 @@ public class StorageService {
 
     private void loadSpawns() {
         try {
-            File loadFile = new File("./plugins/Kingdom-Spawn-System/" + "spawn-filenames.txt");
+            File loadFile = new File(storageDirectory + "spawn-filenames.txt");
+            if (!loadFile.exists()) {
+                // the list is written only on a clean shutdown, so it is absent until the first one
+                plugin.getLogger().info("No saved spawns found yet.");
+                return;
+            }
             Scanner loadReader = new Scanner(loadFile);
 
             // actual loading
@@ -97,7 +108,7 @@ public class StorageService {
 
                 // load
                 try {
-                    File loadFile2 = new File("./plugins/Kingdom-Spawn-System/" + filename);
+                    File loadFile2 = new File(storageDirectory + filename);
                     Scanner loadReader2 = new Scanner(loadFile2);
 
                     UUID playerUUID = null;
@@ -142,8 +153,7 @@ public class StorageService {
 
             loadReader.close();
         } catch (FileNotFoundException e) {
-            // also reached on a first start, before any spawn has been saved, so no stack trace
-            plugin.getLogger().warning("Error loading the spawns!");
+            plugin.getLogger().log(Level.WARNING, "Error loading the spawns!", e);
         }
     }
 
