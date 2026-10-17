@@ -20,7 +20,7 @@ After installing the plugin and restarting your server, players can have their r
 5. On the **fourth line**, enter the Z coordinate.
 6. Confirm placement — you will see a green confirmation message if you have the required permission.
 
-`[Spawn]` is case-sensitive: it needs the capital `S` and the square brackets. A first line of `[spawn]` or `Spawn` makes an ordinary sign, which does nothing when right-clicked and isn't protected. Other text around `[Spawn]` on the first line is allowed (`Town [Spawn]` works).
+`[Spawn]` is case-sensitive: it needs the capital `S` and the square brackets. A first line of `[spawn]` or `Spawn` makes an ordinary sign, which does nothing when right-clicked and isn't protected as a spawn sign. Other text around `[Spawn]` on the first line is allowed (`Town [Spawn]` works).
 
 Without `spawnsystem.placeSpawnSign` (or `spawnsystem.admin`), you are told which permission you need, and the sign edit is cancelled, so the sign doesn't become a spawn sign.
 
