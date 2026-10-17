@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- `USER_GUIDE.md` now says that `[Spawn]` on a sign's first line is case-sensitive (`[spawn]` makes an ordinary sign), that other text may surround it, and what someone without `spawnsystem.placeSpawnSign` sees when they write one. Behaviour is unchanged.
+
 ### Fixed
 
 - A server's first start, before any spawn has been saved, no longer logs a false `Error loading the spawns!` warning. `spawn-filenames.txt` is written only on a clean shutdown, so its absence now produces `No saved spawns found yet.` at `INFO`. The warning is kept for a `spawn-filenames.txt` that exists but cannot be read, and now includes the cause.
