@@ -1,5 +1,9 @@
 # Dans-Spawn-System
 
+![Right-clicking a [Spawn] sign sets the player's spawn](docs/images/spawn-sign.png)
+
+*Real in-game output from Dans-Spawn-System 2.2.0 on a local throwaway Paper 1.21.11 test server: the commands were typed by a scripted bot client, and the chat it received is drawn as Minecraft-style chat (typed commands appear in the input bars; grey lines say what happened between commands).*
+
 ## Description
 
 Dans-Spawn-System is a Minecraft plugin that allows players to use signs to select a custom spawn point in their world. Server operators place `[Spawn]` signs with coordinates, and players right-click those signs to set their personal respawn location.
