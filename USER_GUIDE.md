@@ -22,6 +22,8 @@ After installing the plugin and restarting your server, players can have their r
 
 `[Spawn]` is case-sensitive: it needs the capital `S` and the square brackets. A first line of `[spawn]` or `Spawn` makes an ordinary sign, which does nothing when right-clicked and isn't protected as a spawn sign. Other text around `[Spawn]` on the first line is allowed (`Town [Spawn]` works).
 
+Write the text on the **front** of the sign. On Minecraft 1.20 and later, where signs have two sides, only the front is read when the sign is right-clicked or broken. A `[Spawn]` written on the back still shows the green confirmation, but the sign does nothing when right-clicked and isn't protected as a spawn sign.
+
 Without `spawnsystem.placeSpawnSign` (or `spawnsystem.admin`), you are told which permission you need, and the sign edit is cancelled, so the sign doesn't become a spawn sign.
 
 **Example sign contents:**
@@ -58,7 +60,7 @@ See [COMMANDS.md](COMMANDS.md) for full command details.
 
 - **Custom spawn:** a player with a custom spawn is teleported to it just after respawning, with the message "Teleporting to custom spawn!".
 - **Beds take precedence:** a player who has a bed spawn respawns at the bed as normal; their custom spawn is kept but not used while the bed spawn exists.
-- **Protected signs:** breaking a `[Spawn]` sign, or any block directly touching one (above, below, or on any side), requires `spawnsystem.breakSpawnSign`.
+- **Protected signs:** breaking a `[Spawn]` sign, or any block directly touching one (above, below, or on any side), requires `spawnsystem.breakSpawnSign`. A sign touching a `[Spawn]` sign is the exception: unless it is a `[Spawn]` sign itself, anyone can break it. Only blocks broken by a player are checked; explosions, fire and pistons are not stopped.
 - **Experience on death:** while the plugin is installed, every player on the server keeps their experience level when they die and drops no experience orbs, whether or not they have a custom spawn.
 
 ## Permissions
