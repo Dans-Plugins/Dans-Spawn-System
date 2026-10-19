@@ -12,3 +12,5 @@
 **Example:** `/resetspawn Steve` — resets Steve's spawn
 
 The `<player>` name has to match the player's name exactly, including capitalisation (`/resetspawn steve` does not find `Steve`). The player can be offline, but must have joined the server before. A name that matches no one is reported as not found, and no spawn is reset.
+
+When a spawn is reset, the sender is told `You have reset your spawn!` (no argument) or `Spawn reset for <player>!` (with an argument). The named player is told `Your spawn has been reset!` if they are online at the time; a player who is offline is not told. These messages are shown whether or not the player had a custom spawn to reset.

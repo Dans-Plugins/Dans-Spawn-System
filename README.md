@@ -62,7 +62,7 @@ Windows:
 
 To run the tests and build the plugin jar in one step, use `mvn clean package` instead — the tests run as part of that build.
 
-If you see `BUILD SUCCESS`, the project compiled and the tests passed. The suite covers logic that can be exercised without a running server; for anything that needs a live Bukkit runtime (event listeners, world interaction, on-disk persistence), follow the steps in the **Development** section below to validate on a test server.
+If you see `BUILD SUCCESS`, the project compiled and the tests passed. The suite covers logic that can be exercised without a running server, including each event listener's handling of a mocked event; for what only a live Bukkit runtime shows (events actually reaching the listeners, teleports and other world interaction, spawns surviving a restart), follow the steps in the **Development** section below to validate on a test server.
 
 ## Development
 
