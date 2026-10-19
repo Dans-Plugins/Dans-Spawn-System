@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - `USER_GUIDE.md` now says that `[Spawn]` on a sign's first line is case-sensitive (`[spawn]` makes an ordinary sign), that other text may surround it, and what someone without `spawnsystem.placeSpawnSign` sees when they write one. Behaviour is unchanged.
 - `USER_GUIDE.md` now says that `[Spawn]` has to be written on the front of a sign (on 1.20 and later the back is not read when the sign is right-clicked or broken), and narrows what *Protected signs* covers: an ordinary sign touching a `[Spawn]` sign can be broken by anyone, and only blocks broken by a player are checked, not explosions, fire or pistons. Behaviour is unchanged.
+- `COMMANDS.md` now lists the messages `/resetspawn` sends: to the sender, and to the named player only if they are online, whether or not a custom spawn existed. The README's *Automated Tests* section no longer says event listeners need a live server to be tested; their handling is unit tested against mocked events. Behaviour is unchanged.
 
 ### Fixed
 
