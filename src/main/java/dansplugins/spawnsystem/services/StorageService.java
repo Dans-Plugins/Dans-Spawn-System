@@ -115,7 +115,14 @@ public class StorageService {
 
                     // actual loading
                     if (loadReader2.hasNextLine()) {
-                        playerUUID = UUID.fromString(loadReader2.nextLine());
+                        try {
+                            playerUUID = UUID.fromString(loadReader2.nextLine());
+                        } catch (IllegalArgumentException e) {
+                            // skip only this record, so the ones listed after it still load
+                            plugin.getLogger().log(Level.WARNING, "The file " + filename + " doesn't start with a player UUID, so it was skipped.", e);
+                            loadReader2.close();
+                            continue;
+                        }
                     }
 
                     try {

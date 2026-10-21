@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -265,19 +264,35 @@ class StorageServiceTest {
     }
 
     @Test
-    void load_recordWhoseFirstLineIsNotAUUID_throwsOutOfLoadAndSkipsLaterRecords(@TempDir Path storageDirectory) throws IOException {
-        // Characterizes current behaviour: the UUID parse sits outside the per-record catch, so one
-        // corrupt record aborts the whole load (and, at startup, onEnable) instead of being skipped (#121).
+    void load_recordWhoseFirstLineIsNotAUUID_warnsAndStillLoadsTheNextRecord(@TempDir Path storageDirectory) throws IOException {
         UUID laterId = UUID.fromString("22222222-2222-2222-2222-222222222222");
         writeLines(storageDirectory.resolve("spawn-filenames.txt"), "corrupt.txt", laterId + ".txt");
         writeLines(storageDirectory.resolve("corrupt.txt"), "not-a-uuid", "world", "1.0", "2.0", "3.0");
         writeLines(storageDirectory.resolve(laterId + ".txt"), laterId.toString(), "world", "1.0", "2.0", "3.0");
         serverReturning(worldNamed("world"));
         PersistentData loaded = new PersistentData();
-        StorageService storageService = new StorageService(plugin, loaded, storageDirectory + File.separator);
 
-        assertThrows(IllegalArgumentException.class, storageService::load);
-        assertTrue(loaded.getPlayersWithSpawns().isEmpty());
+        new StorageService(plugin, loaded, storageDirectory + File.separator).load();
+
+        verify(logger).log(eq(Level.WARNING), eq("The file corrupt.txt doesn't start with a player UUID, so it was skipped."),
+                any(IllegalArgumentException.class));
+        assertEquals(Collections.singletonList(laterId), loaded.getPlayersWithSpawns());
+    }
+
+    @Test
+    void load_recordWhoseFirstLineIsEmpty_warnsAndStillLoadsTheNextRecord(@TempDir Path storageDirectory) throws IOException {
+        UUID laterId = UUID.fromString("22222222-2222-2222-2222-222222222222");
+        writeLines(storageDirectory.resolve("spawn-filenames.txt"), "blank.txt", laterId + ".txt");
+        writeLines(storageDirectory.resolve("blank.txt"), "", "world", "1.0", "2.0", "3.0");
+        writeLines(storageDirectory.resolve(laterId + ".txt"), laterId.toString(), "world", "1.0", "2.0", "3.0");
+        serverReturning(worldNamed("world"));
+        PersistentData loaded = new PersistentData();
+
+        new StorageService(plugin, loaded, storageDirectory + File.separator).load();
+
+        verify(logger).log(eq(Level.WARNING), eq("The file blank.txt doesn't start with a player UUID, so it was skipped."),
+                any(IllegalArgumentException.class));
+        assertEquals(Collections.singletonList(laterId), loaded.getPlayersWithSpawns());
     }
 
     private static void addSpawn(PersistentData persistentData, UUID playerId, World world, double x, double y, double z) {

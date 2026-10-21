@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - A server's first start, before any spawn has been saved, no longer logs a false `Error loading the spawns!` warning. `spawn-filenames.txt` is written only on a clean shutdown, so its absence now produces `No saved spawns found yet.` at `INFO`. The warning is kept for a `spawn-filenames.txt` that exists but cannot be read, and now includes the cause.
+- A saved spawn record whose first line is not a player UUID (for example after a manual edit or a truncated write) is now skipped with a warning naming the file, and the records listed after it still load. Before, it stopped loading at that record and the error escaped the plugin's startup, leaving every later player without their custom spawn.
 
 ## [2.2.0] – 2026-10-10
 
