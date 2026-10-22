@@ -45,9 +45,15 @@ shutting down cleanly (a crash or a killed process).
 
 A spawn file that can't be written or read is reported as a warning in the server console, prefixed
 `[DansSpawnSystem]`, together with the cause where there is one.
-A `<player UUID>.txt` whose first line isn't a player UUID is skipped with a warning naming the file,
-and the files listed after it still load. A skipped spawn is left out of `spawn-filenames.txt` the
-next time it is written, so fix the file before the next clean shutdown to keep that player's spawn.
+A spawn that can't be loaded is skipped, and the files listed after it still load:
+
+- a file listed in `spawn-filenames.txt` that doesn't exist, with a warning naming the file;
+- a `<player UUID>.txt` whose first line isn't a player UUID, with a warning naming the file;
+- a `<player UUID>.txt` whose world name or X, Y or Z coordinate is missing, or whose coordinate isn't
+  a number, with a warning saying which value it is (but not which file).
+
+A skipped spawn is left out of `spawn-filenames.txt` the next time it is written, so fix the file
+before the next clean shutdown to keep that player's spawn.
 Until the first clean shutdown, `spawn-filenames.txt` does not exist; the console then shows
 `No saved spawns found yet.` as information, not a warning.
 
