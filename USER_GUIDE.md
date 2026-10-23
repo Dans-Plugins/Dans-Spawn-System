@@ -41,7 +41,9 @@ The coordinates have to be whole numbers (`100`, not `100.5`) with nothing else 
 
 ### Selecting a Spawn (Player)
 
-Simply **right-click** any `[Spawn]` sign to set your personal respawn location to the coordinates written on that sign. You are teleported to those coordinates straight away.
+Simply **right-click** any `[Spawn]` sign to set your personal respawn location to the coordinates written on that sign. You are teleported to those coordinates straight away, and told `Spawn set!`.
+
+The spawn is the exact point the sign names, which is the corner of that block rather than its centre, and you arrive facing south (towards positive Z). The same applies each time you are teleported there on respawning. When choosing coordinates for a sign, pick a spot with open space around that corner, so players don't arrive pressed against a wall.
 
 A spawn can only be selected once. Right-clicking another `[Spawn]` sign afterwards tells you that you have already set your spawn; it has to be reset with `/resetspawn` (by you, if you have `spawnsystem.reset.self`, or by an admin) before you can choose again.
 
