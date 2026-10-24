@@ -20,6 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -117,7 +118,8 @@ class PlayerRespawnListenerTest {
         persistentData.getPlayerSpawns().remove(player.getUniqueId());
         scheduledTask().run();
 
-        verify(player, never()).teleport(any(Location.class));
+        // nullable, not any: any(Location.class) does not match the null the unguarded lookup returns
+        verify(player, never()).teleport(nullable(Location.class));
         verify(player, never()).sendMessage(anyString());
     }
 
