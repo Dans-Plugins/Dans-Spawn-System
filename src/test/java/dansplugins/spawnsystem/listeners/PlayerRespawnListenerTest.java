@@ -20,6 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -106,6 +107,20 @@ class PlayerRespawnListenerTest {
 
         verify(player).teleport(customSpawn);
         verify(player).sendMessage(ChatColor.GREEN + "Teleporting to custom spawn!");
+    }
+
+    // /resetspawn can run in the tick between the respawn and the deferred teleport.
+    @Test
+    void handle_customSpawnResetBeforeTheTaskRuns_neitherTeleportsNorTellsThePlayer() {
+        Player player = playerWithCustomSpawn(someLocation());
+
+        playerRespawnListener.handle(respawnOf(player));
+        persistentData.getPlayerSpawns().remove(player.getUniqueId());
+        scheduledTask().run();
+
+        // nullable, not any: any(Location.class) does not match the null the unguarded lookup returns
+        verify(player, never()).teleport(nullable(Location.class));
+        verify(player, never()).sendMessage(anyString());
     }
 
     private Player playerWithCustomSpawn(Location customSpawn) {

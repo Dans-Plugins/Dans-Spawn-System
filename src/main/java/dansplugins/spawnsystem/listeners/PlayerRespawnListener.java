@@ -2,6 +2,7 @@ package dansplugins.spawnsystem.listeners;
 
 import dansplugins.spawnsystem.data.PersistentData;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,7 +28,12 @@ public class PlayerRespawnListener implements Listener {
             plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
                 @Override
                 public void run() {
-                    event.getPlayer().teleport(persistentData.getPlayerSpawns().get(event.getPlayer().getUniqueId()));
+                    // the spawn may have been reset with /resetspawn since the respawn
+                    Location customSpawn = persistentData.getPlayerSpawns().get(event.getPlayer().getUniqueId());
+                    if (customSpawn == null) {
+                        return;
+                    }
+                    event.getPlayer().teleport(customSpawn);
                     event.getPlayer().sendMessage(ChatColor.GREEN + "Teleporting to custom spawn!");
                 }
             }, 1);
