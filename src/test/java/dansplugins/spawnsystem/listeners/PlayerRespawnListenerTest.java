@@ -108,6 +108,19 @@ class PlayerRespawnListenerTest {
         verify(player).sendMessage(ChatColor.GREEN + "Teleporting to custom spawn!");
     }
 
+    // /resetspawn can run in the tick between the respawn and the deferred teleport.
+    @Test
+    void handle_customSpawnResetBeforeTheTaskRuns_neitherTeleportsNorTellsThePlayer() {
+        Player player = playerWithCustomSpawn(someLocation());
+
+        playerRespawnListener.handle(respawnOf(player));
+        persistentData.getPlayerSpawns().remove(player.getUniqueId());
+        scheduledTask().run();
+
+        verify(player, never()).teleport(any(Location.class));
+        verify(player, never()).sendMessage(anyString());
+    }
+
     private Player playerWithCustomSpawn(Location customSpawn) {
         Player player = mock(Player.class);
         UUID playerId = UUID.randomUUID();
