@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
+- The vendored trace client is now 0.7.0. Repeats of the same usage event within a minute are counted rather than each sent: the first is sent at once, and the rest follow as one event carrying how many there were. A command used many times in a row therefore costs one report a minute. `startup` is never held back, and counts still open when the server stops are sent on shutdown. `CONFIG.md` and `README.md` now say so. Details: https://github.com/Stephenson-Software/trace-client-java/releases/tag/0.7.0.
+- `CHANGELOG.md` now has a `[2.3.0]` section holding the changes released in 2.3.0, which had been left under `[Unreleased]`.
+
+## [2.3.0] – 2026-10-27
+
+### Changed
+
 - `USER_GUIDE.md` now says that `[Spawn]` on a sign's first line is case-sensitive (`[spawn]` makes an ordinary sign), that other text may surround it, and what someone without `spawnsystem.placeSpawnSign` sees when they write one. Behaviour is unchanged.
 - `USER_GUIDE.md` now says that `[Spawn]` has to be written on the front of a sign (on 1.20 and later the back is not read when the sign is right-clicked or broken), and narrows what *Protected signs* covers: an ordinary sign touching a `[Spawn]` sign can be broken by anyone, and only blocks broken by a player are checked, not explosions, fire or pistons. Behaviour is unchanged.
 - `COMMANDS.md` now lists the messages `/resetspawn` sends: to the sender, and to the named player only if they are online, whether or not a custom spawn existed. The README's *Automated Tests* section no longer says event listeners need a live server to be tested; their handling is unit tested against mocked events. Behaviour is unchanged.
