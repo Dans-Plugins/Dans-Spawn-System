@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Unit tests for what selecting a spawn from a `[Spawn]` sign does the first time: the spawn is stored and the player is tracked once, the player is teleported to the exact coordinates on the sign (the block's corner, facing south) and is told `Spawn set!`. A second selection is refused with the "already set" message, without a second teleport and without tracking the player twice. These lock in what `USER_GUIDE.md` describes. Behaviour is unchanged.
+
 ### Changed
 
 - The vendored trace client is now 0.7.0. Repeats of the same usage event within a minute are counted rather than each sent: the first is sent at once, and the rest follow as one event carrying how many there were. A command used many times in a row therefore costs one report a minute. `startup` is never held back, and counts still open when the server stops are sent on shutdown. `CONFIG.md` and `README.md` now say so. Details: https://github.com/Stephenson-Software/trace-client-java/releases/tag/0.7.0.
