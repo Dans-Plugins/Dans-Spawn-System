@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - The vendored trace client is now 0.7.0. Repeats of the same usage event within a minute are counted rather than each sent: the first is sent at once, and the rest follow as one event carrying how many there were. A command used many times in a row therefore costs one report a minute. `startup` is never held back, and counts still open when the server stops are sent on shutdown. `CONFIG.md` and `README.md` now say so. Details: https://github.com/Stephenson-Software/trace-client-java/releases/tag/0.7.0.
 - `CHANGELOG.md` now has a `[2.3.0]` section holding the changes released in 2.3.0, which had been left under `[Unreleased]`.
+- Usage reporting now counts a `command` event only when a player runs the command; console, command-block and plugin-dispatched commands are no longer reported.
 
 ## [2.3.0] – 2026-10-27
 
