@@ -47,6 +47,11 @@ Spawns are read from this folder when the plugin starts and written to it only w
 down cleanly. Spawns selected or reset since the last start are lost if the server stops without
 shutting down cleanly (a crash or a killed process).
 
+Only the files listed in `spawn-filenames.txt` are read. Files are never deleted: when a spawn is reset
+with `/resetspawn`, the player is dropped from `spawn-filenames.txt` on the next clean shutdown, but
+their `<player UUID>.txt` stays in the folder, unread, until it is overwritten by a new spawn. To find
+out whether a player has a custom spawn, check `spawn-filenames.txt` rather than looking for their file.
+
 A spawn file that can't be written or read is reported as a warning in the server console, prefixed
 `[DansSpawnSystem]`, together with the cause where there is one.
 A spawn that can't be loaded is skipped, and the files listed after it still load:
