@@ -102,7 +102,7 @@ You can view the bStats page for the plugin [here](https://bstats.org/plugin/buk
 
 ## Usage reporting
 
-Usage reporting is on by default: each time the plugin is enabled, and each time one of its commands is run, it sends its name, its version and the command's name to the author's trace server at https://trace.danielstephenson.dev, so it is known which plugins are actually in use. Nothing about players, worlds or IP addresses is sent, and nothing typed after a command is. When a command is used repeatedly, the first use is reported at once and the repeats within the following minute are sent as one counted event rather than one each.
+Usage reporting is on by default: each time the plugin is enabled, and each time a player runs one of its commands, it sends its name, its version and the command's name to the author's trace server at https://trace.danielstephenson.dev, so it is known which plugins are actually in use. Nothing about players, worlds or IP addresses is sent, and nothing typed after a command is. When a command is used repeatedly, the first use is reported at once and the repeats within the following minute are sent as one counted event rather than one each.
 
 Each event also carries a random server ID (the `server-id` line in `plugins/trace/config.yml`) so
 servers can be counted rather than events. It identifies no person, account or IP address; delete
