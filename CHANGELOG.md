@@ -8,6 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
+- `CHANGELOG.md` now has a `[2.3.2]` section holding the changes released in 2.3.2, which had been left under `[Unreleased]`. Behaviour is unchanged.
+
+### Fixed
+
+- A custom spawn in a world that was unloaded during the session no longer empties that player's spawn file on saving, or stops the players after them from being saved. That spawn is now skipped with a warning naming the player, and their existing file is left as it was. Before, the error escaped the plugin's shutdown.
+
+## [2.3.2] – 2026-10-31
+
+### Changed
+
 - `CONFIG.md`'s *Stored spawns* section now says that only the files listed in `spawn-filenames.txt` are read, and that a spawn reset with `/resetspawn` leaves the player's `<player UUID>.txt` in the folder, unread, so `spawn-filenames.txt` is what shows whether a player has a custom spawn. Behaviour is unchanged.
 - `CONFIG.md`, `README.md` and the comment in the default `config.yml` now say that a `command` usage event is sent only when a player runs a command, matching 2.3.1's change; they still said every use of a command was reported. Behaviour is unchanged.
 - `CHANGELOG.md` now has a `[2.3.1]` section holding the changes released in 2.3.1, which had been left under `[Unreleased]`. Behaviour is unchanged.
