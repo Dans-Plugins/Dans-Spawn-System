@@ -59,6 +59,17 @@ public class StorageService {
 
     private void saveSpawns() {
         for (UUID playerName : persistentData.getPlayersWithSpawns()) {
+            Location spawnLocation = persistentData.getPlayerSpawns().get(playerName);
+
+            // read before the file is opened, because opening it empties it
+            String worldName;
+            try {
+                worldName = spawnLocation.getWorld().getName();
+            } catch (IllegalArgumentException e) {
+                // skip only this record, so the ones after it are still saved
+                plugin.getLogger().log(Level.WARNING, "The spawn belonging to " + playerName + " wasn't saved, because its world is no longer loaded. Its file was left as it was.", e);
+                continue;
+            }
 
             try {
                 File saveFolder = new File(storageDirectory);
@@ -74,10 +85,10 @@ public class StorageService {
                 saveWriter.write(playerName.toString() + "\n");
 
                 // save details
-                saveWriter.write(persistentData.getPlayerSpawns().get(playerName).getWorld().getName() + "\n");
-                saveWriter.write(persistentData.getPlayerSpawns().get(playerName).getX() + "\n");
-                saveWriter.write(persistentData.getPlayerSpawns().get(playerName).getY() + "\n");
-                saveWriter.write(persistentData.getPlayerSpawns().get(playerName).getZ() + "\n");
+                saveWriter.write(worldName + "\n");
+                saveWriter.write(spawnLocation.getX() + "\n");
+                saveWriter.write(spawnLocation.getY() + "\n");
+                saveWriter.write(spawnLocation.getZ() + "\n");
 
                 saveWriter.close();
 

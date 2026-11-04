@@ -194,6 +194,30 @@ class StorageServiceTest {
     }
 
     @Test
+    void save_spawnInAnUnloadedWorld_keepsItsFileAndStillSavesTheNextPlayer(@TempDir Path storageDirectory) throws IOException {
+        UUID unloadedId = UUID.fromString("11111111-1111-1111-1111-111111111111");
+        UUID laterId = UUID.fromString("22222222-2222-2222-2222-222222222222");
+        List<String> previousRecord = Arrays.asList(unloadedId.toString(), "world_gone", "7.0", "8.0", "9.0");
+        writeLines(storageDirectory.resolve(unloadedId + ".txt"), previousRecord.toArray(new String[0]));
+        // a real Location throws this from getWorld() once its unloaded world has been garbage-collected
+        Location unloadedSpawn = mock(Location.class);
+        when(unloadedSpawn.getWorld()).thenThrow(new IllegalArgumentException("World unloaded"));
+        PersistentData persistentData = new PersistentData();
+        persistentData.getPlayerSpawns().put(unloadedId, unloadedSpawn);
+        persistentData.getPlayersWithSpawns().add(unloadedId);
+        addSpawn(persistentData, laterId, worldNamed("world"), 1, 2, 3);
+
+        new StorageService(plugin, persistentData, storageDirectory + File.separator).save();
+
+        assertEquals(previousRecord, readLines(storageDirectory.resolve(unloadedId + ".txt")));
+        assertEquals(Arrays.asList(laterId.toString(), "world", "1.0", "2.0", "3.0"),
+                readLines(storageDirectory.resolve(laterId + ".txt")));
+        assertEquals(Arrays.asList(unloadedId + ".txt", laterId + ".txt"), readLines(storageDirectory.resolve("spawn-filenames.txt")));
+        verify(logger).log(eq(Level.WARNING), eq("The spawn belonging to " + unloadedId + " wasn't saved, because its world is no longer loaded. Its file was left as it was."),
+                any(IllegalArgumentException.class));
+    }
+
+    @Test
     void saveThenLoad_spawnSurvivesTheRoundTrip(@TempDir Path storageDirectory) {
         UUID playerId = UUID.randomUUID();
         PersistentData saved = new PersistentData();

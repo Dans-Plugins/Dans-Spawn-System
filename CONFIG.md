@@ -55,6 +55,9 @@ out whether a player has a custom spawn, check `spawn-filenames.txt` rather than
 
 A spawn file that can't be written or read is reported as a warning in the server console, prefixed
 `[DansSpawnSystem]`, together with the cause where there is one.
+A spawn whose world is no longer loaded when spawns are written isn't saved: the warning names the
+player, their existing file is left as it was, and the other players are still saved. A spawn selected
+since the last start has no file yet, so that one is skipped on the next start, as described below.
 A spawn that can't be loaded is skipped, and the files listed after it still load:
 
 - a file listed in `spawn-filenames.txt` that doesn't exist, with a warning naming the file;
