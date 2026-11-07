@@ -8,12 +8,14 @@ import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -55,7 +57,7 @@ class BlockBreakListenerTest {
 
         blockBreakListener.handle(event);
 
-        verify(player).sendMessage(contains("spawnsystem.breakSpawnSign"));
+        verify(player).sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'spawnsystem.breakSpawnSign'");
         assertTrue(event.isCancelled());
     }
 
@@ -70,31 +72,51 @@ class BlockBreakListenerTest {
         assertFalse(event.isCancelled());
     }
 
+    // USER_GUIDE.md's exception: only a [Spawn] sign is protected, so a sign doesn't inherit protection
+    // from the [Spawn] sign beside it the way any other block would.
+    @Test
+    void handle_ordinarySignTouchingASpawnSign_isLeftAlone() {
+        Player player = mock(Player.class);
+        Block ordinarySign = signWithFirstLine("Welcome!");
+        when(ordinarySign.getWorld()).thenReturn(world);
+        when(world.getBlockAt(anyInt(), anyInt(), anyInt())).thenReturn(mock(Block.class));
+        neighbourAt(1, 0, 0, spawnSign());
+        BlockBreakEvent event = new BlockBreakEvent(ordinarySign, player);
+
+        blockBreakListener.handle(event);
+
+        verify(player, never()).sendMessage(anyString());
+        assertFalse(event.isCancelled());
+    }
+
     // A non-sign block is still protected when a spawn sign sits in any of the six blocks around it,
     // which is what stops the supporting block being knocked out from under a spawn sign.
-    @Test
-    void handle_blockSupportingASpawnSignBrokenWithoutPermission_isCancelledWithAnExplanation() {
+    @ParameterizedTest
+    @CsvSource({"0, 1, 0", "0, -1, 0", "1, 0, 0", "-1, 0, 0", "0, 0, 1", "0, 0, -1"})
+    void handle_blockNextToASpawnSignBrokenWithoutPermission_isCancelledWithAnExplanation(int x, int y, int z) {
         Player player = mock(Player.class);
         Block block = plainBlockAtOrigin();
-        neighbourAt(0, 1, 0, spawnSign());
+        neighbourAt(x, y, z, spawnSign());
         BlockBreakEvent event = new BlockBreakEvent(block, player);
 
         blockBreakListener.handle(event);
 
-        verify(player).sendMessage(contains("spawnsystem.breakSpawnSign"));
+        verify(player).sendMessage(ChatColor.RED + "Sorry! In order to break a block next to a spawn selection sign, you must have the following permission: 'spawnsystem.breakSpawnSign'");
         assertTrue(event.isCancelled());
     }
 
-    @Test
-    void handle_blockSupportingASpawnSignBrokenWithPermission_isConfirmedAndAllowed() {
-        Player player = playerWithPermission("spawnsystem.breakSpawnSign");
+    // The sign falls only if it is attached to the block, so the confirmation can't claim that it was broken.
+    @ParameterizedTest
+    @ValueSource(strings = {"spawnsystem.breakSpawnSign", "spawnsystem.admin"})
+    void handle_blockNextToASpawnSignBrokenWithPermission_isConfirmedAndAllowed(String permission) {
+        Player player = playerWithPermission(permission);
         Block block = plainBlockAtOrigin();
         neighbourAt(0, -1, 0, spawnSign());
         BlockBreakEvent event = new BlockBreakEvent(block, player);
 
         blockBreakListener.handle(event);
 
-        verify(player).sendMessage(ChatColor.GREEN + "Spawn selection sign broken!");
+        verify(player).sendMessage(ChatColor.GREEN + "Block next to a spawn selection sign broken!");
         assertFalse(event.isCancelled());
     }
 

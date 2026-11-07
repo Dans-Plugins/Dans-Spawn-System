@@ -62,7 +62,7 @@ See [COMMANDS.md](COMMANDS.md) for full command details.
 
 - **Custom spawn:** a player with a custom spawn is teleported to it just after respawning, with the message "Teleporting to custom spawn!".
 - **Beds take precedence:** a player who has a bed spawn respawns at the bed as normal; their custom spawn is kept but not used while the bed spawn exists.
-- **Protected signs:** breaking a `[Spawn]` sign, or any block directly touching one (above, below, or on any side), requires `spawnsystem.breakSpawnSign`. A sign touching a `[Spawn]` sign is the exception: unless it is a `[Spawn]` sign itself, anyone can break it. Only blocks broken by a player are checked; explosions, fire and pistons are not stopped.
+- **Protected signs:** breaking a `[Spawn]` sign, or any block directly touching one (above, below, or on any side), requires `spawnsystem.breakSpawnSign`. A sign touching a `[Spawn]` sign is the exception: unless it is a `[Spawn]` sign itself, anyone can break it. Only blocks broken by a player are checked; explosions, fire and pistons are not stopped. Breaking a `[Spawn]` sign itself is confirmed with `Spawn selection sign broken!`; breaking a block touching one is confirmed with `Block next to a spawn selection sign broken!`, whether or not the sign falls with it.
 - **Experience on death:** while the plugin is installed, every player on the server keeps their experience level when they die and drops no experience orbs, whether or not they have a custom spawn.
 
 ## Permissions
