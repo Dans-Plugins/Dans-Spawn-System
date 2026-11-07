@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `CONFIG.md`'s *Stored spawns* section now says that a spawn is skipped at saving only once its unloaded world has been dropped from memory, not as soon as the world is unloaded, and that a skipped spawn with an older file left by a reset brings that older spawn back on the next start. Behaviour is unchanged.
 - `CHANGELOG.md` now has a `[2.4.0]` section holding the changes released in 2.4.0, which had been left under `[Unreleased]`. Behaviour is unchanged.
 
+### Fixed
+
+- Breaking a block next to a `[Spawn]` sign no longer says that the sign itself was broken, which wasn't true unless the sign was attached to that block. The confirmation is now `Block next to a spawn selection sign broken!`, and a refused player is told that the permission is needed to break a block next to a spawn selection sign. Who may break what is unchanged.
+
 ## [2.4.0] – 2026-11-04
 
 ### Changed

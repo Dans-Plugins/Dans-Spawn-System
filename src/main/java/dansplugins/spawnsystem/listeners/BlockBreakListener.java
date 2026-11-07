@@ -38,11 +38,12 @@ public class BlockBreakListener implements Listener {
         else {
             if (isNextToSpawnSelectionSign(event.getBlock())) {
 
+                // the sign may or may not be attached to this block, so these messages don't say it was broken
                 if (event.getPlayer().hasPermission("spawnsystem.breakSpawnSign") || event.getPlayer().hasPermission("spawnsystem.admin")) {
-                    event.getPlayer().sendMessage(ChatColor.GREEN + "Spawn selection sign broken!");
+                    event.getPlayer().sendMessage(ChatColor.GREEN + "Block next to a spawn selection sign broken!");
                 }
                 else {
-                    event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'spawnsystem.breakSpawnSign'");
+                    event.getPlayer().sendMessage(ChatColor.RED + "Sorry! In order to break a block next to a spawn selection sign, you must have the following permission: 'spawnsystem.breakSpawnSign'");
                     event.setCancelled(true);
                 }
 
