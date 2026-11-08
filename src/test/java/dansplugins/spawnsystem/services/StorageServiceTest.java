@@ -319,6 +319,59 @@ class StorageServiceTest {
         assertEquals(Collections.singletonList(laterId), loaded.getPlayersWithSpawns());
     }
 
+    @Test
+    void load_emptyRecordFile_warnsAndStillLoadsTheNextRecord(@TempDir Path storageDirectory) throws IOException {
+        UUID laterId = UUID.fromString("22222222-2222-2222-2222-222222222222");
+        writeLines(storageDirectory.resolve("spawn-filenames.txt"), "empty.txt", laterId + ".txt");
+        Files.createFile(storageDirectory.resolve("empty.txt"));
+        writeLines(storageDirectory.resolve(laterId + ".txt"), laterId.toString(), "world", "1.0", "2.0", "3.0");
+        ArgumentCaptor<WorldCreator> requestedWorld = serverReturning(worldNamed("world"));
+        PersistentData loaded = new PersistentData();
+
+        new StorageService(plugin, loaded, storageDirectory + File.separator).load();
+
+        // an empty file has no first line, so it is reported as a missing world name, not as a missing UUID
+        verify(logger).warning("World name not found in file!");
+        verify(logger, never()).log(eq(Level.WARNING), anyString(), any(IllegalArgumentException.class));
+        // only the later record asks for a world
+        assertEquals(1, requestedWorld.getAllValues().size());
+        assertEquals("world", requestedWorld.getValue().name());
+        assertEquals(Collections.singletonList(laterId), loaded.getPlayersWithSpawns());
+        assertEquals(Collections.singleton(laterId), loaded.getPlayerSpawns().keySet());
+    }
+
+    @Test
+    void load_blankLineInFilenameList_warnsAndStillLoadsTheNextRecord(@TempDir Path storageDirectory) throws IOException {
+        UUID laterId = UUID.fromString("22222222-2222-2222-2222-222222222222");
+        writeLines(storageDirectory.resolve("spawn-filenames.txt"), "", laterId + ".txt");
+        writeLines(storageDirectory.resolve(laterId + ".txt"), laterId.toString(), "world", "1.0", "2.0", "3.0");
+        serverReturning(worldNamed("world"));
+        PersistentData loaded = new PersistentData();
+
+        new StorageService(plugin, loaded, storageDirectory + File.separator).load();
+
+        // a blank line names the storage folder itself, which can't be opened as a file
+        verify(logger).log(eq(Level.WARNING), eq("An error occurred loading the file ."), any(FileNotFoundException.class));
+        assertEquals(Collections.singletonList(laterId), loaded.getPlayersWithSpawns());
+    }
+
+    @Test
+    void load_recordWhoseUUIDDiffersFromItsFilename_isKeyedByTheUUIDInsideTheFile(@TempDir Path storageDirectory) throws IOException {
+        UUID filenameId = UUID.fromString("11111111-1111-1111-1111-111111111111");
+        UUID contentId = UUID.fromString("22222222-2222-2222-2222-222222222222");
+        writeLines(storageDirectory.resolve("spawn-filenames.txt"), filenameId + ".txt");
+        writeLines(storageDirectory.resolve(filenameId + ".txt"), contentId.toString(), "world", "1.0", "2.0", "3.0");
+        serverReturning(worldNamed("world"));
+        PersistentData loaded = new PersistentData();
+
+        new StorageService(plugin, loaded, storageDirectory + File.separator).load();
+
+        assertEquals(Collections.singletonList(contentId), loaded.getPlayersWithSpawns());
+        assertTrue(loaded.getPlayerSpawns().containsKey(contentId));
+        assertFalse(loaded.getPlayerSpawns().containsKey(filenameId));
+        verify(logger, never()).warning(anyString());
+    }
+
     private static void addSpawn(PersistentData persistentData, UUID playerId, World world, double x, double y, double z) {
         persistentData.getPlayerSpawns().put(playerId, new Location(world, x, y, z));
         persistentData.getPlayersWithSpawns().add(playerId);

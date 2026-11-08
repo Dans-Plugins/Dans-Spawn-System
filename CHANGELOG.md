@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Unit tests for three kinds of saved spawn that are skipped or read unexpectedly on startup: an empty `<player UUID>.txt` is skipped with `World name not found in file!` (not the missing-UUID warning), a blank line in `spawn-filenames.txt` is skipped with a warning while the spawns listed after it still load, and a spawn is loaded for the UUID on the file's first line, not the one in its filename. Behaviour is unchanged.
+
 ### Changed
 
 - `CONFIG.md`'s *Stored spawns* section now says that a spawn is skipped at saving only once its unloaded world has been dropped from memory, not as soon as the world is unloaded, and that a skipped spawn with an older file left by a reset brings that older spawn back on the next start. Behaviour is unchanged.
