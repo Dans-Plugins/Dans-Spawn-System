@@ -53,6 +53,12 @@ with `/resetspawn`, the player is dropped from `spawn-filenames.txt` on the next
 their `<player UUID>.txt` stays in the folder, unread, until it is overwritten by a new spawn. To find
 out whether a player has a custom spawn, check `spawn-filenames.txt` rather than looking for their file.
 
+A spawn belongs to the player whose UUID is on the first line of its file, whatever the file is called.
+Renaming a file, or copying it under another player's UUID, does not give the spawn to that player
+unless the first line is changed too. On the next clean shutdown the spawn is written to
+`<UUID on its first line>.txt`, which is the name `spawn-filenames.txt` then lists; the file it was
+read from is left in the folder.
+
 A spawn file that can't be written or read is reported as a warning in the server console, prefixed
 `[DansSpawnSystem]`, together with the cause where there is one.
 A spawn can't be written once its world has been unloaded and that world has also been dropped from
@@ -62,10 +68,12 @@ the last start may have no file yet, and is then skipped on the next start, as d
 player still has an older file from before a reset, that older spawn comes back instead.
 A spawn that can't be loaded is skipped, and the files listed after it still load:
 
-- a file listed in `spawn-filenames.txt` that doesn't exist, with a warning naming the file;
-- a `<player UUID>.txt` whose first line isn't a player UUID, with a warning naming the file;
+- a file listed in `spawn-filenames.txt` that doesn't exist, with a warning naming the file (a blank
+  line in `spawn-filenames.txt` is reported the same way, as `An error occurred loading the file .`);
+- a `<player UUID>.txt` whose first line isn't a player UUID, or is empty, with a warning naming the file;
 - a `<player UUID>.txt` whose world name or X, Y or Z coordinate is missing, or whose coordinate isn't
-  a number, with a warning saying which value it is (but not which file).
+  a number, with a warning saying which value it is (but not which file). A completely empty file is
+  reported this way, as `World name not found in file!`, not as a missing UUID.
 
 A skipped spawn is left out of `spawn-filenames.txt` the next time it is written, so fix the file
 before the next clean shutdown to keep that player's spawn.
