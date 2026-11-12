@@ -5,6 +5,8 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.SignChangeEvent;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -73,6 +75,19 @@ class SignChangeEventListenerTest {
         signChangeEventListener.handle(event);
 
         verify(player).sendMessage(ChatColor.GREEN + "Spawn selection sign created!");
+    }
+
+    // USER_GUIDE.md: [Spawn] is case-sensitive, so these make an ordinary sign and need no permission.
+    @ParameterizedTest
+    @ValueSource(strings = {"[spawn]", "[SPAWN]", "Spawn"})
+    void handle_spawnTagWrittenDifferently_isLeftAlone(String firstLine) {
+        Player player = mock(Player.class);
+        SignChangeEvent event = signWrittenBy(player, firstLine);
+
+        signChangeEventListener.handle(event);
+
+        verify(player, never()).sendMessage(anyString());
+        assertFalse(event.isCancelled());
     }
 
     private SignChangeEvent signWrittenBy(Player player, String firstLine) {

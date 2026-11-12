@@ -72,6 +72,31 @@ class BlockBreakListenerTest {
         assertFalse(event.isCancelled());
     }
 
+    // USER_GUIDE.md: [Spawn] is case-sensitive, so a sign written any other way isn't protected.
+    @ParameterizedTest
+    @ValueSource(strings = {"[spawn]", "[SPAWN]", "Spawn"})
+    void handle_signWithTheSpawnTagWrittenDifferentlyBroken_isLeftAlone(String firstLine) {
+        Player player = mock(Player.class);
+        BlockBreakEvent event = new BlockBreakEvent(signWithFirstLine(firstLine), player);
+
+        blockBreakListener.handle(event);
+
+        verify(player, never()).sendMessage(anyString());
+        assertFalse(event.isCancelled());
+    }
+
+    // USER_GUIDE.md: other text around [Spawn] on the first line is allowed, and such a sign is protected too.
+    @Test
+    void handle_spawnTagSurroundedByOtherTextBrokenWithoutPermission_isCancelledWithAnExplanation() {
+        Player player = mock(Player.class);
+        BlockBreakEvent event = new BlockBreakEvent(signWithFirstLine("Town [Spawn]"), player);
+
+        blockBreakListener.handle(event);
+
+        verify(player).sendMessage(ChatColor.RED + "Sorry! In order to break a spawn selection sign, you must have the following permission: 'spawnsystem.breakSpawnSign'");
+        assertTrue(event.isCancelled());
+    }
+
     // USER_GUIDE.md's exception: only a [Spawn] sign is protected, so a sign doesn't inherit protection
     // from the [Spawn] sign beside it the way any other block would.
     @Test
