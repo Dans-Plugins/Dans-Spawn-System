@@ -11,14 +11,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
@@ -71,6 +75,41 @@ class PlayerInteractListenerTest {
         playerInteractListener.handle(event);
 
         verifyNoInteractions(persistentData);
+    }
+
+    // USER_GUIDE.md: [Spawn] is case-sensitive and needs its square brackets.
+    @ParameterizedTest
+    @ValueSource(strings = {"[spawn]", "[SPAWN]", "Spawn"})
+    void handle_spawnTagWrittenDifferently_isIgnored(String firstLine) {
+        PlayerInteractEvent event = rightClickOn(spawnSign(firstLine, "100", "64", "-200"));
+
+        playerInteractListener.handle(event);
+
+        verifyNoInteractions(persistentData);
+        verify(player, never()).sendMessage(anyString());
+    }
+
+    // USER_GUIDE.md: other text around [Spawn] on the first line is allowed.
+    @Test
+    void handle_spawnTagSurroundedByOtherText_setsTheSpawn() {
+        PlayerInteractEvent event = rightClickOn(spawnSign("Town [Spawn]", "100", "64", "-200"));
+
+        playerInteractListener.handle(event);
+
+        verify(persistentData).setPlayersSpawn(player, world, 100, 64, -200);
+    }
+
+    // USER_GUIDE.md: a coordinate line must hold the number and nothing else. Integer.parseInt does not
+    // trim, so even a stray space makes the line unreadable.
+    @ParameterizedTest
+    @ValueSource(strings = {"100 ", " 100", "x=100", ""})
+    void handle_coordinateLineWithAnythingButTheNumber_setsNoSpawnAndTellsThePlayerWhy(String x) {
+        PlayerInteractEvent event = rightClickOn(spawnSign("[Spawn]", x, "64", "-200"));
+
+        playerInteractListener.handle(event);
+
+        verifyNoInteractions(persistentData);
+        verify(player).sendMessage(ChatColor.RED + "Sorry! The coordinates on this spawn sign couldn't be read. Please see an admin for assistance.");
     }
 
     @Test

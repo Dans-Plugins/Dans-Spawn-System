@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- Unit tests for the `[Spawn]` sign rules in `USER_GUIDE.md`, in the right-click, break and sign-edit listeners: `[spawn]`, `[SPAWN]` and `Spawn` make an ordinary sign that sets no spawn, isn't protected and needs no permission to write; `Town [Spawn]` sets a spawn and is protected; and a coordinate line holding anything but the number (a stray space, other text, or nothing) sets no spawn and tells the player the coordinates couldn't be read. Behaviour is unchanged.
 - Unit tests for three kinds of saved spawn that are skipped or read unexpectedly on startup: an empty `<player UUID>.txt` is skipped with `World name not found in file!` (not the missing-UUID warning), a blank line in `spawn-filenames.txt` is skipped with a warning while the spawns listed after it still load, and a spawn is loaded for the UUID on the file's first line, not the one in its filename. Behaviour is unchanged.
 
 ### Changed
