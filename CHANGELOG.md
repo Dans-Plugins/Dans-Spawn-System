@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - `CONFIG.md`'s *Stored spawns* section now says that a spawn belongs to the player whose UUID is on its file's first line, not the one in the filename, so renaming or copying a file doesn't move a spawn to another player. It also says that a blank line in `spawn-filenames.txt` and an empty first line are skipped with a warning, and that a completely empty file is reported as `World name not found in file!`. Behaviour is unchanged.
+- `CHANGELOG.md` now has a `[2.4.1]` section holding the changes released in 2.4.1, which had been left under `[Unreleased]`. Behaviour is unchanged.
+
+## [2.4.1] – 2026-11-07
+
+### Changed
+
 - `CONFIG.md`'s *Stored spawns* section now says that a spawn is skipped at saving only once its unloaded world has been dropped from memory, not as soon as the world is unloaded, and that a skipped spawn with an older file left by a reset brings that older spawn back on the next start. Behaviour is unchanged.
 - `CHANGELOG.md` now has a `[2.4.0]` section holding the changes released in 2.4.0, which had been left under `[Unreleased]`. Behaviour is unchanged.
 
