@@ -3,6 +3,7 @@ package dansplugins.spawnsystem.listeners;
 import dansplugins.spawnsystem.data.PersistentData;
 import dansplugins.spawnsystem.utils.BlockChecker;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -14,9 +15,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.contains;
@@ -148,6 +151,25 @@ class PlayerInteractListenerTest {
                 eq(Level.WARNING),
                 contains("spawn selection sign located at [10, 70, -30] in world"),
                 any(NumberFormatException.class));
+    }
+
+    // USER_GUIDE.md: the coordinates are read before the spawn is set, so a player who already has a
+    // spawn is told about an unreadable sign, not that their spawn is already set, and keeps that spawn.
+    @Test
+    void handle_unreadableCoordinateWhenASpawnIsAlreadySet_tellsThePlayerAboutTheCoordinatesAndKeepsTheSpawn() {
+        PersistentData realPersistentData = new PersistentData();
+        UUID playerId = UUID.randomUUID();
+        when(player.getUniqueId()).thenReturn(playerId);
+        Location existingSpawn = new Location(world, 1, 2, 3);
+        realPersistentData.getPlayerSpawns().put(playerId, existingSpawn);
+        realPersistentData.getPlayersWithSpawns().add(playerId);
+        PlayerInteractListener listener = new PlayerInteractListener(blockChecker, realPersistentData, logger);
+
+        listener.handle(rightClickOn(spawnSign("[Spawn]", "100", "not-a-number", "-200")));
+
+        verify(player).sendMessage(ChatColor.RED + "Sorry! The coordinates on this spawn sign couldn't be read. Please see an admin for assistance.");
+        verify(player, never()).sendMessage(contains("You have already set your spawn!"));
+        assertSame(existingSpawn, realPersistentData.getPlayerSpawns().get(playerId));
     }
 
     @Test
