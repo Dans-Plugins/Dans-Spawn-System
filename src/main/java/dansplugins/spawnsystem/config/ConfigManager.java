@@ -1,8 +1,12 @@
 package dansplugins.spawnsystem.config;
 
+import dansplugins.spawnsystem.trace.UsageReportingSetting;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.util.function.Supplier;
 
 public class ConfigManager {
     private static final String USAGE_REPORTING_SECTION = "usage-reporting";
@@ -12,9 +16,17 @@ public class ConfigManager {
     private static final String DEFAULT_USAGE_REPORTING_ENDPOINT = "https://trace.danielstephenson.dev";
 
     private final JavaPlugin plugin;
+    private final Supplier<File> dataFolder;
 
     public ConfigManager(JavaPlugin plugin) {
+        // A lambda: getDataFolder() is only set once the server has initialised the plugin.
+        this(plugin, () -> plugin.getDataFolder());
+    }
+
+    /** @param dataFolder Supplies the folder config.yml is in (getDataFolder() is final, so tests pass their own). */
+    ConfigManager(JavaPlugin plugin, Supplier<File> dataFolder) {
         this.plugin = plugin;
+        this.dataFolder = dataFolder;
     }
 
     public void saveDefaultConfig() {
@@ -29,6 +41,12 @@ public class ConfigManager {
      * file, never new literals; a config.yml that already has the block is left alone.
      */
     public void saveUsageReportingDefaultsIfMissing() {
+        // Bukkit loads a config.yml it cannot parse as empty, so the block looks missing even
+        // when the operator wrote enabled: false in it. Writing the defaults here would replace
+        // the whole file, opt-out included.
+        if (UsageReportingSetting.isUnparseable(getConfigFile())) {
+            return;
+        }
         FileConfiguration config = plugin.getConfig();
         if (config.isSet(USAGE_REPORTING_SECTION)) {
             return;
@@ -51,8 +69,18 @@ public class ConfigManager {
     // a read-only plugins directory that saveUsageReportingDefaultsIfMissing()
     // could not write to). Verified against YamlConfiguration, not assumed.
 
+    /**
+     * Fails closed: only true, on or yes turns reporting on, so a quoted "false" or a typo
+     * turns it off (getBoolean() would return the bundled true for them), and an opt-out in
+     * config.yml on disk wins over the copy loaded at startup.
+     */
     public boolean isUsageReportingEnabled() {
-        return plugin.getConfig().getBoolean(USAGE_REPORTING_ENABLED_KEY);
+        return UsageReportingSetting.isEnabled(plugin.getConfig(), getConfigFile());
+    }
+
+    /** The plugin's config.yml, which may not exist yet. */
+    public File getConfigFile() {
+        return new File(dataFolder.get(), "config.yml");
     }
 
     public String getUsageReportingEndpoint() {
