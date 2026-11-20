@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- `CHANGELOG.md` now has a `[2.4.2]` section holding the changes released in 2.4.2, which had been left under `[Unreleased]`. Behaviour is unchanged.
+
+### Fixed
+
+- Saved spawns are no longer lost when the plugin shuts down without having read them. If `onEnable()` failed before the spawns were loaded, or `spawn-filenames.txt` existed but could not be read, the save on shutdown wrote an empty `spawn-filenames.txt`, and every player's `<player UUID>.txt` stayed in the folder but was never read again. The save is now refused until the spawns have been read.
+- A spawn that cannot be loaded (a malformed coordinate, a first line that is not a UUID) now stays listed in `spawn-filenames.txt`, so it is tried again on the next start instead of dropping out of the list for good.
+- `spawn-filenames.txt` and each `<player UUID>.txt` are written to a `.tmp` file and moved into place. A crash during a save used to leave a truncated file; a truncated list dropped every spawn after the cut.
+- Usage reporting stayed on when the opt-out was written in a way the plugin did not recognise: under another spelling of the block (`usage_reporting:`, `usageReporting:`), as `usage-reporting: false`, or with another spelling of the switch (`enable: false`, `disabled: true`). When the plugin wrote `config.yml` (on a version change, for example), it also added the bundled `usage-reporting` block, `enabled: true`, next to the operator's setting. Each of these now counts as off, and every save writes `usage-reporting.enabled: false` into the real block, so the file shows that reporting is off.
+- Usage reporting can no longer be turned back on by the plugin once it has been turned off. A `config.yml` with a YAML error in it is loaded by Bukkit as empty, so the plugin saw no `usage-reporting` block and wrote the bundled one (with `enabled: true`) over the whole file on startup, opt-out included. Such a file is now never overwritten: the console says so and reporting stays off until the error is fixed. Every save of `config.yml` also checks the file on disk first and keeps an opt-out written there while the server was running. A quoted value such as `enabled: "false"` was read as on; now only `true`, `on` or `yes` turns reporting on, and any other value turns it off
+- An empty `usage-reporting.enabled:` (no value) now turns usage reporting off. Bukkit drops a key with no value, so the bundled `true` used to win.
+- The vendored trace client is now 0.8.0, in which every opt-out fails closed: in `plugins/trace/config.yml` a quoted `enabled: "false"`, an empty `enabled:`, a typo, or a later `enabled: false` under an earlier `enabled: true` now turn reporting off, as does a file that is there but cannot be read; `TRACE_USAGE_REPORTING` set to anything but blank or `true`/`on`/`yes`/`1`, `DO_NOT_TRACK` set to anything but blank or `0`/`false`/`off`/`no`, and an environment that cannot be read now turn it off too. Details: https://github.com/Stephenson-Software/trace-client-java/pull/51
+
+## [2.4.2] – 2026-11-15
+
 ### Added
 
 - Unit tests for the `/resetspawn` behaviour `COMMANDS.md` describes but no test covered: `spawnsystem.admin` resets the sender's own spawn as well as another player's, anything typed after the player name is ignored, both refusal messages read word for word as documented, and the sender and an online target are still told the spawn was reset when there was no custom spawn to reset. Behaviour is unchanged.
@@ -17,16 +33,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `CONFIG.md`'s *Stored spawns* section now says that a spawn belongs to the player whose UUID is on its file's first line, not the one in the filename, so renaming or copying a file doesn't move a spawn to another player. It also says that a blank line in `spawn-filenames.txt` and an empty first line are skipped with a warning, and that a completely empty file is reported as `World name not found in file!`. Behaviour is unchanged.
 - `USER_GUIDE.md`'s *Selecting a Spawn* section now says that a player who already has a spawn and right-clicks a `[Spawn]` sign whose coordinates can't be read is told that the coordinates couldn't be read, not that their spawn is already set, and keeps their spawn. Before, it said any other `[Spawn]` sign gives the already-set message. A unit test now checks this. Behaviour is unchanged.
 - `CHANGELOG.md` now has a `[2.4.1]` section holding the changes released in 2.4.1, which had been left under `[Unreleased]`. Behaviour is unchanged.
-
-### Fixed
-
-- Saved spawns are no longer lost when the plugin shuts down without having read them. If `onEnable()` failed before the spawns were loaded, or `spawn-filenames.txt` existed but could not be read, the save on shutdown wrote an empty `spawn-filenames.txt`, and every player's `<player UUID>.txt` stayed in the folder but was never read again. The save is now refused until the spawns have been read.
-- A spawn that cannot be loaded (a malformed coordinate, a first line that is not a UUID) now stays listed in `spawn-filenames.txt`, so it is tried again on the next start instead of dropping out of the list for good.
-- `spawn-filenames.txt` and each `<player UUID>.txt` are written to a `.tmp` file and moved into place. A crash during a save used to leave a truncated file; a truncated list dropped every spawn after the cut.
-- Usage reporting stayed on when the opt-out was written in a way the plugin did not recognise: under another spelling of the block (`usage_reporting:`, `usageReporting:`), as `usage-reporting: false`, or with another spelling of the switch (`enable: false`, `disabled: true`). When the plugin wrote `config.yml` (on a version change, for example), it also added the bundled `usage-reporting` block, `enabled: true`, next to the operator's setting. Each of these now counts as off, and every save writes `usage-reporting.enabled: false` into the real block, so the file shows that reporting is off.
-- Usage reporting can no longer be turned back on by the plugin once it has been turned off. A `config.yml` with a YAML error in it is loaded by Bukkit as empty, so the plugin saw no `usage-reporting` block and wrote the bundled one (with `enabled: true`) over the whole file on startup, opt-out included. Such a file is now never overwritten: the console says so and reporting stays off until the error is fixed. Every save of `config.yml` also checks the file on disk first and keeps an opt-out written there while the server was running. A quoted value such as `enabled: "false"` was read as on; now only `true`, `on` or `yes` turns reporting on, and any other value turns it off
-- An empty `usage-reporting.enabled:` (no value) now turns usage reporting off. Bukkit drops a key with no value, so the bundled `true` used to win.
-- The vendored trace client is now 0.8.0, in which every opt-out fails closed: in `plugins/trace/config.yml` a quoted `enabled: "false"`, an empty `enabled:`, a typo, or a later `enabled: false` under an earlier `enabled: true` now turn reporting off, as does a file that is there but cannot be read; `TRACE_USAGE_REPORTING` set to anything but blank or `true`/`on`/`yes`/`1`, `DO_NOT_TRACK` set to anything but blank or `0`/`false`/`off`/`no`, and an environment that cannot be read now turn it off too. Details: https://github.com/Stephenson-Software/trace-client-java/pull/51
 
 ## [2.4.1] – 2026-11-07
 
