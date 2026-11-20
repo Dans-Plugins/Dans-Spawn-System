@@ -51,6 +51,70 @@ class StorageServiceTest {
         when(plugin.getLogger()).thenReturn(logger);
     }
 
+    /** A service whose load() has run over its folder, as onEnable() does before any save. */
+    private static StorageService loaded(StorageService storageService) {
+        storageService.load();
+        return storageService;
+    }
+
+    @Test
+    void save_beforeAnyLoad_isRefusedAndLeavesTheFilesAlone(@TempDir Path storageDirectory) throws IOException {
+        // onEnable() threw before load() ran; the spawn list and a record from the last run are on disk
+        UUID playerId = UUID.fromString("11111111-2222-3333-4444-555555555555");
+        writeLines(storageDirectory.resolve("spawn-filenames.txt"), playerId + ".txt");
+        writeLines(storageDirectory.resolve(playerId + ".txt"), playerId.toString(), "world", "1.0", "2.0", "3.0");
+        StorageService neverLoaded = new StorageService(plugin, new PersistentData(), storageDirectory + File.separator);
+
+        neverLoaded.save();
+
+        assertTrue(neverLoaded.isLoadFailed());
+        assertEquals(Collections.singletonList(playerId + ".txt"), readLines(storageDirectory.resolve("spawn-filenames.txt")));
+        verify(logger).severe(org.mockito.ArgumentMatchers.startsWith("Spawns were not saved"));
+    }
+
+    @Test
+    void save_afterTheSpawnListCouldNotBeRead_isRefused(@TempDir Path storageDirectory) throws IOException {
+        // a directory in place of the list exists but cannot be opened for reading
+        Files.createDirectory(storageDirectory.resolve("spawn-filenames.txt"));
+        StorageService unreadable = new StorageService(plugin, new PersistentData(), storageDirectory + File.separator);
+
+        unreadable.load();
+        unreadable.save();
+
+        assertTrue(unreadable.isLoadFailed());
+        assertTrue(Files.isDirectory(storageDirectory.resolve("spawn-filenames.txt")));
+    }
+
+    @Test
+    void saveAfterLoad_keepsARecordThatCouldNotBeLoadedInTheSpawnList(@TempDir Path storageDirectory) throws IOException {
+        UUID brokenId = UUID.fromString("11111111-1111-1111-1111-111111111111");
+        UUID goodId = UUID.fromString("22222222-2222-2222-2222-222222222222");
+        writeLines(storageDirectory.resolve("spawn-filenames.txt"), brokenId + ".txt", goodId + ".txt");
+        List<String> brokenRecord = Arrays.asList(brokenId.toString(), "world", "1.0", "high", "3.0");
+        writeLines(storageDirectory.resolve(brokenId + ".txt"), brokenRecord.toArray(new String[0]));
+        writeLines(storageDirectory.resolve(goodId + ".txt"), goodId.toString(), "world", "4.0", "5.0", "6.0");
+        serverReturning(worldNamed("world"));
+        PersistentData persistentData = new PersistentData();
+
+        loaded(new StorageService(plugin, persistentData, storageDirectory + File.separator)).save();
+
+        assertEquals(Collections.singletonList(goodId), persistentData.getPlayersWithSpawns());
+        assertEquals(Arrays.asList(goodId + ".txt", brokenId + ".txt"), readLines(storageDirectory.resolve("spawn-filenames.txt")));
+        assertEquals(brokenRecord, readLines(storageDirectory.resolve(brokenId + ".txt")));
+    }
+
+    @Test
+    void save_leavesNoTemporaryFilesBehind(@TempDir Path storageDirectory) throws IOException {
+        PersistentData persistentData = new PersistentData();
+        addSpawn(persistentData, UUID.randomUUID(), worldNamed("world"), 1, 2, 3);
+
+        loaded(new StorageService(plugin, persistentData, storageDirectory + File.separator)).save();
+
+        try (java.util.stream.Stream<Path> files = Files.list(storageDirectory)) {
+            assertTrue(files.noneMatch(f -> f.getFileName().toString().endsWith(".tmp")));
+        }
+    }
+
     @Test
     void parseSpawnLocation_zeroCoordinates_isKept() {
         World world = mock(World.class);
@@ -155,7 +219,7 @@ class StorageServiceTest {
         PersistentData persistentData = new PersistentData();
         addSpawn(persistentData, playerId, worldNamed("world_nether"), 100.5, 64.0, -200.25);
 
-        new StorageService(plugin, persistentData, storageDirectory + File.separator).save();
+        loaded(new StorageService(plugin, persistentData, storageDirectory + File.separator)).save();
 
         assertEquals(Collections.singletonList(playerId + ".txt"), readLines(storageDirectory.resolve("spawn-filenames.txt")));
         assertEquals(Arrays.asList(playerId.toString(), "world_nether", "100.5", "64.0", "-200.25"),
@@ -165,7 +229,7 @@ class StorageServiceTest {
 
     @Test
     void save_noSpawns_writesAnEmptyFilenameList(@TempDir Path storageDirectory) throws IOException {
-        new StorageService(plugin, new PersistentData(), storageDirectory + File.separator).save();
+        loaded(new StorageService(plugin, new PersistentData(), storageDirectory + File.separator)).save();
 
         assertEquals(Collections.emptyList(), readLines(storageDirectory.resolve("spawn-filenames.txt")));
     }
@@ -174,7 +238,7 @@ class StorageServiceTest {
     void save_storageFolderMissing_createsIt(@TempDir Path parentDirectory) {
         Path storageDirectory = parentDirectory.resolve("Kingdom-Spawn-System");
 
-        new StorageService(plugin, new PersistentData(), storageDirectory + File.separator).save();
+        loaded(new StorageService(plugin, new PersistentData(), storageDirectory + File.separator)).save();
 
         assertTrue(Files.isRegularFile(storageDirectory.resolve("spawn-filenames.txt")));
     }
@@ -188,7 +252,7 @@ class StorageServiceTest {
         addSpawn(persistentData, resetId, worldNamed("world"), 4, 5, 6);
         persistentData.resetSpawn(resetId);
 
-        new StorageService(plugin, persistentData, storageDirectory + File.separator).save();
+        loaded(new StorageService(plugin, persistentData, storageDirectory + File.separator)).save();
 
         assertEquals(Collections.singletonList(keptId + ".txt"), readLines(storageDirectory.resolve("spawn-filenames.txt")));
     }
@@ -207,7 +271,7 @@ class StorageServiceTest {
         persistentData.getPlayersWithSpawns().add(unloadedId);
         addSpawn(persistentData, laterId, worldNamed("world"), 1, 2, 3);
 
-        new StorageService(plugin, persistentData, storageDirectory + File.separator).save();
+        loaded(new StorageService(plugin, persistentData, storageDirectory + File.separator)).save();
 
         assertEquals(previousRecord, readLines(storageDirectory.resolve(unloadedId + ".txt")));
         assertEquals(Arrays.asList(laterId.toString(), "world", "1.0", "2.0", "3.0"),
@@ -222,7 +286,7 @@ class StorageServiceTest {
         UUID playerId = UUID.randomUUID();
         PersistentData saved = new PersistentData();
         addSpawn(saved, playerId, worldNamed("world_nether"), 100.5, 64.0, -200.25);
-        new StorageService(plugin, saved, storageDirectory + File.separator).save();
+        loaded(new StorageService(plugin, saved, storageDirectory + File.separator)).save();
         World loadedWorld = worldNamed("world_nether");
         ArgumentCaptor<WorldCreator> requestedWorld = serverReturning(loadedWorld);
         PersistentData loaded = new PersistentData();
