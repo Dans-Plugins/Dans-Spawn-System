@@ -77,8 +77,14 @@ A spawn that can't be loaded is skipped, and the files listed after it still loa
   a number, with a warning saying which value it is (but not which file). A completely empty file is
   reported this way, as `World name not found in file!`, not as a missing UUID.
 
-A skipped spawn is left out of `spawn-filenames.txt` the next time it is written, so fix the file
-before the next clean shutdown to keep that player's spawn.
+A skipped spawn whose file exists stays listed in `spawn-filenames.txt` when it is next written, and
+its file is left as it was, so it is tried again on every start until it loads; fix the file whenever
+convenient. A listed file that doesn't exist is dropped from the list.
+
+Each file is written to a `.tmp` file beside it and then moved into place, so a crash during a save
+leaves the previous file whole. If `spawn-filenames.txt` exists but cannot be read, no spawns are
+loaded and nothing is saved on shutdown, so the folder is left as it was; the console shows
+`Error loading the spawns!` with the cause.
 Until the first clean shutdown, `spawn-filenames.txt` does not exist; the console then shows
 `No saved spawns found yet.` as information, not a warning.
 
